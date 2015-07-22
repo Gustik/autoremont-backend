@@ -87,6 +87,22 @@ class OrderController extends Controller
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
+    public function actionClientRaise($id, $value = 100)
+    {
+        $order = Order::findOne($id);
+        if ($order) {
+            if ($order->author_id == $this->user->id) {
+                $order->price += $value;
+                if ($order->save()) {
+                    return new ResponseContainer(200, 'OK');
+                }
+                return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
+            }
+            return new ResponseContainer(403, 'Заявка принадлежит не вам');
+        }
+        return new ResponseContainer(404, 'Заявка не найдена');
+    }
+
     //Mech Actions
     public function actionMechView($id)
     {
@@ -120,9 +136,9 @@ class OrderController extends Controller
 
     public function actionMechCall($id)
     {
-        $order = Order::findOne(['id' => $id]);
-	if ($order) {
-	    return new ResponseContainer(200, 'OK', ['phone' => $order->author->login]);
+        $order = Order::findOne($id);
+        if ($order) {
+            return new ResponseContainer(200, 'OK', ['phone' => $order->author->login]);
         }
         return new ResponseContainer(404, 'Заявка не найдена');
     }

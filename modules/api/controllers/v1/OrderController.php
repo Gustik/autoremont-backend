@@ -94,7 +94,7 @@ class OrderController extends Controller
             if ($order->author_id == $this->user->id) {
                 $order->price += $value;
                 if ($order->save()) {
-                    return new ResponseContainer(200, 'OK');
+                    return new ResponseContainer(200, 'OK', ['price' => $order->price]);
                 }
                 return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
             }

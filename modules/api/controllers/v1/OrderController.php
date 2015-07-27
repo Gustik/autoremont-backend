@@ -5,7 +5,9 @@ use Yii;
 
 use app\helpers\ResponseContainer;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
+use app\models\Call;
 use app\models\Order;
 
 class OrderController extends Controller
@@ -77,6 +79,9 @@ class OrderController extends Controller
         if ($order) {
             if ($order->author_id == $this->user->id) {
                 $order->is_active = 0;
+                foreach ($order->calls as $call) {
+                    $call->delete();
+                }
                 if ($order->save()) {
                     return new ResponseContainer(200, 'OK');
                 }
@@ -87,7 +92,7 @@ class OrderController extends Controller
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
-    public function actionClientRaise($id, $value = 100)
+    public function actionClientRaise($id, $value = 10)
     {
         $order = Order::findOne($id);
         if ($order) {
@@ -103,6 +108,11 @@ class OrderController extends Controller
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
+    public function actionClientAccept($id)
+    {
+        $this->redirect('accept', ['id' => $id, $type => 'client']);
+    }
+
     //Mech Actions
     public function actionMechView($id)
     {
@@ -111,13 +121,11 @@ class OrderController extends Controller
 
     public function actionMechIndex()
     {
-        $orderModels = Order::findAll(['executor_id' => null]);
+        $orderModels = Order::findFree()->all();
         $orders = [];
         foreach ($orderModels as $order) {
-            if ($order->is_active) {
-                $order->setScenario('api-view');
-                $orders[] = $order->safeAttributes;
-            }
+            $order->setScenario('api-view');
+            $orders[] = $order->safeAttributes;
         }
         return new ResponseContainer(200, 'OK', $orders);
     }
@@ -138,9 +146,38 @@ class OrderController extends Controller
     {
         $order = Order::findOne($id);
         if ($order) {
-            return new ResponseContainer(200, 'OK', ['phone' => $order->author->login]);
+            //Create call
+            $call = new Call();
+            $call->client_id = $order->author->id;
+            $call->mech_id = $this->user->id;
+            $call->order_id = $order->id;
+            if ($call->save()) {
+                $gcm = Yii::$app->gcm;
+
+                //Send push-notification to client
+                $message = [
+                    'text' => "Вам звонили с номера {$this->user->login}. Вы договорились?",
+                    'call_id' => $call->id
+                ];
+                $gcm->send($order->author->profile->gcm_id, Json::encode($message));
+
+                //Send push-notification to mech
+                $message = [
+                    'text' => "Вы звонили клиенту {$order->author->login}. Вы договорились?",
+                    'call_id' => $call->id
+                ];
+                $gcm->send($this->user->profile->gcm_id, Json::encode($message));
+
+                return new ResponseContainer(200, 'OK', ['phone' => $order->author->login]);
+            }
+            return new ResponseContainer(500, 'Внутренняя ошибка сервера', $call->errors);
         }
         return new ResponseContainer(404, 'Заявка не найдена');
+    }
+
+    public function actionMechAccept($id)
+    {
+        $this->redirect('accept', ['id' => $id, $type => 'mech']);
     }
 
     //Common Actions
@@ -152,5 +189,33 @@ class OrderController extends Controller
             return new ResponseContainer(200, 'OK', $order->safeAttributes);
         }
         return new ResponseContainer(404, 'Заявка не найдена');
+    }
+
+    public function actionAccept($id, $type)
+    {
+        $call = Call::findOne($id);
+        if ($call) {
+            $order = $call->order;
+            if ($this->user->canAcceptCall($call, $type)) {
+                $field = "{$type}_accept";
+                $call->$field = 1;
+                if ($call->save()) {
+                    if ($call->client_accept && $call->mech_accept) {
+                        $order->executor_id = $call->mech_id;
+                        if ($order->save()) {
+                            foreach ($order->calls as $call) {
+                                $call->delete();
+                            }
+                            return new ResponseContainer();                            
+                        }
+                        return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
+                    }
+                    return new ResponseContainer();
+                }
+                return new ResponseContainer(500, 'Внутренняя ошибка сервера', $call->errors);
+            }
+            return new ResponseContainer(403, 'Вы не можете принять эту заявку');
+        }
+        return new ResponseContainer(404, 'Звонок не найден');
     }
 }

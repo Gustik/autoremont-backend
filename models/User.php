@@ -197,6 +197,23 @@ class User extends Model implements IdentityInterface
     }
 
     /**
+     * Return true, if user can accept order
+     *
+     * @return boolean
+     **/
+    public function canAcceptCall(Call $call, $type)
+    {        
+        if (array_search($type, ['client', 'mech']) === false) {
+            return false;
+        }
+        if (($type == 'client' && $call->client_id == $this->id) ||
+            ($type == 'mech' && $call->mech_id == $this->id)) {
+                return true;
+        }
+        return false;
+    }
+
+    /**
      * @inheritdoc
      */
     public function beforeSave($insert)

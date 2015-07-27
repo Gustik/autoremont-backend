@@ -20,6 +20,8 @@ use Yii;
  * @property integer $is_active
  *
  * @property User $author
+ * @property User $executor
+ * @property Call[] $calls
  */
 class Order extends Model
 {
@@ -92,6 +94,19 @@ class Order extends Model
     public function getExecutor()
     {
         return $this->hasOne(User::className(), ['id' => 'executor_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCalls()
+    {
+        return $this->hasMany(Call::className(), ['order_id' => 'id']);
+    }
+
+    public static function findFree()
+    {
+        return static::find()->where(['executor_id' => null, 'is_active' => true]);
     }
 
     /**

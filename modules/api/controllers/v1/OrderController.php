@@ -58,7 +58,7 @@ class OrderController extends Controller
 
     public function actionClientView($id)
     {
-        $this->redirect('view', ['id' => $id]);
+        $this->redirect(['view', 'id' => $id]);
     }
 
     public function actionClientMy()
@@ -110,13 +110,13 @@ class OrderController extends Controller
 
     public function actionClientAccept($id)
     {
-        $this->redirect('accept', ['id' => $id, $type => 'client']);
+        $this->redirect(['accept', 'id' => $id, $type => 'client']);
     }
 
     //Mech Actions
     public function actionMechView($id)
     {
-        $this->redirect('view', ['id' => $id]);
+        $this->redirect(['view', 'id' => $id]);
     }
 
     public function actionMechIndex()
@@ -177,7 +177,7 @@ class OrderController extends Controller
 
     public function actionMechAccept($id)
     {
-        $this->redirect('accept', ['id' => $id, $type => 'mech']);
+        $this->redirect(['accept', 'id' => $id, $type => 'mech']);
     }
 
     //Common Actions

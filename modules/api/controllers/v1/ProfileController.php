@@ -44,6 +44,7 @@ class ProfileController extends Controller
         $profile = $this->user->getProfile()->one();
         if (!$profile) {
             $profile = new Profile();
+            $profile->user_id = $this->user->id;
             if (!$profile->save()) {
                 return new ResponseContainer(500, 'Внутренняя ошибка сервера', $profile->errors);
             }

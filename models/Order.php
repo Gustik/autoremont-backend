@@ -41,7 +41,7 @@ class Order extends Model
         $scenarios = parent::scenarios();
         $scenarios['api-create'] = ['description', 'price', 'car_brand', 'car_model', 'car_year', 'car_color'];
         $scenarios['api-update'] = ['description', 'car_brand', 'car_model', 'car_year', 'car_color'];
-        $scenarios['api-view'] = ['id', 'description', 'price', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id'];
+        $scenarios['api-view'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id'];
         return $scenarios;
     }
 

@@ -15,7 +15,7 @@ class m150616_083905_create_profile_table extends Migration
             'created_at' => Schema::TYPE_DATETIME.' NOT NULL',
             'updated_at' => Schema::TYPE_DATETIME.' NOT NULL',
             'name' => Schema::TYPE_STRING.' NOT NULL DEFAULT "Аноним"',
-            'birth_date' => Schema::TYPE_DATE.' DEFAULT NULL',
+            'birth_date' => Schema::TYPE_DATE.' NOT NULL DEFAULT "1970-01-01"',
             'avatar' => Schema::TYPE_STRING.' DEFAULT "placeholder.png"',
             'user_id' => Schema::TYPE_INTEGER.' NOT NULL UNIQUE',
             'gcm_id' => Schema::TYPE_STRING.' DEFAULT NULL',

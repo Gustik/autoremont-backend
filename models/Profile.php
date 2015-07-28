@@ -92,6 +92,7 @@ class Profile extends Model
     {
         if (parent::beforeSave($insert)) {
             $this->name = ( $this->name ? : 'Аноним' );
+            $this->birth_date = ( $this->birth_date ? : '1970-01-01' );
             return true;
         } else {
             return false;

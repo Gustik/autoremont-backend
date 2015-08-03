@@ -25,12 +25,19 @@ use Yii;
  */
 class Order extends Model
 {
+    public $new_calls;
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'order';
+    }
+
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['new_calls']);
     }
 
     /**
@@ -41,7 +48,8 @@ class Order extends Model
         $scenarios = parent::scenarios();
         $scenarios['api-create'] = ['description', 'price', 'car_brand', 'car_model', 'car_year', 'car_color'];
         $scenarios['api-update'] = ['description', 'car_brand', 'car_model', 'car_year', 'car_color'];
-        $scenarios['api-view'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id'];
+        $scenarios['api-view'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'new_calls', 'calls', 'executor'];
+        $scenarios['api-view-without-calls'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'new_calls', 'executor'];
         return $scenarios;
     }
 
@@ -106,7 +114,7 @@ class Order extends Model
 
     public static function findFree()
     {
-        return static::find()->where(['executor_id' => null, 'is_active' => true]);
+        return static::find()->where(['executor_id' => null, 'is_active' => true])->andWhere(['!=', 'author_id', Yii::$app->user->identity->id]);
     }
 
     /**

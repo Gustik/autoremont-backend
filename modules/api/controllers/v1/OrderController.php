@@ -66,7 +66,25 @@ class OrderController extends Controller
         $orders = [];
         foreach ($this->user->orders as $order) {
             if ($order->is_active) {
-                $order->setScenario('api-view');
+                $order->setScenario('api-view-without-calls');
+                if ($order->executor) {
+                    $order->executor->setScenario('api-view');                    
+                }
+                $flag = true;
+                foreach ($order->calls as $call) {
+                    if ($call->client_accept) {
+                        $flag = false;
+                    }
+                }
+                $order->new_calls = 0;
+                if ($flag) {
+                    foreach ($order->calls as $call) {
+                        $order->new_calls++;
+                        $call->setScenario('api-view');
+                        $call->executor->setScenario('api-view');
+                    }
+                    $order->setScenario('api-view');           
+                }
                 $orders[] = $order->safeAttributes;
             }
         }
@@ -78,14 +96,17 @@ class OrderController extends Controller
         $order = Order::findOne($id);
         if ($order) {
             if ($order->author_id == $this->user->id) {
-                $order->is_active = 0;
-                foreach ($order->calls as $call) {
-                    $call->delete();
+                if (!$order->executor_id) {
+                    $order->is_active = 0;
+                    foreach ($order->calls as $call) {
+                        $call->delete();
+                    }
+                    if ($order->save()) {
+                        return new ResponseContainer(200, 'OK');
+                    }
+                    return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
                 }
-                if ($order->save()) {
-                    return new ResponseContainer(200, 'OK');
-                }
-                return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
+                return new ResponseContainer(403, 'Нельзя отменить уже принятую заявку');
             }
             return new ResponseContainer(403, 'Заявка принадлежит не вам');
         }
@@ -110,7 +131,27 @@ class OrderController extends Controller
 
     public function actionClientAccept($id)
     {
-        $this->redirect(['accept', 'id' => $id, $type => 'client']);
+        $this->redirect(['accept', 'id' => $id, 'type' => 'client']);
+    }
+
+    public function actionClientDecline($id)
+    {
+        $this->redirect(['decline', 'id' => $id, 'type' => 'client']);
+    }
+
+    public function actionClientDeclineAll($id)
+    {
+        $order = Order::findOne($id);
+        if ($order) {
+            if ($order->author_id == $this->user->id) {
+                foreach ($order->calls as $call) {
+                    $call->delete();
+                }
+                return new ResponseContainer();
+            }
+            return new ResponseContainer(403, 'Заявка принадлежит не вам');
+        }
+        return new ResponseContainer(404, 'Заявка не найдена');
     }
 
     //Mech Actions
@@ -146,46 +187,61 @@ class OrderController extends Controller
     {
         $order = Order::findOne($id);
         if ($order) {
-            //Create call
-            $call = new Call();
-            $call->client_id = $order->author->id;
-            $call->mech_id = $this->user->id;
-            $call->order_id = $order->id;
-            if ($call->save()) {
-                $gcm = Yii::$app->gcm;
-
-                //Send push-notification to client
-                $message = [
-                    'text' => "Вам звонили с номера {$this->user->login}. Вы договорились?",
-                    'call_id' => $call->id
-                ];
-                $gcm->send($order->author->profile->gcm_id, Json::encode($message));
-
-                //Send push-notification to mech
-                $message = [
-                    'text' => "Вы звонили клиенту {$order->author->login}. Вы договорились?",
-                    'call_id' => $call->id
-                ];
-                $gcm->send($this->user->profile->gcm_id, Json::encode($message));
-
-                return new ResponseContainer(200, 'OK', ['phone' => $order->author->login]);
+            if ($order->author_id != $this->user->id) {
+                if (!$order->executor_id) {
+                    //Create call
+                    $call = new Call();
+                    $call->client_id = $order->author->id;
+                    $call->mech_id = $this->user->id;
+                    $call->order_id = $order->id;
+                    if ($call->save()) {
+                        return new ResponseContainer(200, 'OK', ['login' => $order->author->login], 0, ['call_id' => $call->id]);
+                    }
+                    return new ResponseContainer(500, 'Внутренняя ошибка сервера', $call->errors);
+                }
+                return new ResponseContainer(403, 'Заявка уже принята');
             }
-            return new ResponseContainer(500, 'Внутренняя ошибка сервера', $call->errors);
+            return new ResponseContainer(403, 'Невозможно принять собственную заявку');
         }
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
     public function actionMechAccept($id)
     {
-        $this->redirect(['accept', 'id' => $id, $type => 'mech']);
+        $this->redirect(['accept', 'id' => $id, 'type' => 'mech']);
+    }
+
+    public function actionMechDecline($id)
+    {
+        $this->redirect(['decline', 'id' => $id, 'type' => 'mech']);
     }
 
     //Common Actions
     public function actionView($id)
     {
-        $order = Order::findOne($id);
+        $order = Order::find()->where(['id' => $id])->with('calls', 'executor', 'calls.client', 'calls.executor')->one();
         if ($order && $order->is_active) {
-            $order->setScenario('api-view');
+            $order->setScenario('api-view-without-calls');
+            if ($order->executor) {
+                $order->executor->setScenario('api-view');
+            }
+            $flag = true;
+            foreach ($order->calls as $call) {
+                if ($call->client_accept) {
+                    $flag = false;
+                }
+            }
+            $order->new_calls = 0;
+            if ($flag) {
+                foreach ($order->calls as $call) {
+                    $order->new_calls++;
+                    $call->setScenario('api-view');
+                    $call->executor->setScenario('api-view');
+                    $call->client->setScenario('api-view');
+                    $call->executor->setScenario('api-view');
+                }
+                $order->setScenario('api-view');    
+            }
             return new ResponseContainer(200, 'OK', $order->safeAttributes);
         }
         return new ResponseContainer(404, 'Заявка не найдена');
@@ -206,15 +262,34 @@ class OrderController extends Controller
                             foreach ($order->calls as $call) {
                                 $call->delete();
                             }
-                            return new ResponseContainer();                            
+                            return new ResponseContainer();
                         }
                         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
+                    }
+                    if ($type == "client") {
+                        foreach ($order->calls as $call) {
+                            $call->delete();
+                        }
                     }
                     return new ResponseContainer();
                 }
                 return new ResponseContainer(500, 'Внутренняя ошибка сервера', $call->errors);
             }
             return new ResponseContainer(403, 'Вы не можете принять эту заявку');
+        }
+        return new ResponseContainer(404, 'Звонок не найден');
+    }
+
+    public function actionDecline($id, $type)
+    {
+        $call = Call::findOne($id);
+        if ($call) {
+            $order = $call->order;
+            if ($this->user->canDeclineCall($call, $type)) {
+                $call->delete();
+                return new ResponseContainer();
+            }
+            return new ResponseContainer(403, 'Вы не можете отклонить этот звонок');
         }
         return new ResponseContainer(404, 'Звонок не найден');
     }

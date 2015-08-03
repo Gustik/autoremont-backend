@@ -43,6 +43,7 @@ class User extends Model implements IdentityInterface
         $scenarios = parent::scenarios();
         $scenarios['admin-create'] = ['login', 'is_admin', 'password'];
         $scenarios['admin-update'] = ['login', 'is_admin', 'password'];
+        $scenarios['api-view'] = ['login'];
         return $scenarios;
     }
 
@@ -202,6 +203,23 @@ class User extends Model implements IdentityInterface
      * @return boolean
      **/
     public function canAcceptCall(Call $call, $type)
+    {        
+        if (array_search($type, ['client', 'mech']) === false) {
+            return false;
+        }
+        if (($type == 'client' && $call->client_id == $this->id) ||
+            ($type == 'mech' && $call->mech_id == $this->id)) {
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Return true, if user can decline order
+     *
+     * @return boolean
+     **/
+    public function canDeclineCall(Call $call, $type)
     {        
         if (array_search($type, ['client', 'mech']) === false) {
             return false;

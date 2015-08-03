@@ -36,7 +36,7 @@ $config = [
         'apns' => [
             'class' => 'bryglen\apnsgcm\Apns',
             'environment' => \bryglen\apnsgcm\Apns::ENVIRONMENT_SANDBOX,
-            'pemFile' => dirname(__FILE__).'/apnssert/apns-dev.pem',
+            'pemFile' => dirname(__FILE__).'/apnscert/server_certificates_bundle_sandbox.pem',
             // 'retryTimes' => 3,
             'options' => [
                 'sendRetryTimes' => 5
@@ -45,13 +45,6 @@ $config = [
         'gcm' => [
             'class' => 'bryglen\apnsgcm\Gcm',
             'apiKey' => 'AIzaSyBR2bIRlaaSyHwDh-UmQn0-uSDbOh1mxo0',
-        ],
-        // using both gcm and apns, make sure you have 'gcm' and 'apns' in your component
-        'apnsGcm' => [
-            'class' => 'bryglen\apnsgcm\ApnsGcm',
-            // custom name for the component, by default we will use 'gcm' and 'apns'
-            //'gcm' => 'gcm',
-            //'apns' => 'apns',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

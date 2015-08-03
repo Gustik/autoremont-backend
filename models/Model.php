@@ -24,13 +24,15 @@ class Model extends \yii\db\ActiveRecord
             }
         }
         foreach ($this->relatedRecords as $attribute => $model) {
-            if (in_array($attribute, $safeAttributes)) {
-                if (is_array($model)) {
-                    foreach ($model as $key => $value) {
-                        $attributes[$attribute][$key] = $value->safeAttributes;
+            if ($model) {
+                if (in_array($attribute, $safeAttributes)) {
+                    if (is_array($model)) {
+                        foreach ($model as $key => $value) {
+                            $attributes[$attribute][$key] = $value->safeAttributes;
+                        }
+                    } else {
+                        $attributes[$attribute] = $model->safeAttributes;
                     }
-                } else {
-                    $attributes[$attribute] = $model->safeAttributes;
                 }
             }
         }

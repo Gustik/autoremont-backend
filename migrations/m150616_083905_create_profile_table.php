@@ -19,6 +19,7 @@ class m150616_083905_create_profile_table extends Migration
             'avatar' => Schema::TYPE_STRING.' DEFAULT "placeholder.png"',
             'user_id' => Schema::TYPE_INTEGER.' NOT NULL UNIQUE',
             'gcm_id' => Schema::TYPE_STRING.' DEFAULT NULL',
+            'apns_id' => Schema::TYPE_STRING.' DEFAULT NULL',
             'car_brand' => Schema::TYPE_STRING.' DEFAULT NULL',
             'car_model' => Schema::TYPE_STRING.' DEFAULT NULL',
             'car_color' => Schema::TYPE_STRING.' DEFAULT NULL',

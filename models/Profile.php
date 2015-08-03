@@ -34,10 +34,10 @@ class Profile extends Model
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['admin-create'] = ['name', 'gcm_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
-        $scenarios['admin-update'] = ['name', 'gcm_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
-        $scenarios['api-update'] = ['name', 'gcm_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
-        $scenarios['api-view'] = ['name', 'gcm_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
+        $scenarios['admin-create'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
+        $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
+        $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
+        $scenarios['api-view'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
         return $scenarios;
     }
 
@@ -51,7 +51,7 @@ class Profile extends Model
             [['created_at', 'updated_at', 'birth_date'], 'safe'],
             [['birth_date'], 'date', 'format' => 'php:Y-m-d'],
             [['user_id', 'is_active', 'car_year'], 'integer'],
-            [['gcm_id', 'name', 'car_brand', 'car_model', 'car_color'], 'string', 'max' => 255],
+            [['gcm_id', 'apns_id', 'name', 'car_brand', 'car_model', 'car_color'], 'string', 'max' => 255],
             [['user_id'], 'unique']
         ];
     }
@@ -69,6 +69,7 @@ class Profile extends Model
             'birth_date' => 'Дата рождения',
             'user_id' => 'ID пользователя',
             'gcm_id' => 'Регистрационный Android ID',
+            'apns_id' => 'Регистрационный Apple ID',
             'car_brand' => 'Марка автомобиля',
             'car_model' => 'Модель автомобиля',
             'car_color' => 'Цвет автомобиля',

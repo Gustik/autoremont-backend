@@ -18,7 +18,7 @@ use Yii;
  * @property integer $is_active
  *
  * @property User $client
- * @property User $mech
+ * @property User $executor
  * @property Order $order
  */
 class Call extends Model
@@ -37,6 +37,7 @@ class Call extends Model
     public function scenarios()
     {
         $scenarios = parent::scenarios();
+        $scenarios['api-view'] = ['id', 'client', 'executor'];
         return $scenarios;
     }
 
@@ -73,7 +74,7 @@ class Call extends Model
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCleint()
+    public function getClient()
     {
         return $this->hasOne(User::className(), ['id' => 'client_id']);
     }
@@ -81,7 +82,7 @@ class Call extends Model
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMech()
+    public function getExecutor()
     {
         return $this->hasOne(User::className(), ['id' => 'mech_id']);
     }
@@ -92,5 +93,22 @@ class Call extends Model
     public function getOrder()
     {
         return $this->hasOne(Order::className(), ['id' => 'order_id']);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $call = Call::findOne(['order_id' => $this->order_id, 'mech_id' => $this->mech_id]);
+                if ($call) {
+                    $call->delete();
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

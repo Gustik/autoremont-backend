@@ -194,7 +194,7 @@ class User extends Model implements IdentityInterface
      */
     public function getAcceptedOrders()
     {
-        return $this->hasMany(Order::className(), ['executor_id' => 'id']);
+        return $this->hasMany(Order::className(), ['executor_id' => 'id'])->with('author');
     }
 
     /**

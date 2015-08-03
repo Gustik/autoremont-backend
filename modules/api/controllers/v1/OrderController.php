@@ -177,6 +177,7 @@ class OrderController extends Controller
         foreach ($this->user->acceptedOrders as $order) {
             if ($order->is_active) {
                 $order->setScenario('api-view');
+                $order->author->setScenario('api-view');
                 $orders[] = $order->safeAttributes;
             }
         }
@@ -219,9 +220,14 @@ class OrderController extends Controller
     //Common Actions
     public function actionView($id)
     {
-        $order = Order::find()->where(['id' => $id])->with('calls', 'executor', 'calls.client', 'calls.executor')->one();
+        $order = Order::find()->where(['id' => $id])->with('calls', 'executor', 'author', 'calls.client', 'calls.executor')->one();
         if ($order && $order->is_active) {
             $order->setScenario('api-view-without-calls');
+            if ($order->executor_id == $this->user->id) {
+                $order->author->setScenario('api-view');
+            } else {
+                unset($order->author);
+            }
             if ($order->executor) {
                 $order->executor->setScenario('api-view');
             }

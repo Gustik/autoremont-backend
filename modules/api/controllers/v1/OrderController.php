@@ -273,8 +273,10 @@ class OrderController extends Controller
                         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
                     }
                     if ($type == "client") {
-                        foreach ($order->calls as $call) {
-                            $call->delete();
+                        foreach ($order->calls as $c) {
+                            if ($c->id != $call->id) {
+                                $c->delete();
+                            }
                         }
                     }
                     return new ResponseContainer();

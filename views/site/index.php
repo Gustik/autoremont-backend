@@ -9,6 +9,9 @@ $this->title = 'My Yii Application';
 
         <p class="lead">Новое эпоха в сфере ремонта Вашего автомобиля</p>
 
-        <p><a class="btn btn-lg btn-success" href="#">Скачать в Google Play</a></p>
+        <p>
+	        <a class="btn btn-lg btn-success" href="https://play.google.com/store/apps/details?id=pro.bbgroup.megamech.full" target="_blank">Скачать в Google Play</a>
+	        <a class="btn btn-lg btn-info" href="https://play.google.com/store/apps/details?id=pro.bbgroup.megamech.full" target="_blank">Скачать в AppStore</a>
+        </p>
     </div>
 </div>

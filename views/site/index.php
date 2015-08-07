@@ -11,7 +11,7 @@ $this->title = 'My Yii Application';
 
         <p>
 	        <a class="btn btn-lg btn-success" href="https://play.google.com/store/apps/details?id=pro.bbgroup.megamech.full" target="_blank">Скачать в Google Play</a>
-	        <a class="btn btn-lg btn-info" href="https://play.google.com/store/apps/details?id=pro.bbgroup.megamech.full" target="_blank">Скачать в AppStore</a>
+	        <a class="btn btn-lg btn-info" href="https://itunes.apple.com/us/app/avtoremont/id1025594490?l=ru&ls=1&mt=8" target="_blank">Скачать в AppStore</a>
         </p>
     </div>
 </div>

@@ -17,7 +17,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title>Авторемонт</title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -53,7 +53,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-right">&copy; Петров Прокопий <?= date('Y') ?></p>
+            <p class="pull-right">&copy; Петров П.А. 2015 - <?= date('Y') ?></p>
         </div>
     </footer>
 

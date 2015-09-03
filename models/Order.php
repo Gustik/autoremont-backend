@@ -114,7 +114,7 @@ class Order extends Model
 
     public static function findFree()
     {
-        return static::find()->where(['executor_id' => null, 'is_active' => true])->andWhere(['!=', 'author_id', Yii::$app->user->identity->id]);
+        return static::find()->where(['executor_id' => null, 'is_active' => true])->andWhere(['!=', 'author_id', Yii::$app->user->identity->id])->andWhere(['>', 'created_at', date("Y-m-d H:i:s", time() - 60*60*24)]);
     }
 
     /**

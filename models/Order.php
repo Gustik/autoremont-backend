@@ -129,7 +129,7 @@ class Order extends Model
             // date of last update must be earlier than 2 days
             ->andWhere(['>', 'updated_at', date("Y-m-d H:i:s", time() - 60*60*24*2)])
             // show only order from master's city
-            ->andWhere(['city_id' => Yii::$app->user->identity->city_id]);
+            ->andWhere(['city_id' => Yii::$app->user->identity->profile->city_id]);
     }
 
     /**

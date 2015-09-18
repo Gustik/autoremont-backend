@@ -7,6 +7,7 @@ use yii\web\Controller as BaseController;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\AccessControl;
+use yii\web\HttpException;
 
 class Controller extends BaseController
 {
@@ -52,6 +53,9 @@ class Controller extends BaseController
     {
         $result = parent::beforeAction($action);
         $this->user = Yii::$app->user->identity;
+        if ($this->user->banned_to && $this->user->banned_to > date("Y-m-d H:i:s")) {
+            throw new HttpException(423, $this->user->banned_to);
+        }
         return $result;
     }
 

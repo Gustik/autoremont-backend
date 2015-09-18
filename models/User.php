@@ -54,7 +54,7 @@ class User extends Model implements IdentityInterface
     {
         return [
             [['login'], 'required'],
-            [['created_at', 'updated_at', 'visited_at', 'password'], 'safe'],
+            [['created_at', 'updated_at', 'banned_to', 'visited_at', 'password'], 'safe'],
             [['sms_code', 'sms_code_time', 'is_active', 'is_admin'], 'integer'],
             [['login', 'password_hash', 'access_token', 'password'], 'string', 'max' => 255],
             [['login'], 'unique'],

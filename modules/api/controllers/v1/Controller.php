@@ -54,7 +54,7 @@ class Controller extends BaseController
         $result = parent::beforeAction($action);
         $this->user = Yii::$app->user->identity;
         if ($this->user->banned_to && $this->user->banned_to > date("Y-m-d H:i:s")) {
-            throw new HttpException(423, $this->user->banned_to);
+            throw new HttpException(423, "Бан до ".$this->user->banned_to);
         }
         return $result;
     }

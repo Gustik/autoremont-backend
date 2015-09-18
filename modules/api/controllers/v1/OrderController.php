@@ -51,8 +51,11 @@ class OrderController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         curl_exec($ch);
         curl_close($ch);
-        if ($order->load(Yii::$app->request->getBodyParams()) && $order->save()) {
-            return new ResponseContainer(200, 'OK', $order->safeAttributes);
+        if ($order->load(Yii::$app->request->getBodyParams())) {
+            $order->city_id = $this->user->profile->city_id;
+            if ($order->save()) {
+                return new ResponseContainer(200, 'OK', $order->safeAttributes);
+            }
         }
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
     }

@@ -107,6 +107,14 @@ class Order extends Model
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'city_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCalls()
     {
         return $this->hasMany(Call::className(), ['order_id' => 'id']);
@@ -114,7 +122,14 @@ class Order extends Model
 
     public static function findFree()
     {
-        return static::find()->where(['executor_id' => null, 'is_active' => true])->andWhere(['!=', 'author_id', Yii::$app->user->identity->id])->andWhere(['>', 'updated_at', date("Y-m-d H:i:s", time() - 60*60*24*2)]);
+        return static::find()
+            ->where(['executor_id' => null, 'is_active' => true])
+            // don't show self-created orders
+            ->andWhere(['!=', 'author_id', Yii::$app->user->identity->id])
+            // date of last update must be earlier than 2 days
+            ->andWhere(['>', 'updated_at', date("Y-m-d H:i:s", time() - 60*60*24*2)])
+            // show only order from master's city
+            ->andWhere(['city_id' => Yii::$app->user->identity->city_id]);
     }
 
     /**

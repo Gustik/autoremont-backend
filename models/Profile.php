@@ -34,10 +34,10 @@ class Profile extends Model
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['admin-create'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
-        $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
-        $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
-        $scenarios['api-view'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year'];
+        $scenarios['admin-create'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
+        $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
+        $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
+        $scenarios['api-view'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
         return $scenarios;
     }
 
@@ -84,6 +84,14 @@ class Profile extends Model
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'city_id']);
     }
 
     /**

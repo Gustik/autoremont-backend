@@ -33,8 +33,10 @@ class ProfileController extends Controller
             }
         }
         $profile->setScenario('api-update');
-        if ($profile->load(Yii::$app->request->getBodyParams()) && $profile->save()) {
-            return new ResponseContainer(200, 'OK', $profile->safeAttributes);
+        if ($profile->load(Yii::$app->request->getBodyParams())) {
+            if ($profile->city && $profile->save()) {
+                return new ResponseContainer(200, 'OK', $profile->safeAttributes);
+            }
         }
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $profile->errors);
     }

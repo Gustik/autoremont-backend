@@ -137,7 +137,7 @@ class OrderController extends Controller
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
-    public function actionClientRaise($id, $value = 10)
+    public function actionClientRaise($id, $value = 100)
     {
         $order = Order::findOne($id);
         if ($order) {

@@ -4,9 +4,10 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\modules\admin\models\LoginForm;
-use app\modules\admin\models\Stat;
+use app\models\Stat;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
 
 class MainController extends Controller
 {
@@ -26,11 +27,24 @@ class MainController extends Controller
         return $behaviors;
     }
 
-    public function actionIndex()
+    public function actionIndex($from = null, $to = null, $datasets = null)
     {
-        $stat = Stat::getRegistration();
+        $datasets = ($datasets ? explode(',', $datasets) : ['user_new', 'user_active', 'order_new']);
+        $to = ($to ?: date('Y-m-d'));
+        $from = ($from ?: date ('Y-m-d', strtotime('-1 month' . $to)));
+        $regex = '/^\d{4}-\d{2}-\d{2}$/';
+        if (!is_array($datasets) ||
+            !preg_match($regex, $to) ||
+            !preg_match($regex, $from)) {
+            throw new BadRequestHttpException('Bad Request');
+        }
+
+        $graphs = Stat::getGraphs($from, $to, $datasets);
         return $this->render('index', [
-            'stat' => $stat
+            'graphs' => $graphs,
+            'from' => $from,
+            'to' => $to,
+            'datasets' => $datasets
         ]);
     }
 

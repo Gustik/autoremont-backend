@@ -141,6 +141,7 @@ class Order extends Model
             if ($insert) {
                 $this->author_id = Yii::$app->user->identity->id;
             }
+            $this->description = trim($this->description);
             return true;
         }
         return false;

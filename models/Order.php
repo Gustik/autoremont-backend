@@ -46,10 +46,10 @@ class Order extends Model
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['api-create'] = ['description', 'price', 'car_brand', 'car_model', 'car_year', 'car_color'];
-        $scenarios['api-update'] = ['description', 'car_brand', 'car_model', 'car_year', 'car_color'];
-        $scenarios['api-view'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'new_calls', 'calls', 'executor', 'author'];
-        $scenarios['api-view-without-calls'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'new_calls', 'executor', 'author'];
+        $scenarios['api-create'] = ['description', 'price', 'car_brand', 'car_model', 'car_year', 'car_color', 'category_id'];
+        $scenarios['api-update'] = ['description', 'car_brand', 'car_model', 'car_year', 'car_color', 'category_id'];
+        $scenarios['api-view'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'calls', 'executor', 'author', 'category'];
+        $scenarios['api-view-without-calls'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'executor', 'author', 'category'];
         return $scenarios;
     }
 
@@ -62,7 +62,7 @@ class Order extends Model
             [['description', 'price'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['description'], 'string'],
-            [['price', 'author_id', 'is_active'], 'integer'],
+            [['price', 'author_id', 'is_active', 'category_id'], 'integer'],
             [['car_brand', 'car_model', 'car_year', 'car_color'], 'string', 'max' => 255]
         ];
     }
@@ -120,7 +120,15 @@ class Order extends Model
         return $this->hasMany(Call::className(), ['order_id' => 'id']);
     }
 
-    public static function findFree()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    public static function findFree($category_id)
     {
         return static::find()
             ->where(['executor_id' => null, 'is_active' => true])
@@ -129,7 +137,9 @@ class Order extends Model
             // date of last update must be earlier than 2 days
             ->andWhere(['>', 'updated_at', date("Y-m-d H:i:s", time() - 60*60*24*2)])
             // show only order from master's city
-            ->andWhere(['city_id' => Yii::$app->user->identity->profile->city_id]);
+            ->andWhere(['city_id' => Yii::$app->user->identity->profile->city_id])
+            // show only order from selected category
+            ->andWhere(['category_id' => $category_id]);
     }
 
     /**

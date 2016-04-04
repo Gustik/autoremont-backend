@@ -4,6 +4,8 @@ namespace app\modules\api\controllers\v1;
 use Yii;
 
 use app\helpers\ResponseContainer;
+use app\helpers\PushHelper;
+use app\models\Variable;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 
@@ -30,30 +32,12 @@ class OrderController extends Controller
     {
         $order = new Order();
         $order->setScenario('api-create');
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://gcm-http.googleapis.com/gcm/send");
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $headers = [
-            "Authorization: key=AIzaSyBR2bIRlaaSyHwDh-UmQn0-uSDbOh1mxo0",
-            "Content-Type: application/json"
-        ];
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $data = [
-            "collapse_key" => "new_order",
-            "to" => "/topics/mech",
-            "data" => [
-                "message" => [
-                    "text" => "Новый заказ" 
-                ]
-            ]
-        ];
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_exec($ch);
-        curl_close($ch);
         if ($order->load(Yii::$app->request->getBodyParams())) {
             $order->city_id = $this->user->profile->city_id;
             if ($order->save()) {
+                if (Variable::getParam('environment') == 'PROD') {
+                    PushHelper::send("/topics/{$order->category->topic}", 'Новый заказ');
+                }
                 return new ResponseContainer(200, 'OK', $order->safeAttributes);
             }
         }
@@ -184,9 +168,9 @@ class OrderController extends Controller
         $this->redirect(['view', 'id' => $id]);
     }
 
-    public function actionMechIndex()
+    public function actionMechIndex($id = 1)
     {
-        $orderModels = Order::findFree()->all();
+        $orderModels = Order::findFree($id)->all();
         $orders = [];
         foreach ($orderModels as $order) {
             $order->setScenario('api-view');

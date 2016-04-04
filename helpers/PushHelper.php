@@ -16,7 +16,7 @@ class PushHelper
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $headers = [
-            "Authorization: key={static::$key}",
+            "Authorization: key=" . static::$key,
             "Content-Type: application/json"
         ];
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

@@ -74,10 +74,10 @@ class Order extends Model
     {
         return [
             'id' => 'ID',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'description' => 'Description',
-            'price' => 'Price',
+            'created_at' => 'Создан',
+            'updated_at' => 'Обновлен',
+            'description' => 'Описание',
+            'price' => 'Цена',
             'car_brand' => 'Car Brand',
             'car_model' => 'Car Model',
             'car_year' => 'Car Year',

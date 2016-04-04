@@ -243,4 +243,16 @@ class User extends Model implements IdentityInterface
             return false;
         }
     }
+
+    public function ban($date)
+    {
+        $this->banned_to = $date;
+        return $this->save();
+    }
+
+    public function unban()
+    {
+        $this->banned_to = null;
+        return $this->save();
+    }
 }

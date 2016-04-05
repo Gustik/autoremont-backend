@@ -47,11 +47,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete} {ban} {unban}',
+                'template' => '{view} {update} {delete} {restore} {ban} {unban}',
                 'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return ( $model->is_active ? Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                            'title' => 'Delete',
+                            'data-confirm' => 'Вы уверены, что хотите удалить данный заказ?',
+                            'data-method' => 'post',
+                            'data-pjax' => '0',
+                        ]) : '');
+                    },
+                    'restore' => function ($url, $model) {
+                        return ( !$model->is_active ? Html::a('<span class="glyphicon glyphicon-refresh"></span>', $url, [
+                            'title' => 'Restore',
+                        ]) : '');
+                    },
                     'ban' => function ($url, $model) {
                         return ( !$model->author->banned_to ? Html::a('<span class="text-danger glyphicon glyphicon-volume-off"></span>', $url, [
                             'title' => 'Ban',
+                            'data-confirm' => 'Вы уверены, что хотите забанить данного пользователя?',
+                            'data-method' => 'post',
+                            'data-pjax' => '0',
                         ]) : '');
                     },
                     'unban' => function ($url, $model) {

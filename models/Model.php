@@ -80,4 +80,10 @@ class Model extends \yii\db\ActiveRecord
         $this->is_active = 0;
         return $this->save();
     }
+
+    public function restore()
+    {
+        $this->is_active = 1;
+        return $this->save();
+    }
 }

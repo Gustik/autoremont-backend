@@ -12,14 +12,16 @@ use app\models\Order;
  */
 class OrderSearch extends Order
 {
+    public $name;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'price', 'author_id', 'executor_id', 'is_active', 'city_id', 'category_id'], 'integer'],
-            [['created_at', 'updated_at', 'description', 'car_brand', 'car_model', 'car_year', 'car_color'], 'safe'],
+            [['category_id'], 'integer'],
+            [['description', 'name'], 'safe'],
         ];
     }
 
@@ -41,11 +43,14 @@ class OrderSearch extends Order
      */
     public function search($params)
     {
-        $query = Order::find();
+        $query = Order::find()->joinWith(['author', 'author.profile']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
+                'attributes' => [
+                    'created_at'
+                ],
                 'defaultOrder' => [
                     'created_at' => SORT_DESC
                 ]
@@ -60,23 +65,10 @@ class OrderSearch extends Order
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'price' => $this->price,
-            'author_id' => $this->author_id,
-            'executor_id' => $this->executor_id,
-            'is_active' => $this->is_active,
-            'city_id' => $this->city_id,
-            'category_id' => $this->category_id,
-        ]);
+        $query->andFilterWhere(['category_id' => $this->category_id]);
 
-        $query->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'car_brand', $this->car_brand])
-            ->andFilterWhere(['like', 'car_model', $this->car_model])
-            ->andFilterWhere(['like', 'car_year', $this->car_year])
-            ->andFilterWhere(['like', 'car_color', $this->car_color]);
+        $query->andFilterWhere(['like', 'profile.name', $this->name])
+              ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

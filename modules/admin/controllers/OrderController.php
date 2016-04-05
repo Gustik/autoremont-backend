@@ -15,14 +15,14 @@ class OrderController extends Controller
 {
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
+        $behaviors = parent::behaviors();
+        $behaviors['verbs'] = [
+            'class' => VerbFilter::className(),
+            'actions' => [
+                'delete' => ['post'],
             ],
         ];
+        return $behaviors;
     }
 
     /**

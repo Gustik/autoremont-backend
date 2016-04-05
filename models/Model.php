@@ -74,4 +74,10 @@ class Model extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    public function delete()
+    {
+        $this->is_active = 0;
+        return $this->save();
+    }
 }

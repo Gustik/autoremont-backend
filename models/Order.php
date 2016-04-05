@@ -63,7 +63,8 @@ class Order extends Model
             [['created_at', 'updated_at'], 'safe'],
             [['description'], 'string'],
             [['price', 'author_id', 'is_active', 'category_id'], 'integer'],
-            [['car_brand', 'car_model', 'car_year', 'car_color'], 'string', 'max' => 255]
+            [['car_brand', 'car_model', 'car_year', 'car_color'], 'string', 'max' => 255],
+            ['category_id', 'default', 'value' => 1]
         ];
     }
 

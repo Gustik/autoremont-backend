@@ -26,21 +26,36 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'created_at',
-            'updated_at',
             'description:ntext',
-            'price',
+            [
+                'attribute' => 'name',
+                'label' => 'Автор',
+                'format' => 'html',
+                'value' => function($model) {
+                    return Html::a($model->author->profile->name,
+                        ['user/view', 'id' => $model->author_id]);
+                }
+            ],
+            [
+                'attribute' => 'category_id',
+                'label' => 'Категория',
+                'filter' => [1 => 'Ремонт', 2 => 'Запчасти'],
+                'value' => function($model) {
+                    return $model->category->name;
+                }
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {ban} {unban}',
+                'template' => '{view} {update} {delete} {ban} {unban}',
                 'buttons' => [
                     'ban' => function ($url, $model) {
-                        return ( !$model->author->banned_to ? Html::a('<span class="glyphicon glyphicon-volume-off"></span>', $url, [
+                        return ( !$model->author->banned_to ? Html::a('<span class="text-danger glyphicon glyphicon-volume-off"></span>', $url, [
                             'title' => 'Ban',
                         ]) : '');
                     },
                     'unban' => function ($url, $model) {
-                        return ( $model->author->banned_to ? Html::a('<span class="glyphicon glyphicon-volume-up"></span>', $url, [
+                        return ( $model->author->banned_to ? Html::a('<span class="text-success glyphicon glyphicon-volume-up"></span>', $url, [
                             'title' => 'Unban',
                         ]) : '');
                     }

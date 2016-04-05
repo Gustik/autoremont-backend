@@ -13,8 +13,8 @@ class PushHelper
 	{
 		$ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, static::$address);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $headers = [
             "Authorization: key=" . static::$key,
             "Content-Type: application/json"
@@ -38,7 +38,6 @@ class PushHelper
 		$ch = PushHelper::prepare($to, $text);
         $result = curl_exec($ch);
         curl_close($ch);
-
 		return $result;
 	}
 }

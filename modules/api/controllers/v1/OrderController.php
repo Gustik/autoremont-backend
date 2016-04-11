@@ -35,9 +35,14 @@ class OrderController extends Controller
         if ($order->load(Yii::$app->request->getBodyParams())) {
             $order->city_id = $this->user->profile->city_id;
             if ($order->save()) {
-                if (Variable::getParam('environment') == 'PROD') {
-                    PushHelper::send("/topics/{$order->category->topic}", 'Новый заказ');
+                $topic = "/topics/{$order->city_id}-{$order->category->topic}";
+                if (Variable::getParam('environment') == 'DEV') {
+                    $topic .= "-dev";
                 }
+                PushHelper::send($topic, "{$order->category->name}: новый заказ");
+                // Отправка пушей на старые топики для обратней совместимости.
+                // УБРАТЬ В НОВОЙ ВЕРСИИ
+                PushHelper::send("/topics/{$order->category->topic}", "{$order->category->name}: новый заказ");
                 return new ResponseContainer(200, 'OK', $order->safeAttributes);
             }
         }

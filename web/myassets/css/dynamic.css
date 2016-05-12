@@ -1,0 +1,7 @@
+
+.logo {
+  .at2x(url("http://localhost/ray/wp-content/uploads/2015/04/logo@2x.png"), 200px, 100px);
+}
+.teaser-logo {
+  .at2x(, 200px, 100px);
+}

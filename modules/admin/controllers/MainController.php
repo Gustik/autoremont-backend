@@ -42,7 +42,7 @@ class MainController extends Controller
         }
 
         $graphs = Stat::getGraphs($from, $to, $datasets);
-        $graphsTotal = Stat::getGraphs($from, $to, ['user_total', 'order_total']);
+        $graphsTotal = Stat::getGraphs($from, $to, ['user_total']);
         return $this->render('index', [
             'graphs' => $graphs,
             'graphsTotal' => $graphsTotal,

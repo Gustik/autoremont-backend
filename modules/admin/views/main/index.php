@@ -56,9 +56,6 @@ $this->title = 'Админ-панель';
 			<div class="col-xs-12">
 				Всего пользователей: <?= $userCount ?>
 			</div>
-			<div class="col-xs-12">
-				Всего заказов: <?= $orderCount ?>
-			</div>
 			<br><br>
 			<?= ChartJs::widget([
 			    'type' => 'Line',

@@ -7,28 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <title>Авторемонт</title>
 
-    <link rel='stylesheet' id='bootstrap-css' href='assets/css/bootstrap.min.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='animate-css' href='assets/css/animate.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='line-icons-css' href='assets/css/simple-line-icons.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='soc-icons-css' href='assets/css/icomoon-soc-icons.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='font-awesome-css' href='assets/fonts/font-awesome/css/font-awesome.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='magnific-popup-css' href='assets/css/magnific-popup.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='jquery-ui-css' href='assets/css/jquery-ui.css' type='text/css' media='all'/>
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css" media="screen"/>
+    <link rel='stylesheet' id='bootstrap-css' href='myassets/css/bootstrap.min.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='animate-css' href='myassets/css/animate.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='line-icons-css' href='myassets/css/simple-line-icons.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='soc-icons-css' href='myassets/css/icomoon-soc-icons.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='font-awesome-css' href='myassets/fonts/font-awesome/css/font-awesome.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='magnific-popup-css' href='myassets/css/magnific-popup.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='jquery-ui-css' href='myassets/css/jquery-ui.css' type='text/css' media='all'/>
+    <link rel="stylesheet" href="myassets/css/style.css" type="text/css" media="screen"/>
 
-    <link rel='stylesheet' id='dynamic-css' href='assets/css/dynamic.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='builder-css' href='assets/css/builder.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='dynamic-css' href='myassets/css/dynamic.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='builder-css' href='myassets/css/builder.css' type='text/css' media='all'/>
 
-    <script type='text/javascript' src='assets/js/jquery/jquery.js'></script>
-    <script type='text/javascript' src='assets/js/jquery/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery/jquery.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery/jquery-migrate.min.js'></script>
 
 
     <link rel='canonical' href='index.html'/>
     <link rel='shortlink' href='index.html'/>
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="assets/js/html5shiv.js"></script>
+    <script type="text/javascript" src="myassets/js/html5shiv.js"></script>
     <![endif]--><!--[if lte IE 9]>
-    <script src="assets/js/respond.min.js"></script>
+    <script src="myassets/js/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -61,7 +61,7 @@
         <div class="container_fluid">
         <span class="container-logo" id="logo">
             <a class="navbar-brand goto" href="index.html" title="Авторемонт">
-                <img src="assets/images/logowb.png" height="30px"> <span>Авторемонт</span>
+                <img src="myassets/images/logowb.png" height="30px"> <span>Авторемонт</span>
             </a>
         </span>
             <a class="contact-btn icon-envelope" data-toggle="modal" data-target="#modalContact"></a>
@@ -95,7 +95,7 @@
             <!-- Intro -->
             <div class="row">
                 <div class="col-sm-7 col-sm-offset-1 pull-right">
-                    <h1 class="logo"><img src="assets/images/logowb.png">Авторемонт</h1>
+                    <h1 class="logo"><img src="myassets/images/logowb.png">Авторемонт</h1>
 
                     <h1 class="slogan">Ремонт и запчасти для Вашего авто в Якутске</h1>
 
@@ -110,7 +110,7 @@
                         для <b>iPhone</b></a>
                 </div>
                 <div class="col-sm-4 featured hidden-sm hidden-xs">
-                    <img src="assets/screenshots/main-phone.png" class="intro-screen"
+                    <img src="myassets/screenshots/main-phone.png" class="intro-screen"
                          data-animation="bounceInUp" data-wow-delay="0.5s" width="400" height="775"
                          alt="Image Not Found"/>
                 </div>
@@ -119,7 +119,7 @@
         </div>
 
         <div class="block-bg" data-stellar-ratio="0.4"
-             style=" background: url('assets/images/bg/intro.jpg')  center center;background-size: cover;">
+             style=" background: url('myassets/images/bg/intro.jpg')  center center;background-size: cover;">
         </div>
     </header>
 
@@ -169,8 +169,8 @@
                     <br/><br/>
                     <div class="animation-box" data-animation="bounceIn" data-wow-delay="s">
 
-                        <img id="instruction1" class="screen instruction active" src="assets/screenshots/instruct/1.png" width="300"/>
-                        <img id="instruction2" class="screen instruction" src="assets/screenshots/instruct/2.png" width="300" hidden/>
+                        <img id="instruction1" class="screen instruction active" src="myassets/screenshots/instruct/1.png" width="300"/>
+                        <img id="instruction2" class="screen instruction" src="myassets/screenshots/instruct/2.png" width="300" hidden/>
                     </div>
                 </div>
                 <div id="builder-column-5476c13d52bfb" class="span4 col-md-4 column_last">
@@ -248,9 +248,9 @@
                     <br>
                     <div class="col-md-offset-1">
                         <div class="screen-couple-right" data-animation="fadeInRightBig" data-wow-delay="s">
-                            <img class="screen above" src="assets/screenshots/features/1.png" alt=""
+                            <img class="screen above" src="myassets/screenshots/features/1.png" alt=""
                                  height="484" />
-                            <img src="assets/screenshots/features/2.png" class="screen beyond"
+                            <img src="myassets/screenshots/features/2.png" class="screen beyond"
                                  data-animation="fadeInRight" data-wow-delay="0.5s" alt="Image Not Found" height="407"/>
                         </div>
                     </div>
@@ -280,20 +280,20 @@
                     <h2>СКРИНШОТЫ</h2>
 
                     <div id="screenshots-slider168740082" class="screenshots-slider owl-carousel">
-                        <a class="item" href="assets/screenshots/1.jpg" title="App Screen">
-                            <img src="assets/screenshots/1.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/1.jpg" title="App Screen">
+                            <img src="myassets/screenshots/1.jpg" alt="screen" width="250" height="444"/>
                         </a>
-                        <a class="item" href="assets/screenshots/2.jpg" title="App Screen">
-                            <img src="assets/screenshots/2.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/2.jpg" title="App Screen">
+                            <img src="myassets/screenshots/2.jpg" alt="screen" width="250" height="444"/>
                         </a>
-                        <a class="item" href="assets/screenshots/3.jpg" title="App Screen">
-                            <img src="assets/screenshots/3.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/3.jpg" title="App Screen">
+                            <img src="myassets/screenshots/3.jpg" alt="screen" width="250" height="444"/>
                         </a>
-                        <a class="item" href="assets/screenshots/4.jpg" title="App Screen">
-                            <img src="assets/screenshots/4.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/4.jpg" title="App Screen">
+                            <img src="myassets/screenshots/4.jpg" alt="screen" width="250" height="444"/>
                         </a>
-                        <a class="item" href="assets/screenshots/5.jpg" title="App Screen">
-                            <img src="assets/screenshots/5.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/5.jpg" title="App Screen">
+                            <img src="myassets/screenshots/5.jpg" alt="screen" width="250" height="444"/>
                         </a>
                     </div>
                 </div>
@@ -415,7 +415,7 @@
                 </div>
             </div>
             <div class="block-bg" data-stellar-ratio="0.5"
-                 style=" background-image: url(assets/images/bg/testimonials_bg1.jpg);"></div>
+                 style=" background-image: url(myassets/images/bg/testimonials_bg1.jpg);"></div>
         </section>
         <section id="partners" class="">
             <div class="container-fluid">
@@ -428,22 +428,22 @@
 
                     <ul class="partners-list">
                         <li data-animation="fadeInUp">
-                            <img  src="assets/images/partners/goog-service.png" height="63"/>
+                            <img  src="myassets/images/partners/goog-service.png" height="63"/>
                         </li>
                         <li data-animation="fadeInUp" data-wow-delay="0.4s">
-                            <img  src="assets/images/partners/armada.jpg" height="63"/>
+                            <img  src="myassets/images/partners/armada.jpg" height="63"/>
                         </li>
                         <li data-animation="fadeInUp" data-wow-delay="0.6s">
-                            <img  src="assets/images/partners/avto-real.jpg" height="63"/>
+                            <img  src="myassets/images/partners/avto-real.jpg" height="63"/>
                         </li>
                         <li data-animation="fadeInUp" data-wow-delay="0.8s">
-                            <img  src="assets/images/partners/car-dream.jpg" height="63"/>
+                            <img  src="myassets/images/partners/car-dream.jpg" height="63"/>
                         </li>
                         <li data-animation="fadeInUp" data-wow-delay="1s">
-                            <img  src="assets/images/partners/ford-service.jpg" height="63"/>
+                            <img  src="myassets/images/partners/ford-service.jpg" height="63"/>
                         </li>
                         <li data-animation="fadeInUp" data-wow-delay="1.2s">
-                            <img  src="assets/images/partners/octan-service.jpg" height="63"/>
+                            <img  src="myassets/images/partners/octan-service.jpg" height="63"/>
                         </li>
                         <li data-animation="fadeInUp" data-wow-delay="1.4s">
                             <a href="#" class="round-btn wow fadeInUp">Стать партнером</a>
@@ -483,7 +483,7 @@
                 для <b>iPhone</b></a>
         </div>
         <div class="block-bg" data-stellar-ratio="0.5"
-             style=" background: url('assets/images/bg/download_bg.jpg') ;background-size: cover;"></div>
+             style=" background: url('myassets/images/bg/download_bg.jpg') ;background-size: cover;"></div>
     </section>
     <!-- DOWNLOAD END -->        <!-- footer -->
     <!-- FOOTER BEGIN -->
@@ -494,7 +494,7 @@
 
             <h3>
                 <a class="logo goto" href="index.html" >
-                    <img src="assets/images/logowb.png" height="50px">
+                    <img src="myassets/images/logowb.png" height="50px">
                 </a>
             </h3>
 
@@ -505,23 +505,23 @@
 
     <!-- FOOTER END -->
 
-    <script type='text/javascript' src='assets/js/bootstrap.min.js'></script>
-    <script type='text/javascript' src='assets/js/owl.carousel.min.js'></script>
-    <script type='text/javascript' src='assets/js/jquery.validate.min.js'></script>
-    <script type='text/javascript' src='assets/js/wow.min.js'></script>
-    <script type='text/javascript' src='assets/js/jquery.nav.js'></script>
-    <script type='text/javascript' src='assets/js/jquery.superslides.min.js'></script>
+    <script type='text/javascript' src='myassets/js/bootstrap.min.js'></script>
+    <script type='text/javascript' src='myassets/js/owl.carousel.min.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery.validate.min.js'></script>
+    <script type='text/javascript' src='myassets/js/wow.min.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery.nav.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery.superslides.min.js'></script>
     <script type='text/javascript'
-            src='assets/js/placeholders.jquery.min.js'></script>
+            src='myassets/js/placeholders.jquery.min.js'></script>
     <script type='text/javascript'
-            src='assets/js/jquery.magnific-popup.min.js'></script>
-    <script type='text/javascript' src='assets/js/jquery.stellar.min.js'></script>
-    <script type='text/javascript' src='assets/js/retina.min.js'></script>
+            src='myassets/js/jquery.magnific-popup.min.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery.stellar.min.js'></script>
+    <script type='text/javascript' src='myassets/js/retina.min.js'></script>
 
-    <script type='text/javascript' src='assets/js/typed.js'></script>
-    <script type='text/javascript' src='assets/js/zebra_accordion.js'></script>
-    <script type='text/javascript' src='assets/js/custom.js'></script>
-    <script type='text/javascript' src='assets/js/instruct-switcher.js'></script>
+    <script type='text/javascript' src='myassets/js/typed.js'></script>
+    <script type='text/javascript' src='myassets/js/zebra_accordion.js'></script>
+    <script type='text/javascript' src='myassets/js/custom.js'></script>
+    <script type='text/javascript' src='myassets/js/instruct-switcher.js'></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

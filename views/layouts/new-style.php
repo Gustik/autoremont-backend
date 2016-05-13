@@ -35,22 +35,17 @@
 <body class="home page page-id-6 page-template-default unknown" data-spy="scroll" data-target=".navMenuCollapse">
 
 <!-- PRELOADER -->
-
-<div id="preloader">
-
-    <div class="battery inner">
-
-        <div class="load-line"></div>
-
-    </div>
-
+<div id="loader" class="overlay-loader">
+    <div class="loader-background"></div>
+    <img class="loader-icon spinning-cog" src="myassets/images/loader-cog.svg" data-cog="loader-cog">
 </div>
+
 <!-- wrapper -->
 <div id="wrapper">
 
     <!--[if lt IE 8]>
     <p class="chromeframe">Вы пользуетесь <strong>устаревшим</strong> браузером. Пожалуйста <a href="http://browsehappy.com/">обновитесь</a> или <a
-        href="http://www.google.com/chromeframe/?redirect=true">воспользуйтесь Google Chrome Frame</a> для лучшего отображения нашего сайта.</p>
+            href="http://www.google.com/chromeframe/?redirect=true">воспользуйтесь Google Chrome Frame</a> для лучшего отображения нашего сайта.</p>
     <![endif]-->
 
     <!-- header -->
@@ -154,14 +149,14 @@
                             <p>Запустите приложение, введите номер телефона, введитие код полученный через СМС</p>
                         </li>
                         <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
-                                <i class="icon  icon-settings"></i>
+                            <i class="icon  icon-settings"></i>
 
-                                <h3 class="">Нужен ремонт</h3>
+                            <h3 class="">Нужен ремонт</h3>
 
-                                <p>Введите модель машины и предполагаемую неисправность, нажимаем Создать заказ и ждем звонка.<br>
-                                    Если вы точно знаете что сломалось, можете ввести сумму, за которую готовы воспользоваться услугами мастера,
-                                    если нет, то выберите цену договорную.
-                                </p>
+                            <p>Введите модель машины и предполагаемую неисправность, нажимаем Создать заказ и ждем звонка.<br>
+                                Если вы точно знаете что сломалось, можете ввести сумму, за которую готовы воспользоваться услугами мастера,
+                                если нет, то выберите цену договорную.
+                            </p>
                         </li>
                     </ul>
                 </div>
@@ -181,7 +176,7 @@
                             <h3 class="">Профиль</h3>
 
                             <p>Войдя в меню профиль, можно указать марку и модель машины, и они автоматически будут подставляться при новом заказе,
-                            а так же здесь можно включать и выключать уведомления и менять ржеим с Клиента на Мастера</p>
+                                а так же здесь можно включать и выключать уведомления и менять ржеим с Клиента на Мастера</p>
                         </li>
                         <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
                             <i class="icon  icon-wrench"></i>
@@ -189,7 +184,7 @@
                             <h3 class="">Мастер</h3>
 
                             <p>Если вы ремонтная мастерская или магазин запчастей, то выберите в профиле режим Мастера.
-                            В разделах ремонт и запчасти можете выбирать заказы.</p>
+                                В разделах ремонт и запчасти можете выбирать заказы.</p>
                         </li>
                         <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
                             <i class="icon  icon-basket-loaded"></i>
@@ -524,8 +519,8 @@
     <script type='text/javascript' src='myassets/js/instruct-switcher.js'></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', 'UA-27359326-9', 'auto');
         ga('send', 'pageview');

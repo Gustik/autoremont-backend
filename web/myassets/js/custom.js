@@ -2,7 +2,7 @@
 
     * @package Ray Responsive HTML5 Template
 
-    * 
+    *
 
     * Template Scripts
 
@@ -11,7 +11,7 @@
 
     Init JS
 
-    
+
 
     0. PRELOADER SCRIPT
 
@@ -58,11 +58,10 @@
             
             },
             loader: function() {
-                
-               $('#preloader').delay(400).fadeOut('slow'); // will fade out the white DIV that covers the website.
-               $('#preloader .inner').fadeOut(); // will first fade out the loading animation         
-                
-            },
+				$('.loader-icon').removeClass('spinning-cog').addClass('shrinking-cog');
+				$('.loader-background').fadeOut();
+
+			},
             animation: function() {
                 
                  $("[data-animation]").each(function() {

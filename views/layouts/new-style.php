@@ -8,25 +8,21 @@
     <title>Авторемонт</title>
 
     <link rel='stylesheet' id='bootstrap-css' href='myassets/css/bootstrap.min.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='animate-css' href='myassets/css/animate.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='line-icons-css' href='myassets/css/simple-line-icons.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='animate-css' href='myassets/css/animate.min.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='line-icons-css' href='myassets/fonts/simple-line-icons/css/simple-line-icons.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='soc-icons-css' href='myassets/css/icomoon-soc-icons.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='font-awesome-css' href='myassets/fonts/font-awesome/css/font-awesome.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='font-awesome-css' href='myassets/fonts/font-awesome/css/font-awesome.min.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='magnific-popup-css' href='myassets/css/magnific-popup.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='jquery-ui-css' href='myassets/css/jquery-ui.css' type='text/css' media='all'/>
-    <link rel="stylesheet" href="myassets/css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="myassets/css/styles.css" type="text/css" media="screen"/>
 
-    <link rel='stylesheet' id='dynamic-css' href='myassets/css/dynamic.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='builder-css' href='myassets/css/builder.css' type='text/css' media='all'/>
 
-    <script type='text/javascript' src='myassets/js/jquery/jquery.js'></script>
-    <script type='text/javascript' src='myassets/js/jquery/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery.min.js'></script>
 
 
     <link rel='canonical' href='index.html'/>
     <link rel='shortlink' href='index.html'/>
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="myassets/js/html5shiv.js"></script>
+    <script type="text/javascript" src="myassets/js/html5shiv.min.js"></script>
     <![endif]--><!--[if lte IE 9]>
     <script src="myassets/js/respond.min.js"></script>
     <![endif]-->
@@ -56,13 +52,9 @@
         <div class="container_fluid">
         <span class="container-logo" id="logo">
             <a class="navbar-brand goto" href="index.html" title="Авторемонт">
-                <img src="myassets/images/logowb.png" height="30px"> <span>Авторемонт</span>
+                <img src="myassets/images/logowb.png"> Авторемонт
             </a>
         </span>
-            <a class="contact-btn icon-envelope" data-toggle="modal" data-target="#modalContact"></a>
-            <button class="navbar-toggle menu-collapse-btn collapsed" data-toggle="collapse"
-                    data-target=".navMenuCollapse">
-                <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
 
             <div class="collapse navbar-collapse navMenuCollapse">
                 <ul id="menu-mainmenu" class="nav">
@@ -221,14 +213,14 @@
                             <p>В среднем звонки поступают в течении 1 минуты</p>
                         </li>
                         <li data-wow-delay="s">
-                            <i class="icon color icon-bar-chart"></i>
+                            <i class="icon color icon-bag"></i>
 
                             <h3 class="color">Большой выбор</h3>
 
                             <p>Ваш запрос увидят более 20 магазинов и СТО</p>
                         </li>
                         <li data-wow-delay="s">
-                            <i class="icon color icon-eye"></i>
+                            <i class="icon color icon-user"></i>
 
                             <h3 class="color">Решайте сами</h3>
 
@@ -341,7 +333,7 @@
 
                                 <h3>Ремонт</h3>
 
-                                <ul class="benefits-list">
+                                <ul class="orders-list">
                                     <li>Тойота ноах 1988, замена масла акпп на аппаратной устновки 4 вд</li>
                                     <li>Хонда фит 2002, переобувка герметик балансировка</li>
                                 </ul>
@@ -352,7 +344,7 @@
 
                                 <h3>Запчасти</h3>
 
-                                <ul class="benefits-list">
+                                <ul class="orders-list">
                                     <li>Toyota Carina 1994, кислородный датчик 7А. 4 провода</li>
                                     <li>Тойота кроун 1993, ролик натяжитель</li>
                                     <li>Волга 3110 2003, Картер</li>
@@ -502,21 +494,15 @@
 
     <script type='text/javascript' src='myassets/js/bootstrap.min.js'></script>
     <script type='text/javascript' src='myassets/js/owl.carousel.min.js'></script>
-    <script type='text/javascript' src='myassets/js/jquery.validate.min.js'></script>
     <script type='text/javascript' src='myassets/js/wow.min.js'></script>
     <script type='text/javascript' src='myassets/js/jquery.nav.js'></script>
     <script type='text/javascript' src='myassets/js/jquery.superslides.min.js'></script>
-    <script type='text/javascript'
-            src='myassets/js/placeholders.jquery.min.js'></script>
-    <script type='text/javascript'
-            src='myassets/js/jquery.magnific-popup.min.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery.magnific-popup.min.js'></script>
     <script type='text/javascript' src='myassets/js/jquery.stellar.min.js'></script>
     <script type='text/javascript' src='myassets/js/retina.min.js'></script>
 
-    <script type='text/javascript' src='myassets/js/typed.js'></script>
-    <script type='text/javascript' src='myassets/js/zebra_accordion.js'></script>
-    <script type='text/javascript' src='myassets/js/custom.js'></script>
-    <script type='text/javascript' src='myassets/js/instruct-switcher.js'></script>
+    <script type='text/javascript' src='myassets/js/typed.min.js'></script>
+    <script type='text/javascript' src='myassets/js/app.min.js'></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

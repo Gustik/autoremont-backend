@@ -5,6 +5,8 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\modules\admin\models\LoginForm;
 use app\models\Stat;
+use app\models\User;
+use app\models\Order;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
@@ -40,10 +42,14 @@ class MainController extends Controller
         }
 
         $graphs = Stat::getGraphs($from, $to, $datasets);
+        $graphsTotal = Stat::getGraphs($from, $to, ['user_total']);
         return $this->render('index', [
             'graphs' => $graphs,
+            'graphsTotal' => $graphsTotal,
             'from' => $from,
             'to' => $to,
+            'orderCount' => Order::find()->count(),
+            'userCount' => User::find()->count(),
             'datasets' => $datasets
         ]);
     }

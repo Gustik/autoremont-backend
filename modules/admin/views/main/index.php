@@ -11,7 +11,7 @@ $this->title = 'Админ-панель';
 	<div class="panel panel-primary">
   		<div class="panel-heading">Общая статистика</div>
 		<div class="panel-body">
-			<div class="row">
+			<!--<div class="row">
 				<div class="col-sm-4">
 					<label>Дата</label>
 					<?= DateRangePicker::widget([
@@ -52,8 +52,11 @@ $this->title = 'Админ-панель';
 				</div>
 			</div>
 			<br>
-			<button class="btn btn-default" onClick="alert('Пока не работает. Позже будет готово.');">Обновить</button>
-			<hr>
+			<button class="btn btn-default" onClick="alert('Пока не работает. Позже будет готово.');">Обновить</button>-->
+			<div class="col-xs-12">
+				Всего пользователей: <?= $userCount ?>
+			</div>
+			<br><br>
 			<?= ChartJs::widget([
 			    'type' => 'Line',
 			    'options' => [
@@ -64,6 +67,18 @@ $this->title = 'Админ-панель';
 		    		'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>'
 		    	],
 			    'data' => $graphs
+			]); ?>
+			<hr>
+			<?= ChartJs::widget([
+			    'type' => 'Line',
+			    'options' => [
+			        'height' => 400,
+			        'width' => 860
+			    ],
+			    'clientOptions' => [
+		    		'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>'
+		    	],
+			    'data' => $graphsTotal
 			]); ?>
 		</div>
 	</div>

@@ -126,21 +126,21 @@
 
                 <div id="builder-column-5476c138c37a7" class="span4 col-md-4 column_first">
                     <ul class="item-list-right item-list-big">
-                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#instruction1">
+                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#downloadapp">
                             <i class="icon  icon-cloud-download"></i>
 
                             <h3 class="">Скачайте</h3>
 
                             <p>Скачайте приложение Авторемонт для Android или iPhone</p>
                         </li>
-                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
+                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#register">
                             <i class="icon  icon-key"></i>
 
                             <h3 class="">Регистрация</h3>
 
                             <p>Запустите приложение, введите номер телефона, введитие код полученный через СМС</p>
                         </li>
-                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
+                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#new_order">
                             <i class="icon  icon-settings"></i>
 
                             <h3 class="">Нужен ремонт</h3>
@@ -156,13 +156,17 @@
                     <br/><br/>
                     <div class="animation-box" data-animation="bounceIn" data-wow-delay="s">
 
-                        <img id="instruction1" class="screen instruction active" src="myassets/screenshots/instruct/1.png" width="300"/>
-                        <img id="instruction2" class="screen instruction" src="myassets/screenshots/instruct/2.png" width="300" hidden/>
+                        <img id="downloadapp" class="screen instruction active" src="myassets/screenshots/instruct/download.png" width="300"/>
+                        <img id="register" class="screen instruction" src="myassets/screenshots/instruct/register.png" width="300" hidden/>
+                        <img id="new_order" class="screen instruction" src="myassets/screenshots/instruct/new_order.png" width="300" hidden/>
+                        <img id="profile" class="screen instruction" src="myassets/screenshots/instruct/profile.png" width="300" hidden/>
+                        <img id="profile_master" class="screen instruction" src="myassets/screenshots/instruct/profile_master.png" width="300" hidden/>
+                        <img id="profile_shop" class="screen instruction" src="myassets/screenshots/instruct/profile_shop.png" width="300" hidden/>
                     </div>
                 </div>
                 <div id="builder-column-5476c13d52bfb" class="span4 col-md-4 column_last">
                     <ul class="item-list-left item-list-big">
-                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
+                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#profile">
                             <i class="icon  icon-user"></i>
 
                             <h3 class="">Профиль</h3>
@@ -170,7 +174,7 @@
                             <p>Войдя в меню профиль, можно указать марку и модель машины, и они автоматически будут подставляться при новом заказе,
                                 а так же здесь можно включать и выключать уведомления и менять ржеим с Клиента на Мастера</p>
                         </li>
-                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
+                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#profile_master">
                             <i class="icon  icon-wrench"></i>
 
                             <h3 class="">Мастер</h3>
@@ -178,7 +182,7 @@
                             <p>Если вы ремонтная мастерская или магазин запчастей, то выберите в профиле режим Мастера.
                                 В разделах ремонт и запчасти можете выбирать заказы.</p>
                         </li>
-                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
+                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#profile_shop">
                             <i class="icon  icon-basket-loaded"></i>
 
                             <h3 class="">Магазин</h3>

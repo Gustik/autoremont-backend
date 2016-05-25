@@ -105,9 +105,7 @@
 		},
 
 		getHash: function($link) {
-		  var re = /[#]/;
-          var result = $link.parent('li').hasClass('internal');
-		  if( result )return $link.attr('href').split('#')[1];
+			return $link.attr('href').split('#')[1];
 		},
 
 		getPositions: function() {
@@ -201,13 +199,11 @@
 		},
 
 		scrollTo: function(target, callback) {
-			if( '#undefined' != target ){
-                var offset = $(target).offset().top;
+			var offset = $(target).offset().top;
 
-    			$('html, body').animate({
-    				scrollTop: offset
-    			}, this.config.scrollSpeed, this.config.easing, callback);
-            }
+			$('html, body').animate({
+				scrollTop: offset
+			}, this.config.scrollSpeed, this.config.easing, callback);
 		},
 
 		unbindInterval: function() {

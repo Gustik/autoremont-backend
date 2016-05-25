@@ -8,25 +8,21 @@
     <title>Авторемонт</title>
 
     <link rel='stylesheet' id='bootstrap-css' href='myassets/css/bootstrap.min.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='animate-css' href='myassets/css/animate.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='line-icons-css' href='myassets/css/simple-line-icons.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='animate-css' href='myassets/css/animate.min.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='line-icons-css' href='myassets/fonts/simple-line-icons/css/simple-line-icons.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='soc-icons-css' href='myassets/css/icomoon-soc-icons.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='font-awesome-css' href='myassets/fonts/font-awesome/css/font-awesome.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='font-awesome-css' href='myassets/fonts/font-awesome/css/font-awesome.min.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='magnific-popup-css' href='myassets/css/magnific-popup.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='jquery-ui-css' href='myassets/css/jquery-ui.css' type='text/css' media='all'/>
-    <link rel="stylesheet" href="myassets/css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="myassets/css/styles.css" type="text/css" media="screen"/>
 
-    <link rel='stylesheet' id='dynamic-css' href='myassets/css/dynamic.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='builder-css' href='myassets/css/builder.css' type='text/css' media='all'/>
 
-    <script type='text/javascript' src='myassets/js/jquery/jquery.js'></script>
-    <script type='text/javascript' src='myassets/js/jquery/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery.min.js'></script>
 
 
     <link rel='canonical' href='index.html'/>
     <link rel='shortlink' href='index.html'/>
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="myassets/js/html5shiv.js"></script>
+    <script type="text/javascript" src="myassets/js/html5shiv.min.js"></script>
     <![endif]--><!--[if lte IE 9]>
     <script src="myassets/js/respond.min.js"></script>
     <![endif]-->
@@ -35,22 +31,17 @@
 <body class="home page page-id-6 page-template-default unknown" data-spy="scroll" data-target=".navMenuCollapse">
 
 <!-- PRELOADER -->
-
-<div id="preloader">
-
-    <div class="battery inner">
-
-        <div class="load-line"></div>
-
-    </div>
-
+<div id="loader" class="overlay-loader">
+    <div class="loader-background"></div>
+    <img class="loader-icon spinning-cog" src="myassets/images/loader-cog.svg" data-cog="loader-cog">
 </div>
+
 <!-- wrapper -->
 <div id="wrapper">
 
     <!--[if lt IE 8]>
     <p class="chromeframe">Вы пользуетесь <strong>устаревшим</strong> браузером. Пожалуйста <a href="http://browsehappy.com/">обновитесь</a> или <a
-        href="http://www.google.com/chromeframe/?redirect=true">воспользуйтесь Google Chrome Frame</a> для лучшего отображения нашего сайта.</p>
+            href="http://www.google.com/chromeframe/?redirect=true">воспользуйтесь Google Chrome Frame</a> для лучшего отображения нашего сайта.</p>
     <![endif]-->
 
     <!-- header -->
@@ -61,13 +52,9 @@
         <div class="container_fluid">
         <span class="container-logo" id="logo">
             <a class="navbar-brand goto" href="index.html" title="Авторемонт">
-                <img src="myassets/images/logowb.png" height="30px"> <span>Авторемонт</span>
+                <img src="myassets/images/logowb.png"> Авторемонт
             </a>
         </span>
-            <a class="contact-btn icon-envelope" data-toggle="modal" data-target="#modalContact"></a>
-            <button class="navbar-toggle menu-collapse-btn collapsed" data-toggle="collapse"
-                    data-target=".navMenuCollapse">
-                <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
 
             <div class="collapse navbar-collapse navMenuCollapse">
                 <ul id="menu-mainmenu" class="nav">
@@ -139,29 +126,29 @@
 
                 <div id="builder-column-5476c138c37a7" class="span4 col-md-4 column_first">
                     <ul class="item-list-right item-list-big">
-                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#instruction1">
+                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#downloadapp">
                             <i class="icon  icon-cloud-download"></i>
 
                             <h3 class="">Скачайте</h3>
 
                             <p>Скачайте приложение Авторемонт для Android или iPhone</p>
                         </li>
-                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
+                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#register">
                             <i class="icon  icon-key"></i>
 
                             <h3 class="">Регистрация</h3>
 
                             <p>Запустите приложение, введите номер телефона, введитие код полученный через СМС</p>
                         </li>
-                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
-                                <i class="icon  icon-settings"></i>
+                        <li data-animation="fadeInLeft" data-wow-delay="s" class="feature" data-instruction-id="#new_order">
+                            <i class="icon  icon-settings"></i>
 
-                                <h3 class="">Нужен ремонт</h3>
+                            <h3 class="">Нужен ремонт</h3>
 
-                                <p>Введите модель машины и предполагаемую неисправность, нажимаем Создать заказ и ждем звонка.<br>
-                                    Если вы точно знаете что сломалось, можете ввести сумму, за которую готовы воспользоваться услугами мастера,
-                                    если нет, то выберите цену договорную.
-                                </p>
+                            <p>Введите модель машины и предполагаемую неисправность, нажимаем Создать заказ и ждем звонка.<br>
+                                Если вы точно знаете что сломалось, можете ввести сумму, за которую готовы воспользоваться услугами мастера,
+                                если нет, то выберите цену договорную.
+                            </p>
                         </li>
                     </ul>
                 </div>
@@ -169,29 +156,33 @@
                     <br/><br/>
                     <div class="animation-box" data-animation="bounceIn" data-wow-delay="s">
 
-                        <img id="instruction1" class="screen instruction active" src="myassets/screenshots/instruct/1.png" width="300"/>
-                        <img id="instruction2" class="screen instruction" src="myassets/screenshots/instruct/2.png" width="300" hidden/>
+                        <img id="downloadapp" class="screen instruction active" src="myassets/screenshots/instruct/download.png" width="300"/>
+                        <img id="register" class="screen instruction" src="myassets/screenshots/instruct/register.png" width="300" hidden/>
+                        <img id="new_order" class="screen instruction" src="myassets/screenshots/instruct/new_order.png" width="300" hidden/>
+                        <img id="profile" class="screen instruction" src="myassets/screenshots/instruct/profile.png" width="300" hidden/>
+                        <img id="profile_master" class="screen instruction" src="myassets/screenshots/instruct/profile_master.png" width="300" hidden/>
+                        <img id="profile_shop" class="screen instruction" src="myassets/screenshots/instruct/profile_shop.png" width="300" hidden/>
                     </div>
                 </div>
                 <div id="builder-column-5476c13d52bfb" class="span4 col-md-4 column_last">
                     <ul class="item-list-left item-list-big">
-                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
+                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#profile">
                             <i class="icon  icon-user"></i>
 
                             <h3 class="">Профиль</h3>
 
                             <p>Войдя в меню профиль, можно указать марку и модель машины, и они автоматически будут подставляться при новом заказе,
-                            а так же здесь можно включать и выключать уведомления и менять ржеим с Клиента на Мастера</p>
+                                а так же здесь можно включать и выключать уведомления и менять ржеим с Клиента на Мастера</p>
                         </li>
-                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
+                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#profile_master">
                             <i class="icon  icon-wrench"></i>
 
                             <h3 class="">Мастер</h3>
 
                             <p>Если вы ремонтная мастерская или магазин запчастей, то выберите в профиле режим Мастера.
-                            В разделах ремонт и запчасти можете выбирать заказы.</p>
+                                В разделах ремонт и запчасти можете выбирать заказы.</p>
                         </li>
-                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#instruction2">
+                        <li data-animation="fadeInRight" data-wow-delay="s" class="feature" data-instruction-id="#profile_shop">
                             <i class="icon  icon-basket-loaded"></i>
 
                             <h3 class="">Магазин</h3>
@@ -226,14 +217,14 @@
                             <p>В среднем звонки поступают в течении 1 минуты</p>
                         </li>
                         <li data-wow-delay="s">
-                            <i class="icon color icon-bar-chart"></i>
+                            <i class="icon color icon-bag"></i>
 
                             <h3 class="color">Большой выбор</h3>
 
                             <p>Ваш запрос увидят более 20 магазинов и СТО</p>
                         </li>
                         <li data-wow-delay="s">
-                            <i class="icon color icon-eye"></i>
+                            <i class="icon color icon-user"></i>
 
                             <h3 class="color">Решайте сами</h3>
 
@@ -346,7 +337,7 @@
 
                                 <h3>Ремонт</h3>
 
-                                <ul class="benefits-list">
+                                <ul class="orders-list">
                                     <li>Тойота ноах 1988, замена масла акпп на аппаратной устновки 4 вд</li>
                                     <li>Хонда фит 2002, переобувка герметик балансировка</li>
                                 </ul>
@@ -357,7 +348,7 @@
 
                                 <h3>Запчасти</h3>
 
-                                <ul class="benefits-list">
+                                <ul class="orders-list">
                                     <li>Toyota Carina 1994, кислородный датчик 7А. 4 провода</li>
                                     <li>Тойота кроун 1993, ролик натяжитель</li>
                                     <li>Волга 3110 2003, Картер</li>
@@ -507,25 +498,19 @@
 
     <script type='text/javascript' src='myassets/js/bootstrap.min.js'></script>
     <script type='text/javascript' src='myassets/js/owl.carousel.min.js'></script>
-    <script type='text/javascript' src='myassets/js/jquery.validate.min.js'></script>
     <script type='text/javascript' src='myassets/js/wow.min.js'></script>
     <script type='text/javascript' src='myassets/js/jquery.nav.js'></script>
     <script type='text/javascript' src='myassets/js/jquery.superslides.min.js'></script>
-    <script type='text/javascript'
-            src='myassets/js/placeholders.jquery.min.js'></script>
-    <script type='text/javascript'
-            src='myassets/js/jquery.magnific-popup.min.js'></script>
+    <script type='text/javascript' src='myassets/js/jquery.magnific-popup.min.js'></script>
     <script type='text/javascript' src='myassets/js/jquery.stellar.min.js'></script>
     <script type='text/javascript' src='myassets/js/retina.min.js'></script>
 
-    <script type='text/javascript' src='myassets/js/typed.js'></script>
-    <script type='text/javascript' src='myassets/js/zebra_accordion.js'></script>
-    <script type='text/javascript' src='myassets/js/custom.js'></script>
-    <script type='text/javascript' src='myassets/js/instruct-switcher.js'></script>
+    <script type='text/javascript' src='myassets/js/typed.min.js'></script>
+    <script type='text/javascript' src='myassets/js/app.min.js'></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', 'UA-27359326-9', 'auto');
         ga('send', 'pageview');

@@ -141,7 +141,8 @@ class Order extends Model
             // show only order from master's city
             ->andWhere(['city_id' => Yii::$app->user->identity->profile->city_id])
             // show only order from selected category
-            ->andWhere(['category_id' => $category_id]);
+            ->andWhere(['category_id' => $category_id])
+            ->orderBy(['updated_at' => SORT_ASC]);
     }
 
     /**

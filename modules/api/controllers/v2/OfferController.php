@@ -33,7 +33,7 @@ class OfferController extends Controller
 
     public function actionView($id)
     {
-        if ($offer = Offer::findOne(['id' => $id]) && $offer->is_active) {
+        if ($offer = Offer::findOne(['order_id' => $id, 'author_id' => $this->user->id]) && $offer->is_active) {
             $offer->setScenario('api-view');
             return new ResponseContainer(200, 'OK', $offer->safeAttributes);
         }

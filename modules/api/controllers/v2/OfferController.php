@@ -19,7 +19,8 @@ class OfferController extends Controller
     public function actionProduce()
     {
         $id = Yii::$app->request->getBodyParam('order_id');
-        if ($order = Order::findOne(['id' => $id]) && $order->is_active) {
+        $order = Order::findOne(['id' => $id]);
+        if ($order && $order->is_active) {
             $offer = Offer::findProduce($id, $this->user->id);
             if ($offer->load(Yii::$app->request->getBodyParams()) && $offer->save()) {
                 PushHelper::send($offer->author->profile->gcm_id, "Новое предложение по вашему заказу!");

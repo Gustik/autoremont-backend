@@ -26,6 +26,7 @@ use Yii;
 class Order extends Model
 {
     public $new_calls;
+    public $new_offers;
 
     /**
      * @inheritdoc
@@ -37,7 +38,7 @@ class Order extends Model
 
     public function attributes()
     {
-        return array_merge(parent::attributes(), ['new_calls']);
+        return array_merge(parent::attributes(), ['new_calls', 'new_offers']);
     }
 
     /**
@@ -48,8 +49,8 @@ class Order extends Model
         $scenarios = parent::scenarios();
         $scenarios['api-create'] = ['description', 'price', 'car_brand', 'car_model', 'car_year', 'car_color', 'category_id'];
         $scenarios['api-update'] = ['description', 'car_brand', 'car_model', 'car_year', 'car_color', 'category_id'];
-        $scenarios['api-view'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'calls', 'executor', 'author', 'category'];
-        $scenarios['api-view-without-calls'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'executor', 'author', 'category'];
+        $scenarios['api-view'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'new_offers', 'offers', 'calls', 'executor', 'author', 'category'];
+        $scenarios['api-view-without-calls'] = ['id', 'description', 'price', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'new_offers', 'executor', 'author', 'category'];
         return $scenarios;
     }
 
@@ -125,9 +126,22 @@ class Order extends Model
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getOffers()
+    {
+        return $this->hasMany(Offer::className(), ['order_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    public function getNewOffers()
+    {
+        return Offer::find()->where(['order_id' => $this->id, 'is_new' => true])->count();
     }
 
     public static function findFree($category_id)
@@ -143,6 +157,15 @@ class Order extends Model
             // show only order from selected category
             ->andWhere(['category_id' => $category_id])
             ->orderBy(['updated_at' => SORT_ASC]);
+    }
+
+    public function readAllOffers()
+    {
+        foreach ($this->offers as $offer) {
+            $offer->is_new = false;
+            $offer->save();
+        }
+        return true;
     }
 
     /**

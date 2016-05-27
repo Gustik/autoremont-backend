@@ -30,4 +30,13 @@ class OfferController extends Controller
         }
         return new ResponseContainer(404, 'Заявка не найдена');
     }
+
+    public function actionView($id)
+    {
+        if ($offer = Offer::findOne(['id' => $id]) && $offer->is_active) {
+            $offer->setScenario('api-view');
+            return new ResponseContainer(200, 'OK', $offer->safeAttributes);
+        }
+        return new ResponseContainer(404, 'Предложение не найдено');
+    }
 }

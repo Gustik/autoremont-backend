@@ -202,7 +202,8 @@ class OrderController extends Controller
                     }
                     $offer->text = $text;
                     $offer->save();
-                    return new ResponseContainer(200, 'OK', ['login' => $order->author->login], 0, ['call_id' => $call->id]);
+                    PushHelper::send($offer->author->profile->gcm_id, "Новое предложение по вашему заказу!");
+                    return new ResponseContainer(200, 'OK', ['login' => $order->author->login]);
                 }
                 return new ResponseContainer(403, 'Заявка уже принята');
             }

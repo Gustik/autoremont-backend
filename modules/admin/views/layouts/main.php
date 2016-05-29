@@ -37,7 +37,8 @@ AdminAsset::register($this);
                     'options' => ['class' => 'navbar-nav'],
                     'items' => [
                         ['label' => 'Пользователи', 'url' => ['user/index']],
-                        ['label' => 'Заказы', 'url' => ['order/index']]
+                        ['label' => 'Заказы', 'url' => ['order/index']],
+                        ['label' => 'Push', 'url' => ['main/push']]
                     ],
                 ]);
                 echo Nav::widget([

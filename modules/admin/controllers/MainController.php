@@ -10,6 +10,7 @@ use app\models\Order;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
+use app\modules\admin\models\PushForm;
 
 class MainController extends Controller
 {
@@ -51,6 +52,21 @@ class MainController extends Controller
             'orderCount' => Order::find()->count(),
             'userCount' => User::find()->count(),
             'datasets' => $datasets
+        ]);
+    }
+
+    public function actionPush()
+    {
+        $model = new PushForm();
+        if ($model->load(Yii::$app->request->post()) && $model->push()) {
+            Yii::$app->session->setFlash('pushFormSubmitted');
+            $model->message = null;
+            return $this->render('push', [
+                'model' => $model,
+            ]);
+        }
+        return $this->render('push', [
+            'model' => $model,
         ]);
     }
 

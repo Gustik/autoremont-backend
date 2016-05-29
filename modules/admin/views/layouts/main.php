@@ -38,6 +38,7 @@ AdminAsset::register($this);
                     'items' => [
                         ['label' => 'Пользователи', 'url' => ['user/index']],
                         ['label' => 'Заказы', 'url' => ['order/index']],
+                        ['label' => 'Компании', 'url' => ['company/index']],
                         ['label' => 'Push', 'url' => ['main/push']]
                     ],
                 ]);

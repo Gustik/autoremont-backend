@@ -15,9 +15,9 @@ class CompanyController extends Controller
         return $behaviors;
     }
 
-    public function actionIndex($catID)
+    public function actionIndex($category)
     {
-        $models = Company::findAll(['is_active' => true, 'category' => $catID]);
+        $models = Company::findAll(['is_active' => true, 'category' => $category]);
         $companies = [];
         foreach ($models as $company) {
             $company->setScenario('api-view');

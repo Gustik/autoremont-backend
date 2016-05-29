@@ -22,15 +22,18 @@ class OfferController extends Controller
         $order = Order::findOne(['id' => $id]);
         if ($order && $order->is_active) {
             $offer = Offer::findProduce($id, $this->user->id);
-            if ($offer->load(Yii::$app->request->getBodyParams()) && $offer->save()) {
-                PushHelper::send(
-                    $offer->order->author->profile->gcm_id,
-                    "Новое предложение по вашему заказу!",
-                    ["type" => PushHelper::TYPE_OFFER, "order_id" => $offer->order->id]
-                );
-                $offer->setScenario('api-view');
-                unset($offer->author);
-                return new ResponseContainer(200, 'OK', $offer->safeAttributes);
+            if ($offer->load(Yii::$app->request->getBodyParams())) {
+                $offer->is_call = false;
+                if ($offer->save()) {
+                    PushHelper::send(
+                        $offer->order->author->profile->gcm_id,
+                        "Новое предложение по вашему заказу!",
+                        ["type" => PushHelper::TYPE_OFFER, "order_id" => $offer->order->id]
+                    );
+                    $offer->setScenario('api-view');
+                    unset($offer->author);
+                    return new ResponseContainer(200, 'OK', $offer->safeAttributes);
+                }
             }
             return new ResponseContainer(500, 'Внутренняя ошибка сервера', $offer->errors);
         }

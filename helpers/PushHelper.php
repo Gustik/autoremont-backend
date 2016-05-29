@@ -7,6 +7,7 @@ use app\models\Variable;
 class PushHelper
 {
     const TYPE_OFFER = 'offer';
+    const TYPE_ORDER = 'order';
 
     public static $address = 'https://gcm-http.googleapis.com/gcm/send';
     public static $key = 'AIzaSyBR2bIRlaaSyHwDh-UmQn0-uSDbOh1mxo0';

@@ -11,6 +11,7 @@ use yii\helpers\Json;
 
 use app\models\Call;
 use app\models\Order;
+use app\models\Offer;
 
 class OrderController extends Controller
 {
@@ -39,7 +40,7 @@ class OrderController extends Controller
                 if (Variable::getParam('environment') == 'DEV') {
                     $topic .= "-dev";
                 }
-                PushHelper::send($topic, "{$order->category->name}: новый заказ");
+                PushHelper::send($topic, "{$order->category->name}: новый заказ", ['type' => PushHelper::TYPE_ORDER, 'order_id' => $order->id]);
                 // Отправка пушей на старые топики для обратней совместимости.
                 // УБРАТЬ В НОВОЙ ВЕРСИИ
                 PushHelper::send("/topics/{$order->category->topic}", "{$order->category->name}: новый заказ");
@@ -165,6 +166,7 @@ class OrderController extends Controller
         $orders = [];
         foreach ($orderModels as $order) {
             $order->setScenario('api-view');
+            $order->my_offer = $order->myOffer;
             $orders[] = $order->safeAttributes;
         }
         return new ResponseContainer(200, 'OK', $orders);
@@ -191,18 +193,12 @@ class OrderController extends Controller
                 if (!$order->executor_id) {
                     // Create offer
                     $offer = Offer::findProduce($id, $this->user->id);
-                    switch ($order->category->topic) {
-                        case 'shop':
-                            $text = 'Есть в наличии';
-                            break;
-                        
-                        default:
-                            $text = 'Готов приступить к работе';
-                            break;
+                    if ($offer->isNewRecord) {
+                        $offer->is_call = true;
+                        $offer->text = 'Вам звонили';
+                        $offer->save();
+                        PushHelper::send($order->author->profile->gcm_id, "Новое предложение по вашему заказу!", ['type' => PushHelper::TYPE_OFFER, 'order_id' => $order->id]);
                     }
-                    $offer->text = $text;
-                    $offer->save();
-                    PushHelper::send($offer->author->profile->gcm_id, "Новое предложение по вашему заказу!");
                     return new ResponseContainer(200, 'OK', ['login' => $order->author->login]);
                 }
                 return new ResponseContainer(403, 'Заявка уже принята');
@@ -239,16 +235,19 @@ class OrderController extends Controller
                 $order->readAllOffers();
                 $order->author->setScenario('api-view');
             } else if ($order->executor_id == $this->user->id) {
-                // If user is executor show all offers and author
+                // If user is executor show my offer and author
                 foreach ($order->offers as $offer) {
                     $offer->setScenario('api-view');
                     $offer->author->setScenario('api-view');
                     $offer->author->profile->setScenario('api-view-lite');
                 }
                 $order->author->setScenario('api-view');
+                $order->my_offer = $order->myOffer;
             } else {
-                // If user is not both unset all other offers expect my and inset author
+                // If user is not both show my offer and unset author
                 unset($order->author);
+                unset($order->offers);
+                $order->my_offer = $order->myOffer;
             }
             if ($order->executor) {
                 $order->executor->setScenario('api-view');

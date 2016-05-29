@@ -49,7 +49,7 @@ class Offer extends Model
             [['text', 'order_id', 'author_id'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['text'], 'string'],
-            [['order_id', 'author_id', 'is_active'], 'integer'],
+            [['order_id', 'author_id', 'is_active', 'is_call'], 'integer'],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
         ];

@@ -99,4 +99,18 @@ class Offer extends Model
         }
         return $offer;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if (!array_key_exists('is_new', $this->dirtyAttributes)) {
+                $this->is_new = true;
+            }
+            return true;
+        }
+        return false;
+    }
 }

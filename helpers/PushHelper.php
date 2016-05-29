@@ -11,7 +11,7 @@ class PushHelper
     public static $address = 'https://gcm-http.googleapis.com/gcm/send';
     public static $key = 'AIzaSyBR2bIRlaaSyHwDh-UmQn0-uSDbOh1mxo0';
 
-	private static function prepare($to, $text)
+	private static function prepare($to, $text, $params)
 	{
 		$ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, static::$address);

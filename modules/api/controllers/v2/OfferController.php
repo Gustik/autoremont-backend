@@ -25,6 +25,7 @@ class OfferController extends Controller
             if ($offer->load(Yii::$app->request->getBodyParams()) && $offer->save()) {
                 PushHelper::send($offer->author->profile->gcm_id, "Новое предложение по вашему заказу!");
                 $offer->setScenario('api-view');
+                unset($offer->author);
                 return new ResponseContainer(200, 'OK', $offer->safeAttributes);
             }
             return new ResponseContainer(500, 'Внутренняя ошибка сервера', $offer->errors);

@@ -224,7 +224,7 @@ class OrderController extends Controller
     //Common Actions
     public function actionView($id)
     {
-        $order = Order::find()->where(['id' => $id])->with('offers', 'executor', 'author')->one();
+        $order = Order::find()->where(['id' => $id])->with('offers', 'offers.author', 'offers.author.profile', 'executor', 'author')->one();
         if ($order && $order->is_active) {
             $order->new_offers = $order->newOffers;
             $order->setScenario('api-view');
@@ -232,6 +232,8 @@ class OrderController extends Controller
                 // If user is author show all offers and mark it read
                 foreach ($order->offers as $offer) {
                     $offer->setScenario('api-view');
+                    $offer->author->setScenario('api-view');
+                    $offer->author->profile->setScenario('api-view-lite');
                 }
                 $order->readAllOffers();
                 $order->author->setScenario('api-view');
@@ -239,6 +241,8 @@ class OrderController extends Controller
                 // If user is executor show all offers and author
                 foreach ($order->offers as $offer) {
                     $offer->setScenario('api-view');
+                    $offer->author->setScenario('api-view');
+                    $offer->author->profile->setScenario('api-view-lite');
                 }
                 $order->author->setScenario('api-view');
             } else {

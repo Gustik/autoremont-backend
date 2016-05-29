@@ -37,7 +37,8 @@ class Profile extends Model
         $scenarios['admin-create'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
         $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
         $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
-        $scenarios['api-view'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
+        $scenarios['api-view'] = ['name', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
+        $scenarios['api-view-lite'] = ['name'];
         return $scenarios;
     }
 

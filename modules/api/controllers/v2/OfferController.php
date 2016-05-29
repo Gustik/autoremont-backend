@@ -24,7 +24,7 @@ class OfferController extends Controller
             $offer = Offer::findProduce($id, $this->user->id);
             if ($offer->load(Yii::$app->request->getBodyParams()) && $offer->save()) {
                 PushHelper::send(
-                    $offer->author->profile->gcm_id,
+                    $offer->order->author->profile->gcm_id,
                     "Новое предложение по вашему заказу!",
                     ["type" => PushHelper::TYPE_OFFER, "order_id" => $offer->order->id]
                 );

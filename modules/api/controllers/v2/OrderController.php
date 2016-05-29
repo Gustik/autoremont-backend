@@ -227,18 +227,27 @@ class OrderController extends Controller
         $order = Order::find()->where(['id' => $id])->with('offers', 'executor', 'author')->one();
         if ($order && $order->is_active) {
             $order->new_offers = $order->newOffers;
-            if ($order->executor_id == $this->user->id) {
+            $order->setScenario('api-view');
+            if ($order->author_id == $this->user->id) {
+                // If user is author show all offers and mark it read
+                foreach ($order->offers as $offer) {
+                    $offer->setScenario('api-view');
+                }
+                $order->readAllOffers();
+                $order->author->setScenario('api-view');
+            } else if ($order->executor_id == $this->user->id) {
+                // If user is executor show all offers and author
+                foreach ($order->offers as $offer) {
+                    $offer->setScenario('api-view');
+                }
                 $order->author->setScenario('api-view');
             } else {
+                // If user is not both unset all other offers expect my and inset author
                 unset($order->author);
             }
             if ($order->executor) {
                 $order->executor->setScenario('api-view');
             }
-            if ($order->author_id == $this->user->id) {
-                $order->readAllOffers();
-            }
-            $order->setScenario('api-view');
             return new ResponseContainer(200, 'OK', $order->safeAttributes);
         }
         return new ResponseContainer(404, 'Заявка не найдена');

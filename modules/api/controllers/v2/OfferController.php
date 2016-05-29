@@ -23,7 +23,11 @@ class OfferController extends Controller
         if ($order && $order->is_active) {
             $offer = Offer::findProduce($id, $this->user->id);
             if ($offer->load(Yii::$app->request->getBodyParams()) && $offer->save()) {
-                PushHelper::send($offer->author->profile->gcm_id, "Новое предложение по вашему заказу!");
+                PushHelper::send(
+                    $offer->author->profile->gcm_id,
+                    "Новое предложение по вашему заказу!",
+                    ["type" => PushHelper::TYPE_OFFER, "order_id" => $offer->order->id]
+                );
                 $offer->setScenario('api-view');
                 unset($offer->author);
                 return new ResponseContainer(200, 'OK', $offer->safeAttributes);

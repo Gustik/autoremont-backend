@@ -6,6 +6,8 @@ use app\models\Variable;
 
 class PushHelper
 {
+    const TYPE_OFFER = 'offer';
+
     public static $address = 'https://gcm-http.googleapis.com/gcm/send';
     public static $key = 'AIzaSyBR2bIRlaaSyHwDh-UmQn0-uSDbOh1mxo0';
 
@@ -25,17 +27,18 @@ class PushHelper
             "to" => $to,
             "data" => [
                 "message" => [
-                    "text" => $text 
-                ]
+                    "text" => $text
+                ],
+                "params" => $params
             ]
         ];
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 		return $ch;
 	}
 
-	public static function send($to, $text)
+	public static function send($to, $text, $params = null)
 	{
-		$ch = PushHelper::prepare($to, $text);
+		$ch = PushHelper::prepare($to, $text, $params);
         $result = curl_exec($ch);
         curl_close($ch);
 		return $result;

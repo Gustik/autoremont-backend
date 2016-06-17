@@ -32,7 +32,7 @@ class StatCall extends \yii\db\ActiveRecord
         return [
             [['created_at'], 'safe'],
             [['from', 'to', 'cat'], 'required'],
-            [['from', 'to'], 'string']
+            [['from', 'to'], 'string'],
             [['cat'], 'integer']
         ];
     }

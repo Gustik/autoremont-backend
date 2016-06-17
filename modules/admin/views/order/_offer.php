@@ -1,0 +1,19 @@
+<?php
+
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Offer */
+?>
+
+<tr>
+	<td>
+		<?= $model->author->profile->name ?>
+	</td>
+	<td>
+		<?= $model->author->login ?>
+	</td>
+	<td>
+		<?= $model->text ?>
+	</td>
+</tr>

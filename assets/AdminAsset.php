@@ -18,9 +18,10 @@ class AdminAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/admin.css',
+        'admin/css/admin.css',
     ];
     public $js = [
+        'admin/js/offer-create.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

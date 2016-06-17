@@ -1,13 +1,14 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Order */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->title = "Заказ №{$model->id}";
+$this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-view">
@@ -28,21 +29,47 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'created_at',
             'updated_at',
             'description:ntext',
             'price',
-            'car_brand',
-            'car_model',
-            'car_year',
-            'car_color',
-            'author_id',
-            'executor_id',
-            'is_active',
-            'city_id',
-            'category_id',
+            [
+                'label' => 'Автомобиль',
+                'value' => "{$model->car_brand} {$model->car_model} {$model->car_color} {$model->car_year}"
+            ],
+            'author.profile.name:text:Автор',
+            'executor.profile.name:text:Исполнитель',
+            'is_active:boolean:Активен',
+            'city.name:text:Город',
+            'category.name:text:Категория',
         ],
     ]) ?>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span class="panel-title">
+                Предложения
+                <a style="float: right;" href="<?= Url::to(['/admin/offer/create', 'id' => $model->id]) ?>" role="button" class="btn btn-warning btn-xs glyphicon glyphicon-plus"></a>
+            </span>
+        </div>
+        <table class="panel-body table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Автор
+                    </th>
+                    <th>
+                        Телефон
+                    </th>
+                    <th>
+                        Текст
+                    </th>
+                </tr>
+            </thead>
+            <?php foreach ($model->offers as $offer) {
+                echo $this->render('_offer', ['model' => $offer]);
+            } ?>
+        </table>
+    </div>
 
 </div>

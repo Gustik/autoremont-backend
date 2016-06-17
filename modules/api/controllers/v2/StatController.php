@@ -15,12 +15,12 @@ class StatController extends Controller
         return $behaviors;
     }
 
-    public function actionCall($to, $type)
+    public function actionCall($to, $cat)
     {
         $model = new StatCall([
             'from' => $this->user->login,
             'to' => $to,
-            'type' => $type,
+            'cat' => $cat,
             'created_at' => date('Y-m-d H:i:s')
         ]);
         if ($model->save()) {

@@ -12,6 +12,7 @@ use yii\web\BadRequestHttpException;
  * @property string $created_at
  * @property string $from
  * @property string $to
+ * @property integer $cat
  */
 class StatCall extends \yii\db\ActiveRecord
 {
@@ -30,8 +31,9 @@ class StatCall extends \yii\db\ActiveRecord
     {
         return [
             [['created_at'], 'safe'],
-            [['from', 'to'], 'required'],
+            [['from', 'to', 'cat'], 'required'],
             [['from', 'to'], 'string']
+            [['cat'], 'integer']
         ];
     }
 
@@ -44,7 +46,8 @@ class StatCall extends \yii\db\ActiveRecord
             'id' => 'ID',
             'created_at' => 'Время',
             'from' => 'От',
-            'to' => 'К'
+            'to' => 'К',
+            'cat' => 'Категория'
         ];
     }
 }

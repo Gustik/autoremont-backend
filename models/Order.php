@@ -133,6 +133,14 @@ class Order extends Model
     }
 
     /**
+     * @return integer
+     */
+    public function getOffersCount()
+    {
+        return $this->hasMany(Offer::className(), ['order_id' => 'id'])->count();
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCategory()

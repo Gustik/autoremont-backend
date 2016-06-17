@@ -16,7 +16,7 @@ class m160615_063439_create_stat_call_table extends Migration
             'id' => $this->primaryKey(),
             'created_at' => $this->dateTime()->notNull(),
             'from' => $this->text()->notNull(),
-            'to' => $this->integer()->notNull()
+            'to' => $this->text()->notNull()
         ];
         $this->createTable($this->tableName, $fields, $tableOptions);
     }

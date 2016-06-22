@@ -141,6 +141,14 @@ class Order extends Model
     }
 
     /**
+     * @return integer
+     */
+    public function getAutoOffersCount()
+    {
+        return $this->hasMany(Offer::className(), ['order_id' => 'id'])->andWhere(['like', 'text', 'Предложение создано автоматической системой поиска запчастей приложения Авторемонт.'])->count();
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCategory()

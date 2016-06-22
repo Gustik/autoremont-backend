@@ -8,6 +8,9 @@ use yii\helpers\Html;
 
 <tr>
 	<td>
+		<?= $model->created_at ?>
+	</td>
+	<td>
 		<?= $model->author->profile->name ?>
 	</td>
 	<td>

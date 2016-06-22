@@ -28,7 +28,7 @@ AdminAsset::register($this);
             if (!Yii::$app->user->isGuest) {
                 NavBar::begin([
                     'brandLabel' => 'Админ-панель',
-                    'brandUrl' => ['main/index'],
+                    'brandUrl' => ['/admin/index'],
                     'options' => [
                         'class' => 'navbar-inverse navbar-fixed-top',
                     ],

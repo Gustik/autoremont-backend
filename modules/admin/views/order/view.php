@@ -56,6 +56,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <thead>
                 <tr>
                     <th>
+                        Время
+                    </th>
+                    <th>
                         Автор
                     </th>
                     <th>

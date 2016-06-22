@@ -36,7 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['user/view', 'id' => $model->author_id]);
                 }
             ],
-            'offersCount:text:Предложения',
+            [
+                'label' => 'Предложения',
+                'value' => function($model) {
+                    return "{$model->offersCount}/{$model->autoOffersCount}";
+                }
+            ],
             [
                 'attribute' => 'category_id',
                 'label' => 'Категория',

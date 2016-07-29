@@ -40,7 +40,7 @@ class OrderController extends Controller
                 if (Variable::getParam('environment') == 'DEV') {
                     $topic .= "-dev";
                 }
-                PushHelper::send($topic, "{$order->category->name}: новый заказ", ['type' => PushHelper::TYPE_ORDER, 'order_id' => $order->id]);
+                PushHelper::send($topic, "{$order->category->name}: новый заказ", ['type' => PushHelper::TYPE_ORDER, 'order_id' => $order->id, "cat" => $order->id]);
                 // Отправка пушей на старые топики для обратней совместимости.
                 // УБРАТЬ В НОВОЙ ВЕРСИИ
                 PushHelper::send("/topics/{$order->category->topic}", "{$order->category->name}: новый заказ");

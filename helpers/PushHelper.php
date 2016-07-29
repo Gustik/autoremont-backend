@@ -26,6 +26,11 @@ class PushHelper
         $data = [
             "collapse_key" => "new_order",
             "to" => $to,
+            "aps" => [
+                "alert" => $text,
+                "badge" => 1,
+                "sound" => "default",
+            ],
             "data" => [
                 "message" => [
                     "text" => $text

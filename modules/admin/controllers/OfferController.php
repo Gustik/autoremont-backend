@@ -42,7 +42,7 @@ class OfferController extends Controller
             PushHelper::send(
                 $model->order->author->profile->gcm_id,
                 "Новое предложение по вашему заказу!",
-                ["type" => PushHelper::TYPE_OFFER, "order_id" => $model->order->id]
+                ["type" => PushHelper::TYPE_OFFER, "order_id" => $model->order->id, "cat" => $model->order->id]
             );
             return $this->redirect(['/admin/order/view', 'id' => $id]);
         } else {

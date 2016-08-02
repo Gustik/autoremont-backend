@@ -28,7 +28,7 @@ class OfferController extends Controller
                     PushHelper::send(
                         $offer->order->author->profile->gcm_id,
                         "Новое предложение по вашему заказу!",
-                        ["type" => PushHelper::TYPE_OFFER, "order_id" => $offer->order->id, "cat" => $offer->order->id]
+                        ["type" => PushHelper::TYPE_OFFER, "order_id" => $offer->order->id, "cat" => $offer->order->category_id]
                     );
                     $offer->setScenario('api-view');
                     unset($offer->author);

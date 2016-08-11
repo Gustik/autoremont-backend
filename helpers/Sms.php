@@ -12,8 +12,8 @@ use app\models\Variable;
 class Sms
 {
     public static $address = 'https://smsc.ru/sys/send.php';
-    public static $login = 'a-project';
-    public static $password = 'Bin6shyweoc9';
+    public static $login = 'keydriver';
+    public static $password = 'U_DMKu8a';
     public static $charset = 'utf-8';
     public static $fmt = '3'; // Get response in JSON
 

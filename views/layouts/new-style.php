@@ -11,6 +11,7 @@
     <link rel='stylesheet' id='animate-css' href='myassets/css/animate.min.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='line-icons-css' href='myassets/fonts/simple-line-icons/css/simple-line-icons.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='soc-icons-css' href='myassets/css/icomoon-soc-icons.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='soc-icons-css' href='myassets/css/bootstrap-social.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='font-awesome-css' href='myassets/fonts/font-awesome/css/font-awesome.min.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='magnific-popup-css' href='myassets/css/magnific-popup.css' type='text/css' media='all'/>
     <link rel="stylesheet" href="myassets/css/styles.css" type="text/css" media="screen"/>
@@ -437,7 +438,7 @@
                             <img  src="myassets/images/partners/octan-service.jpg" height="63"/>
                         </li>
                         <li data-animation="fadeInUp" data-wow-delay="1.4s">
-                            <a href="#" class="round-btn wow fadeInUp">Стать партнером</a>
+                            <a href="mailto:info@bbgroup.pro?subject=Партнерство по приложению Авторемонт" class="round-btn wow fadeInUp">Стать партнером</a>
                         </li>
                     </ul>
 
@@ -454,9 +455,9 @@
                         <p>Подпишись на нас в социальных сетях и помоги сделать сервис лучше!</p>
                     </div>
                     <ul class="soc-list" data-animation="flipInX" data-wow-delay="s">
-                        <li><a href="index.html#"><i class="icon soc-icon-twitter"></i></a></li>
-                        <li><a href="index.html#"><i class="icon soc-icon-facebook"></i></a></li>
-                        <li><a href="index.html#"><i class="icon soc-icon-instagram"></i></a></li>
+                        <li><a class="btn btn-social-icon btn-vk" href="https://vk.com/club128722306"><span class="fa fa-vk"></span></a></li>
+                        <li><a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/groups/autogear.top/"><span class="fa fa-facebook"></span></a></li>
+                        <li><a class="btn btn-social-icon btn-instagram" href="https://www.instagram.com/prilojenie_avtoremont_yakutsk/"><span class="fa fa-instagram"></span></a></li>
                     </ul>
 
                 </div>
@@ -484,7 +485,7 @@
         <div class="container">
 
             <h3>
-                <a class="logo goto" href="index.html" >
+                <a class="logo goto" href="/" >
                     <img src="myassets/images/logowb.png" height="50px">
                 </a>
             </h3>

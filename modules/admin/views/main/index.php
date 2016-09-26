@@ -53,8 +53,13 @@ $this->title = 'Админ-панель';
 			</div>
 			<br>
 			<button class="btn btn-default" onClick="alert('Пока не работает. Позже будет готово.');">Обновить</button>-->
-			<div class="col-xs-12">
+			<div class="col-xs-6">
 				Всего пользователей: <?= $userCount ?>
+			</div>
+			<div class="col-xs-6">
+				<span class="<?=($smsBalance < 50)? 'text-danger' : 'text-success' ?>">
+				Баланс СМС: <?= $smsBalance ?> рублей
+					</span>
 			</div>
 			<br><br>
 			<?= ChartJs::widget([

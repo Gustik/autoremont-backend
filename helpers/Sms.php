@@ -50,4 +50,11 @@ class Sms
 		$data = json_encode(file_get_contents($url));
 		return ( isset($data['cost']) ? $data['cost'] : false );
 	}
+
+	public static function balance() {
+		$login = static::$login;
+		$psw = static::$password;
+		$url = "https://smsc.ru/sys/balance.php?login=$login&psw=$psw";
+		return file_get_contents($url);
+	}
 }

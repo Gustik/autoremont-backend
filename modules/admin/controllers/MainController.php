@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\helpers\Sms;
 use Yii;
 use app\modules\admin\models\LoginForm;
 use app\models\Stat;
@@ -44,6 +45,7 @@ class MainController extends Controller
 
         $graphs = Stat::getGraphs($from, $to, $datasets);
         $graphsTotal = Stat::getGraphs($from, $to, ['user_total']);
+
         return $this->render('index', [
             'graphs' => $graphs,
             'graphsTotal' => $graphsTotal,
@@ -51,7 +53,8 @@ class MainController extends Controller
             'to' => $to,
             'orderCount' => Order::find()->count(),
             'userCount' => User::find()->count(),
-            'datasets' => $datasets
+            'datasets' => $datasets,
+            'smsBalance' => Sms::balance()
         ]);
     }
 

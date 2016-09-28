@@ -21,13 +21,13 @@ class Company extends Model
     const CAT_LAWYER = 1;
     const CAT_EVACUATOR = 2;
     const CAT_COMMISSAR = 3;
-    const CAT_OFFSITE_SERVICE = 4;
+    const CAT_SALE = 4;
 
     public static $categories = [
         self::CAT_LAWYER => 'Автоюрист',
         self::CAT_EVACUATOR => 'Эвакуатор',
         self::CAT_COMMISSAR => 'Аварийный комиссар',
-        self::CAT_OFFSITE_SERVICE => 'Выездные услуги',
+        self::CAT_SALE => 'Акции',
     ];
 
     public function getCategoryName()

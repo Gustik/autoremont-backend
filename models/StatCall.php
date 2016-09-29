@@ -45,8 +45,8 @@ class StatCall extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'created_at' => 'Время',
-            'from' => 'От',
-            'to' => 'К',
+            'from' => 'Кто звонил',
+            'to' => 'Компания',
             'cat' => 'Категория'
         ];
     }

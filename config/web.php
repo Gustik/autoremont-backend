@@ -17,6 +17,9 @@ $config = [
             'class' => 'yii\base\Module',
             'basePath' => '@app/modules/admin',
             'controllerNamespace' => 'app\modules\admin\controllers'
+        ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
         ]
     ],
     'components' => [

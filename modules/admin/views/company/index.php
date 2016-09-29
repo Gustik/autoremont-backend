@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Добавить компанию', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Статистика звонков', ['stat-call/index'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

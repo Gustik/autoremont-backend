@@ -137,7 +137,7 @@ class User extends Model implements IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->auth_key === $authKey;
+        return false;
     }
 
     /**

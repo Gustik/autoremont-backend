@@ -19,9 +19,52 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <br>
+    <?php
+    $pdfHeader = [
+        'L' => [
+            'content' => 'Отчетный период с '.$searchModel->date_from.' по '.$searchModel->date_to,
+        ],
+        'C' => [
+            'content' => '',
+        ],
+        'R' => [
+            'content' => 'Сформированно: '.date("Y-m-d, h:i"),
+        ],
+        'line' => true,
+    ];
+
+    $pdfFooter = [
+        'L' => [
+            'content' => '(c) ООО "УУС" http://autogear.top',
+            'font-size' => 10,
+            'color' => '#333333',
+            'font-family' => 'arial',
+          ],
+          'line' => true,
+        ];
+
+    ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'exportConfig' => [
+            GridView::PDF => [
+                'filename' => 'call-report',
+                'config' => [
+                    'methods' => [
+                        'SetHeader' => [
+                            ['odd' => $pdfHeader, 'even' => $pdfHeader]
+                        ],
+                        'SetFooter' => [
+                            ['odd' => $pdfFooter, 'even' => $pdfFooter]
+                        ],
+                    ],
+                ]
+            ],
+            GridView::EXCEL => [
+                'filename' => 'call-report',
+            ]
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [

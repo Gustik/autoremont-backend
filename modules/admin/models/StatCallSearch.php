@@ -78,6 +78,7 @@ class StatCallSearch extends StatCall
         if(!isset($this->date_to)) {
             $this->date_to = "$year-12-31";
         }
+
         $query->andFilterWhere(['>=', 'created_at', $this->date_from]);
         $query->andFilterWhere(['<=', 'created_at', $this->date_to]);
 

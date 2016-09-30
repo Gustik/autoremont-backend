@@ -47,14 +47,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'from:ntext',
             [
                 'attribute' => 'to',
+                'value' => 'companyName',
                 'filter' => ArrayHelper::map(Company::find()->all(),'phone','name')
             ],
             [
                 'attribute' => 'cat',
+                'value' =>'companyCategory',
                 'filter' => Company::$categories
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
         'panel' => [
             'type' => GridView::TYPE_PRIMARY

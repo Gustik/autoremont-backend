@@ -13,7 +13,7 @@ class Controller extends WebController
     public function init()
     {
         parent::init();
-        Yii::$app->user->loginUrl = '/admin/login';
+        Yii::$app->user->loginUrl = '/admin/main/login';
         Yii::$app->errorHandler->errorAction = '/admin/main/error';
         $this->layout = 'main';
     }

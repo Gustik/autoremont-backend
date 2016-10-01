@@ -14,9 +14,7 @@ $config = [
             'controllerNamespace' => 'app\modules\api\controllers'
         ],
         'admin' =>[
-            'class' => 'yii\base\Module',
-            'basePath' => '@app/modules/admin',
-            'controllerNamespace' => 'app\modules\admin\controllers'
+            'class' => 'app\modules\admin\Module',
         ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
@@ -79,11 +77,6 @@ $config = [
         'urlManager' => [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
-            'rules' => [
-                'admin' => 'admin/main/index',
-                'admin/<action:\w+>' => 'admin/main/<action>',
-                'admin/<controller:\w+>/<action:\w+>/<id:\d+>' => 'admin/<controller>/<action>'
-            ]
         ],
         'db' => require(__DIR__ . '/db.php'),
     ],

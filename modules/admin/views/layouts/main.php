@@ -1,9 +1,9 @@
 <?php
+use app\modules\admin\assets\AdminAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\assets\AdminAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -28,7 +28,7 @@ AdminAsset::register($this);
             if (!Yii::$app->user->isGuest) {
                 NavBar::begin([
                     'brandLabel' => 'Админ-панель',
-                    'brandUrl' => ['/admin/index'],
+                    'brandUrl' => ['/admin'],
                     'options' => [
                         'class' => 'navbar-inverse navbar-fixed-top',
                     ],
@@ -64,7 +64,7 @@ AdminAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-right">&copy; Your-company <?= date('Y г.') ?></p>
+            <p class="pull-right">&copy; ООО УУС 2015 - <?= date('Y') ?></p>
         </div>
     </footer>
 

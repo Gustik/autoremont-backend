@@ -3,11 +3,13 @@
 use yii\helpers\Html;    
 use yii\widgets\ActiveForm;
 
+/* @var $orderId integer */
 /* @var $this yii\web\View */
 /* @var $model app\models\Offer */
 
 $this->title = 'Новое предложение';
-$this->params['breadcrumbs'][] = ['label' => 'Заказ', 'url' => ["/admin/order/view/$orderId"]];
+$this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $orderId, 'url' => ["/admin/order/view", 'id' => $orderId]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="offer-create">

@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace app\assets;
+namespace app\modules\admin\assets;
 
 use yii\web\AssetBundle;
 
@@ -15,13 +15,12 @@ use yii\web\AssetBundle;
  */
 class AdminAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@app/modules/admin/web';
     public $css = [
-        'admin/css/admin.css',
+        'css/admin.css',
     ];
     public $js = [
-        'admin/js/offer-create.js',
+        'js/offer-create.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

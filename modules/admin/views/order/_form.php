@@ -1,5 +1,6 @@
 <?php
 
+use dosamigos\selectize\SelectizeTextInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -33,6 +34,20 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'is_active')->textInput() ?>
 
     <?= $form->field($model, 'category_id')->textInput() ?>
+
+    <?= $form->field($model, 'tagNames')->widget(SelectizeTextInput::className(), [
+        // calls an action that returns a JSON object with matched
+        // tags
+        'loadUrl' => ['order-tag/list'],
+        'options' => ['class' => 'form-control'],
+        'clientOptions' => [
+            'plugins' => ['remove_button'],
+            'valueField' => 'name',
+            'labelField' => 'name',
+            'searchField' => ['name'],
+            'create' => true,
+        ],
+    ])->hint('Use commas to separate tags') ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

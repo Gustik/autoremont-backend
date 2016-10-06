@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use dosamigos\taggable\Taggable;
 use Yii;
 
 /**
@@ -42,6 +43,14 @@ class Order extends Model
         return array_merge(parent::attributes(), ['new_calls', 'new_offers', 'my_offer']);
     }
 
+    public function behaviors() {
+        return [
+            [
+                'class' => Taggable::className(),
+            ],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -62,7 +71,7 @@ class Order extends Model
     {
         return [
             [['description', 'price'], 'required'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at', 'tagNames'], 'safe'],
             [['description'], 'string'],
             [['price', 'author_id', 'is_active', 'category_id'], 'integer'],
             [['car_brand', 'car_model', 'car_year', 'car_color'], 'string', 'max' => 255],
@@ -89,7 +98,16 @@ class Order extends Model
             'author_id' => 'Author ID',
             'executor_id' => 'Executor ID',
             'is_active' => 'Is Active',
+            'tagNames' => 'Теги'
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(OrderTag::className(), ['id' => 'order_tag_id'])->viaTable('order_tag_assign', ['order_id' => 'id']);
     }
 
     /**

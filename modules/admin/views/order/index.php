@@ -16,7 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить заказ', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Теги', ['order-tag/index'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -50,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->category->name;
                 }
             ],
-
+            'tagNames',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete} {restore} {ban} {unban}',

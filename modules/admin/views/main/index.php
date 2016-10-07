@@ -87,56 +87,6 @@ $this->title = 'Админ-панель';
 			    'data' => $graphsTotal
 			]); ?>
 
-			<div class="col-xs-12">
-				<h2>TOP <?=$top = 50?> Автомастеров</h2>
-				<table class="table table-striped">
-					<thead>
-					<tr>
-						<th>Телефон</th>
-						<th width="300px">Имя</th>
-						<th>Дата рождения</th>
-						<th>Количество заказов</th>
-						<th>Первая активность</th>
-						<th>Последняя активность</th>
-					</tr>
-					</thead>
-				<?php foreach(Stat::getTopMechs(1, $top) as $mech): ?>
-					<tr>
-						<td><?=$mech['login']?></td>
-						<td><?=$mech['name']?></td>
-						<td><?=$mech['birth_date']?></td>
-						<td><?=$mech['c']?></td>
-						<td><?=$mech['first_action']?></td>
-						<td><?=$mech['last_action']?></td>
-					</tr>
-				<?php endforeach ?>
-				</table>
-			</div>
-			<div class="col-xs-12">
-				<h2>TOP <?=$top?> Автомагазинов</h2>
-				<table class="table table-striped">
-					<thead>
-					<tr>
-						<th>Телефон</th>
-						<th width="300px">Имя</th>
-						<th>Дата рождения</th>
-						<th>Количество заказов</th>
-						<th>Первая активность</th>
-						<th>Последняя активность</th>
-					</tr>
-					</thead>
-					<?php foreach(Stat::getTopMechs(2, $top) as $mech): ?>
-						<tr>
-							<td><?=$mech['login']?></td>
-							<td><?=$mech['name']?></td>
-							<td><?=$mech['birth_date']?></td>
-							<td><?=$mech['c']?></td>
-							<td><?=$mech['first_action']?></td>
-							<td><?=$mech['last_action']?></td>
-						</tr>
-					<?php endforeach ?>
-				</table>
-			</div>
 		</div>
 	</div>
 </div>

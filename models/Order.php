@@ -19,6 +19,7 @@ use Yii;
  * @property string $car_color
  * @property integer $author_id
  * @property integer $is_active
+ * @property integer $tagNames // Виртуальное свойство
  *
  * @property User $author
  * @property User $executor
@@ -43,6 +44,13 @@ class Order extends Model
         return array_merge(parent::attributes(), ['new_calls', 'new_offers', 'my_offer']);
     }
 
+    public function getAttributes($names = null, $except = [])
+    {
+        $values = parent::getAttributes($names, $except);
+        $values['tagNames'] = $this->tagNames;
+        return $values;
+    }
+    
     public function behaviors() {
         return [
             [
@@ -59,7 +67,7 @@ class Order extends Model
         $scenarios = parent::scenarios();
         $scenarios['api-create'] = ['description', 'price', 'tagNames', 'car_brand', 'car_model', 'car_year', 'car_color', 'category_id'];
         $scenarios['api-update'] = ['description', 'car_brand', 'car_model', 'car_year', 'car_color', 'category_id', 'tagNames'];
-        $scenarios['api-view'] = ['id', 'description', 'price', 'tagNames', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'author', 'category_id', 'new_calls', 'new_offers', 'my_offer', 'offers', 'calls', 'executor', 'author', 'category'];
+        $scenarios['api-view'] = ['id', 'description', 'price', 'tagNames', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'new_offers', 'my_offer', 'offers', 'calls', 'executor', 'author', 'category'];
         $scenarios['api-view-without-calls'] = ['id', 'description', 'price', 'tagNames', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'new_offers', 'executor', 'author', 'category'];
         return $scenarios;
     }
@@ -71,7 +79,7 @@ class Order extends Model
     {
         return [
             [['description', 'price'], 'required'],
-            [['created_at', 'updated_at', 'tagNames'], 'safe'],
+            [['created_at', 'updated_at', 'tagNames', 'tags'], 'safe'],
             [['description'], 'string'],
             [['price', 'author_id', 'is_active', 'category_id'], 'integer'],
             [['car_brand', 'car_model', 'car_year', 'car_color'], 'string', 'max' => 255],
@@ -101,6 +109,7 @@ class Order extends Model
             'tagNames' => 'Теги'
         ];
     }
+
 
     /**
      * @return \yii\db\ActiveQuery

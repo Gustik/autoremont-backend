@@ -187,17 +187,25 @@ class OrderController extends Controller
 
     public function actionMechCall($id)
     {
+        /** @var $order Order */
         $order = Order::findOne($id);
         if ($order) {
             if ($order->author_id != $this->user->id) {
-                if (!$order->executor_id) {
+                if (!$order->executor_id) { // Если исполнитель не присвоен к заказу
+
+                    if(!$order->author->can_work) // Если не может работать (не оплачен аккаунт)
+                        return new ResponseContainer(200, 'OK', ['login' => 'need_payment']);
+
                     // Create offer
+                    /** @var $offer Offer */
                     $offer = Offer::findProduce($id, $this->user->id);
                     if ($offer->isNewRecord) {
                         $offer->is_call = true;
                         $offer->text = 'Вам звонили';
                         $offer->save();
-                        PushHelper::send($order->author->profile->gcm_id, "Новое предложение по вашему заказу!", ['type' => PushHelper::TYPE_OFFER, 'order_id' => $order->id]);
+                        PushHelper::send($order->author->profile->gcm_id,
+                            "Новое предложение по вашему заказу!",
+                            ['type' => PushHelper::TYPE_OFFER, 'order_id' => $order->id]);
                     }
                     return new ResponseContainer(200, 'OK', ['login' => $order->author->login]);
                 }

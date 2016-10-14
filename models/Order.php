@@ -18,6 +18,7 @@ use Yii;
  * @property string $car_year
  * @property string $car_color
  * @property integer $author_id
+ * @property integer $executor_id
  * @property integer $is_active
  * @property integer $tagNames // Виртуальное свойство
  *
@@ -50,7 +51,7 @@ class Order extends Model
         $values['tagNames'] = $this->tagNames;
         return $values;
     }
-    
+
     public function behaviors() {
         return [
             [

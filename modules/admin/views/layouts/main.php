@@ -39,6 +39,7 @@ AdminAsset::register($this);
                         ['label' => 'Пользователи', 'url' => ['user/index']],
                         ['label' => 'Заказы', 'url' => ['order/index']],
                         ['label' => 'Компании', 'url' => ['company/index']],
+                        ['label' => 'Биллинг', 'url' => ['bill-tariff/index']],
                         ['label' => 'Push', 'url' => ['main/push']]
                     ],
                 ]);

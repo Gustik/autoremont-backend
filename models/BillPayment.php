@@ -33,7 +33,7 @@ class BillPayment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'created_at', 'amount', 'tariff_id', 'days'], 'required'],
+            [['user_id', 'amount', 'tariff_id', 'days'], 'required'],
             [['user_id', 'amount', 'tariff_id', 'days'], 'integer'],
             [['created_at'], 'safe'],
             [['tariff_id'], 'exist', 'skipOnError' => true, 'targetClass' => BillTariff::className(), 'targetAttribute' => ['tariff_id' => 'id']],

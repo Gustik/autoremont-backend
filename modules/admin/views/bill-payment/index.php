@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\modules\admin\models\BillPaymentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Bill Payments';
+$this->title = 'Платежи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bill-payment-index">
@@ -16,20 +16,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Bill Payment', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать платеж', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Тарифы', ['bill-tariff/index'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user_id',
             'created_at',
+            'user.login',
+            'user_id',
             'amount',
-            'tariff_id',
-            // 'days',
+            'days',
+            'tariff.name',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

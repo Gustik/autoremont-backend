@@ -33,9 +33,9 @@ class BillPayment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'amount', 'tariff_id', 'days'], 'required'],
+            [['user_id', 'tariff_id', 'days'], 'required'],
             [['user_id', 'amount', 'tariff_id', 'days'], 'integer'],
-            [['created_at'], 'safe'],
+            [['created_at', 'amount'], 'safe'],
             [['tariff_id'], 'exist', 'skipOnError' => true, 'targetClass' => BillTariff::className(), 'targetAttribute' => ['tariff_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -80,6 +80,12 @@ class BillPayment extends \yii\db\ActiveRecord
         if (parent::beforeSave($insert)) {
             if ($insert) {
                 $this->created_at = date('Y-m-d H:i:s');
+                $this->amount = (int) ($this->days * BillTariff::findOne($this->tariff_id)->day_cost);
+                $account = new BillAccount();
+                $account->user_id = $this->user_id;
+                $account->days = $this->days;
+                if($account->save())
+                    return true;
             }
             return false;
         }

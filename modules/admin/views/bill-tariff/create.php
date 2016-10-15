@@ -7,7 +7,8 @@ use yii\helpers\Html;
 /* @var $model app\models\BillTariff */
 
 $this->title = 'Create Bill Tariff';
-$this->params['breadcrumbs'][] = ['label' => 'Bill Tariffs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Платежи', 'url' => ['bill-payment/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Тарифы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bill-tariff-create">

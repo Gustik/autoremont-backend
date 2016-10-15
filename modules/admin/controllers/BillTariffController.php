@@ -5,7 +5,6 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\BillTariff;
 use yii\data\ActiveDataProvider;
-use app\modules\admin\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -19,14 +18,14 @@ class BillTariffController extends Controller
      */
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
+        $behaviors = parent::behaviors();
+        $behaviors['verbs'] = [
+            'class' => VerbFilter::className(),
+            'actions' => [
+                'delete' => ['post'],
             ],
         ];
+        return $behaviors;
     }
 
     /**

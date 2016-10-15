@@ -7,6 +7,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Bill Tariffs';
+$this->params['breadcrumbs'][] = ['label' => 'Платежи', 'url' => ['bill-payment/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bill-tariff-index">

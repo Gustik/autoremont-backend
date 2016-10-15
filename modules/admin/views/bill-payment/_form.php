@@ -22,6 +22,7 @@ CreatePaymentAsset::register($this);
 
     <?= $form->field($model, 'days')->fileInput(['type' => 'number']) ?>
 
+
     <div>Сумма: <b id="amount"></b></div>
 
 

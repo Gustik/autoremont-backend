@@ -7,7 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model app\models\BillTariff */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Bill Tariffs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Платежи', 'url' => ['bill-payment/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Тарифы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bill-tariff-view">

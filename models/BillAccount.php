@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "bill_account".
@@ -10,6 +11,7 @@ use Yii;
  * @property integer $id
  * @property integer $user_id
  * @property integer $days
+ * @property integer $processed_at
  *
  * @property User $user
  */
@@ -31,6 +33,7 @@ class BillAccount extends \yii\db\ActiveRecord
         return [
             [['user_id', 'days'], 'required'],
             [['user_id', 'days'], 'integer'],
+            [['processed_at'], 'safe'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -53,5 +56,21 @@ class BillAccount extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $this->processed_at = new Expression('NOW()');
+
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 }

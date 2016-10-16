@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "bill_payment".
@@ -79,7 +80,7 @@ class BillPayment extends \yii\db\ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($insert) {
-                $this->created_at = date('Y-m-d H:i:s');
+                $this->created_at = new Expression('NOW()');
 
                 return true;
             }

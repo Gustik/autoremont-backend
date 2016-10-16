@@ -91,7 +91,9 @@ class BillPaymentController extends Controller
 
             $account = BillAccount::find()->where(['=', 'user_id', $model->user_id])->one();
 
-            if(!$account) $account = new BillAccount();
+            if(!$account) {
+                $account = new BillAccount();
+            }
 
             // Увеличиваем количество дней, в течении которого пользователь может работать
             $account->user_id = $model->user_id;

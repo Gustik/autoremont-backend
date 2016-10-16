@@ -8,7 +8,7 @@ class m161016_112924_add_processed_at_to_account_table extends Migration
 
     public function up()
     {
-        $this->addColumn($this->tableName, 'processed_at', $this->dateTime()->notNull()->defaultExpression("NOW()"));
+        $this->addColumn($this->tableName, 'processed_at', $this->dateTime()->notNull());
     }
 
     public function down()

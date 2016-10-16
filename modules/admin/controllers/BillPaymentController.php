@@ -2,10 +2,14 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\BillAccount;
+use app\models\User;
+use Exception;
 use Yii;
 use app\models\BillPayment;
 use app\modules\admin\models\BillPaymentSearch;
 use app\modules\admin\controllers\Controller;
+use yii\web\NotAcceptableHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -60,17 +64,53 @@ class BillPaymentController extends Controller
      * Creates a new BillPayment model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws NotAcceptableHttpException
+     * @throws \yii\db\Exception
      */
     public function actionCreate()
     {
         $model = new BillPayment();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $connection = \Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+            if (!$model->load(Yii::$app->request->post()) || !$model->validate()) {
+                $transaction->rollback();
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
+
+            if(!$model->save()){
+                throw new Exception('Ошибка создания платежа');
+            }
+
+            $account = BillAccount::find()->where(['=', 'user_id', $model->user_id])->one();
+
+            if(!$account) $account = new BillAccount();
+
+            $account->user_id = $model->user_id;
+            $account->days += $model->days;
+
+            if(!$account->save()){
+                throw new Exception('Ошибка обновления аккаунтинга');
+            }
+
+            $user = User::findOne($model->user_id);
+            if(!$user->can_work) {
+                $user->can_work = true;
+                if(!$user->save()){
+                    throw new Exception('Ошибка активации аккаунта');
+                }
+            }
+
+            $transaction->commit();
+            Yii::$app->session->setFlash('success', 'Запрос на взнос успешно создан, ожидайте подтверждения');
             return $this->redirect(['index']);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+
+        } catch(Exception $e) {
+            $transaction->rollback();
+            throw new NotAcceptableHttpException($e->getMessage());
         }
     }
 

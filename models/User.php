@@ -82,6 +82,7 @@ class User extends Model implements IdentityInterface
             'isOnline' => 'Онлайн',
             'is_active' => 'Активен',
             'is_admin' => 'Администратор',
+            'can_work' => 'Может работать',
         ];
     }
 

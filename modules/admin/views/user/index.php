@@ -30,6 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'login',
             [
+                'attribute' => 'can_work',
+                'format' => 'raw',
+                'value' => function($model) {
+                    return $model->getFriendly('can_work', 'boolean');
+                },
+                'contentOptions' => [
+                    'align' => 'center'
+                ],
+            ],
+            [
                 'attribute' => 'isOnline',
                 'format' => 'raw',
                 'value' => function($model) {

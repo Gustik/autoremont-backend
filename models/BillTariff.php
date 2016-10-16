@@ -42,8 +42,8 @@ class BillTariff extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'day_cost' => 'Day Cost',
+            'name' => 'Тариф',
+            'day_cost' => 'Стоимость за сутки',
         ];
     }
 

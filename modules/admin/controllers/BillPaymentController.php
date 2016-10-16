@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use app\models\BillAccount;
+use app\models\BillTariff;
 use app\models\User;
 use Exception;
 use Yii;
@@ -81,7 +82,10 @@ class BillPaymentController extends Controller
                 ]);
             }
 
-            if(!$model->save()){
+            // Расчитываем сумму в зависимости от тарифа
+            $model->amount = (int) ($model->days * BillTariff::findOne($model->tariff_id)->day_cost);
+
+            if(!$model->save()) {
                 throw new Exception('Ошибка создания платежа');
             }
 
@@ -89,6 +93,7 @@ class BillPaymentController extends Controller
 
             if(!$account) $account = new BillAccount();
 
+            // Увеличиваем количество дней, в течении которого пользователь может работать
             $account->user_id = $model->user_id;
             $account->days += $model->days;
 
@@ -97,6 +102,8 @@ class BillPaymentController extends Controller
             }
 
             $user = User::findOne($model->user_id);
+
+            // Если пользователь был отключен ранее, то включаем возможность работать
             if(!$user->can_work) {
                 $user->can_work = true;
                 if(!$user->save()){

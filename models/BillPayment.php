@@ -81,9 +81,11 @@ class BillPayment extends \yii\db\ActiveRecord
             if ($insert) {
                 $this->created_at = date('Y-m-d H:i:s');
                 $this->amount = (int) ($this->days * BillTariff::findOne($this->tariff_id)->day_cost);
-                $account = new BillAccount();
+                $account = BillAccount::find()->where(['=', 'user_id', $this->user_id])->one();
+                if(!$account) $account = new BillAccount();
+
                 $account->user_id = $this->user_id;
-                $account->days = $this->days;
+                $account->days += $this->days;
                 if($account->save())
                     return true;
             }

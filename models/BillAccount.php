@@ -69,7 +69,7 @@ class BillAccount extends \yii\db\ActiveRecord
 
                 return true;
             }
-            return false;
+            return true;
         }
         return false;
     }

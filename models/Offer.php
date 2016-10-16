@@ -17,6 +17,7 @@ use Yii;
  *
  * @property User $author
  * @property Order $order
+ * @property bool is_call
  */
 class Offer extends Model
 {
@@ -87,7 +88,7 @@ class Offer extends Model
         return $this->hasOne(Order::className(), ['id' => 'order_id']);
     }
 
-    public function findProduce($orderID, $userID)
+    public static function findProduce($orderID, $userID)
     {
         if ($offer = Offer::findOne(['is_active' => true, 'order_id' => $orderID, 'author_id' => $userID])) {
             $offer->setScenario('api-update');

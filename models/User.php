@@ -20,6 +20,7 @@ use yii\web\IdentityInterface;
  * @property integer $sms_code_time
  * @property integer $is_active
  * @property integer $is_admin
+ * @property boolean $can_work
  *
  * @property Profile $profile
  */
@@ -55,7 +56,7 @@ class User extends Model implements IdentityInterface
         return [
             [['login'], 'required'],
             [['created_at', 'updated_at', 'banned_to', 'visited_at', 'password'], 'safe'],
-            [['sms_code', 'sms_code_time', 'is_active', 'is_admin'], 'integer'],
+            [['sms_code', 'sms_code_time', 'is_active', 'is_admin', 'can_work'], 'integer'],
             [['login', 'password_hash', 'access_token', 'password'], 'string', 'max' => 255],
             [['login'], 'unique'],
         ];
@@ -81,6 +82,7 @@ class User extends Model implements IdentityInterface
             'isOnline' => 'Онлайн',
             'is_active' => 'Активен',
             'is_admin' => 'Администратор',
+            'can_work' => 'Может работать',
         ];
     }
 

@@ -134,30 +134,4 @@ class Stat extends \yii\db\ActiveRecord
         }
         return $graphs;
     }
-
-    /**
-     * Возвращает ТОП 100 автомастеров и автомагазинов
-     * @param int $category 1 - автомастер 2 - автомагазин
-     * @param int $limit
-     * @return array
-     */
-    public static function getTopMechs($category, $limit = 100) {
-        // TODO: Надо переделать используя средства yii
-        $sql = "SELECT `user`.`login`, `profile`.`name`, `profile`.`birth_date`, COUNT(`order`.`id`) c,
-                (SELECT o.`created_at` FROM `offer` o WHERE o.author_id = `user`.`id` ORDER BY o.`created_at` ASC LIMIT 1) first_action,
-                (SELECT o.`created_at` FROM `offer` o WHERE o.author_id = `user`.`id` ORDER BY o.`created_at` DESC LIMIT 1) last_action
-
-                FROM `offer`, `order`, `user`, `profile`
-                WHERE `user`.`id` = `profile`.`user_id`
-                AND `user`.`id` = `offer`.`author_id`
-                AND `order`.`id` = `offer`.`order_id`
-                AND `order`.`category_id` = $category
-                GROUP BY `user`.`login`, `profile`.`name`, `profile`.`birth_date`, first_action, last_action
-                ORDER BY c DESC
-                LIMIT $limit";
-        $connection = \Yii::$app->db;
-        $model = $connection->createCommand($sql);
-
-        return $model->queryAll();
-    }
 }

@@ -193,7 +193,7 @@ class OrderController extends Controller
             if ($order->author_id != $this->user->id) {
                 if (!$order->executor_id) { // Если исполнитель не присвоен к заказу
 
-                    if(!$order->author->can_work) // Если не может работать (не оплачен аккаунт)
+                    if(!$this->user->can_work) // Если не может работать (не оплачен аккаунт)
                         return new ResponseContainer(200, 'OK', ['login' => 'need_payment']);
 
                     // Create offer

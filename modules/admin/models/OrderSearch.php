@@ -20,7 +20,7 @@ class OrderSearch extends Order
     public function rules()
     {
         return [
-            [['category_id'], 'integer'],
+            [['category_id', 'city_id'], 'integer'],
             [['description', 'name'], 'safe'],
         ];
     }
@@ -66,6 +66,7 @@ class OrderSearch extends Order
         }
 
         $query->andFilterWhere(['category_id' => $this->category_id]);
+        $query->andFilterWhere(['order.city_id' => $this->city_id]);
 
         $query->andFilterWhere(['like', 'profile.name', $this->name])
               ->andFilterWhere(['like', 'description', $this->description]);

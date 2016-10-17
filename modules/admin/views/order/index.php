@@ -1,5 +1,7 @@
 <?php
 
+use app\models\City;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -25,8 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'created_at',
             'description:ntext',
             [
@@ -53,6 +53,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'tagNames',
+            [
+                'attribute' => 'city_id',
+                'label' => 'Город',
+                'filter' => ArrayHelper::map(City::find()->all(), 'id', 'name'),
+                'value' => function($model) {
+                    return $model->city->name;
+                }
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete} {restore} {ban} {unban}',

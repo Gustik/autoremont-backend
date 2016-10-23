@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use dosamigos\taggable\Taggable;
 use Yii;
 
 /**
@@ -36,10 +37,25 @@ class Profile extends Model
         $scenarios = parent::scenarios();
         $scenarios['admin-create'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
         $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
-        $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
-        $scenarios['api-view'] = ['name', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
+        $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
+        $scenarios['api-view'] = ['name', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
         $scenarios['api-view-lite'] = ['name'];
         return $scenarios;
+    }
+
+    public function getAttributes($names = null, $except = [])
+    {
+        $values = parent::getAttributes($names, $except);
+        $values['tagNames'] = $this->tagNames;
+        return $values;
+    }
+
+    public function behaviors() {
+        return [
+            [
+                'class' => Taggable::className(),
+            ],
+        ];
     }
 
     /**
@@ -77,6 +93,14 @@ class Profile extends Model
             'car_year' => 'Год выпуска автомобиля',
             'is_active' => 'Активен',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(OrderTag::className(), ['id' => 'order_tag_id'])->viaTable('profile_tag_assign', ['profile_id' => 'id']);
     }
 
     /**

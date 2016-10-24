@@ -451,7 +451,7 @@ define({ "api": [
     "group": "Order",
     "description": "<p>Просмотр заказа</p>",
     "type": "get",
-    "url": "api/v3/order/view?:id",
+    "url": "api/v3/order/view?id=:id",
     "title": "Просмотр заказа",
     "parameter": {
       "fields": {
@@ -592,7 +592,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "api/v3/profile/reset-token",
+    "url": "api/v3/profile/view",
     "title": "Просмотр профиля",
     "name": "ActionView",
     "group": "Profile",

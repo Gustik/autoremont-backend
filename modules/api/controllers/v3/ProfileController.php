@@ -70,7 +70,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * @api {get} api/v3/profile/reset-token Просмотр профиля
+     * @api {get} api/v3/profile/view Просмотр профиля
      * @apiName ActionView
      * @apiGroup Profile
      * @apiDescription Просмотр своего профиля (не сохраняет данные, нет обязательных параметров).

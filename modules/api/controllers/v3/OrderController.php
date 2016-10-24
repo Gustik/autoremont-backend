@@ -297,7 +297,7 @@ class OrderController extends Controller
      * @apiName actionView
      * @apiGroup Order
      * @apiDescription Просмотр заказа
-     * @api {get} api/v3/order/view?:id Просмотр заказа
+     * @api {get} api/v3/order/view?id=:id Просмотр заказа
      *
      * @apiParam {Number} id ID заказа
      *

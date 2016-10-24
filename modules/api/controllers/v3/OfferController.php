@@ -16,6 +16,35 @@ class OfferController extends Controller
         return $behaviors;
     }
 
+    /**
+     * @apiName actionProduce
+     * @apiGroup Offer
+     * @apiDescription Создание/обновление предложения
+     * @api {post} api/v3/offer/produce Создание/обновление предложения
+     *
+     * @apiParam {Object} Offer Предложение
+     * @apiParam {Number} Offer.order_id ID заказа
+     * @apiParam {String} Offer.text Текст предложения
+     *
+     * @apiSuccess {Object} Offer Преложение
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": "200",
+     *       "message": "OK",
+     *       "data": Offer
+     *     }
+     *
+     * @apiErrorExample {json} Ошибки:
+     *     {
+     *       "status": "404",
+     *       "message": "Заявка не найдена"
+     *     }
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
     public function actionProduce()
     {
         $id = Yii::$app->request->getBodyParam('order_id');
@@ -40,6 +69,33 @@ class OfferController extends Controller
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
+    /**
+     * @apiName actionView
+     * @apiGroup Offer
+     * @apiDescription Просмотр предложения
+     * @api {get} api/v3/offer/view?id=:id Просмотр предложения
+     *
+     * @apiParam {Number} id ID Предложение
+     *
+     * @apiSuccess {Object} Offer Преложение
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": "200",
+     *       "message": "OK",
+     *       "data": Offer
+     *     }
+     *
+     * @apiErrorExample {json} Ошибки:
+     *     {
+     *       "status": "404",
+     *       "message": "Предложение не найдена"
+     *     }
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
     public function actionView($id)
     {
         if ($offer = Offer::findOne(['order_id' => $id, 'author_id' => $this->user->id]) && $offer->is_active) {

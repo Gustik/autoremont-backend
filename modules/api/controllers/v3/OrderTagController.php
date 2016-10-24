@@ -24,6 +24,27 @@ class OrderTagController extends Controller
         return $behaviors;
     }
 
+    /**
+     * @api {get} api/v3/order-tag/index?query=:query Список тегов
+     * @apiName actionIndex
+     * @apiGroup OrderTag
+     * @apiDescription Возвращает список тегов для заказов
+     *
+     * @apiParam {String} [query] Фильтрует список тегов.
+     *
+     * @apiSuccess {String[]} name Имя тега
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": "200",
+     *       "message": "OK",
+     *       "data": [{"name": "Ходовка"}, {"name": "Электрика"}, {"name": "Двигатель"}, {"name": "Кузов"}]
+     *     }
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
     public function actionIndex($query = '')
     {
         /** @var $models OrderTag[] */

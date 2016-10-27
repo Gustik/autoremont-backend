@@ -27,7 +27,7 @@ class UserController extends Controller
      * @apiName actionGetCode
      * @apiGroup User
      * @apiDescription Получить код подтверждения через СМС (не требует авторизации)
-     * @apiParam {String} phone номер телефона на который будет отправлено СМС. Формат: \^+7\d{10}$\.
+     * @apiParam {String} phone номер телефона на который будет отправлено СМС. Формат: \^+\d\d{10}$\.
      * @apiSuccessExample {json} Успех:
      *     {
      *       "status": "200"
@@ -52,6 +52,12 @@ class UserController extends Controller
         if ($login) {
             $user = User::findIdentityByLogin($login);
             $code = ( Variable::getParam('environment') == 'DEV' ? 1111 : mt_rand(1000, 9999) );
+
+            // Тестовый аккаунт для AppStore
+            if($user == User::TEST_LOGIN) {
+                $code = User::TEST_CODE;
+            }
+
             if ($user) {
                 if (!$user->sms_code) {
                     $user->sms_code = $code;

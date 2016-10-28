@@ -54,7 +54,7 @@ class UserController extends Controller
             $code = ( Variable::getParam('environment') == 'DEV' ? 1111 : mt_rand(1000, 9999) );
 
             // Тестовый аккаунт для AppStore
-            if($user == User::TEST_LOGIN) {
+            if($login == User::TEST_LOGIN) {
                 $code = User::TEST_CODE;
             }
 

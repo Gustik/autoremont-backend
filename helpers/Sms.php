@@ -2,6 +2,7 @@
 
 namespace app\helpers;
 
+use app\models\User;
 use app\models\Variable;
 
 /*
@@ -36,11 +37,10 @@ class Sms
 	public static function send($to, $text)
 	{
 		$url = static::prepare($to, $text);
-		if (Variable::getParam('environment') != 'DEV') {
-			$data = json_encode(file_get_contents($url));
-		} else {
-			$data = true;
+		if (Variable::getParam('environment') == 'DEV' || $to == User::TEST_LOGIN) {
+			return true;
 		}
+		$data = json_encode(file_get_contents($url));
 		return ( isset($data['error']) ? false : true );
 	}
 

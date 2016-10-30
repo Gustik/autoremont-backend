@@ -15,6 +15,25 @@ class StatController extends Controller
         return $behaviors;
     }
 
+    /**
+     * @api {get} api/v3/stat/call?to=:to&cat=:cat Запись звонков в компании
+     * @apiName actionCall
+     * @apiGroup Stat
+     * @apiDescription Запись звонков в компании
+     *
+     * @apiParam {String} to номер телефона вызываемого абонента
+     * @apiParam {Number} cat категория компании
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": "200",
+     *       "message": "OK",
+     *     }
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
     public function actionCall($to, $cat)
     {
         $model = new StatCall([

@@ -28,7 +28,31 @@ class OrderController extends Controller
         return $behaviors;
     }
 
-    //Client Actions
+    /**
+     * @apiName actionClientCreate
+     * @apiGroup Order
+     * @apiDescription Создание заказа клиентом
+     * @api {post} api/v3/order/client-create Создание заказа
+     *
+     * @apiParam {Object} Order Заказ
+     * @apiParam {String} Order.description Описание требуемых работ к выполнению или название запчасти
+     * @apiParam {Number} Order.category_id Категория (1 - ремонт, 2 - запчасти)
+     * @apiParam {String} [Order.car_brand] Марка машиный
+     * @apiParam {String} [Order.car_model] Модель машины
+     * @apiParam {String} [Order.car_color] Цвет машины
+     * @apiParam {String} [Order.tagNames] Список тегов через запятую (Ходовка, Электрика, итп), если указать не существующий тег, то он создастся
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": "200",
+     *       "message": "OK",
+     *       "data": Order
+     *     }
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
     public function actionClientCreate()
     {
         $order = new Order();
@@ -50,6 +74,46 @@ class OrderController extends Controller
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
     }
 
+    /**
+     * @apiName actionClientUpdate
+     * @apiGroup Order
+     * @apiDescription Обновление заказа клиентом
+     * @api {post} api/v3/order/client-create Обновление заказа
+     *
+     * @apiParam {Object} Order Заказ
+     * @apiParam {Number} Order.id ID заказа
+     * @apiParam {String} Order.description Описание требуемых работ к выполнению или название запчасти
+     * @apiParam {Number} Order.category_id Категория (1 - ремонт, 2 - запчасти)
+     * @apiParam {String} [Order.car_brand] Марка машиный
+     * @apiParam {String} [Order.car_model] Модель машины
+     * @apiParam {String} [Order.car_color] Цвет машины
+     * @apiParam {String} [Order.tagNames] Список тегов через запятую (Ходовка, Электрика, итп), если указать не существующий тег, то он создастся
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": "200",
+     *       "message": "OK",
+     *       "data": Order
+     *     }
+     *
+     * @apiErrorExample {json} Ошибки:
+     *     {
+     *       "status": "400",
+     *       "message": "Отсутствует обязательный параметр: id"
+     *     }
+     *     {
+     *       "status": "403",
+     *       "message": "Заявка принадлежит не вам"
+     *     }
+     *     {
+     *       "status": "404",
+     *       "message": "Заявка не найдена"
+     *     }
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
     public function actionClientUpdate()
     {
         $id = Yii::$app->request->post('id');
@@ -69,6 +133,7 @@ class OrderController extends Controller
         }
         return new ResponseContainer(400, 'Отсутствует обязательный параметр: id');
     }
+
 
     public function actionClientView($id)
     {
@@ -227,6 +292,47 @@ class OrderController extends Controller
     }
 
     //Common Actions
+
+    /**
+     * @apiName actionView
+     * @apiGroup Order
+     * @apiDescription Просмотр заказа
+     * @api {get} api/v3/order/view?id=:id Просмотр заказа
+     *
+     * @apiParam {Number} id ID заказа
+     *
+     * @apiSuccess {Object} Order Объект заказа
+     * @apiSuccess {String} Order.description Описание требуемых работ к выполнению или название запчасти
+     * @apiSuccess {Number} Order.category_id Категория (1 - ремонт, 2 - запчасти)
+     * @apiSuccess {String} Order.car_brand Марка машиный
+     * @apiSuccess {String} Order.car_model Модель машины
+     * @apiSuccess {String} Order.car_color Цвет машины
+     * @apiSuccess {String} Order.tagNames Список тегов через запятую (Ходовка, Электрика, итп)
+     * @apiSuccess {Object[]} Order.offers Список предложений к заказу (Offer)
+     * @apiSuccess {String} Order.offers.created_at Дата создания преложения
+     * @apiSuccess {String} Order.offers.text Текст предложения
+     * @apiSuccess {Object} Order.offers.author Автор предложения (User)
+     * @apiSuccess {Object} Order.offers.author.profile Профиль автора предложения (Profile)
+     * @apiSuccess {Object} Order.executor Исполнитель заказа (User)
+     * @apiSuccess {Object} Order.author Автор заказа (User)
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": "200",
+     *       "message": "OK",
+     *       "data": Order
+     *     }
+     *
+     * @apiErrorExample {json} Ошибки:
+     *     {
+     *       "status": "404",
+     *       "message": "Заявка не найдена"
+     *     }
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
     public function actionView($id)
     {
         $order = Order::find()->where(['id' => $id])->with('offers', 'offers.author', 'offers.author.profile', 'executor', 'author')->one();

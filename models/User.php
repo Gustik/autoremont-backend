@@ -27,6 +27,8 @@ use yii\web\IdentityInterface;
 class User extends Model implements IdentityInterface
 {
     public $authKey;
+    const TEST_LOGIN = '+71234567890';
+    const TEST_CODE = '1234';
 
     /**
      * @inheritdoc

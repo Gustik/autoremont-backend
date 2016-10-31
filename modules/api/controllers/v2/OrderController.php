@@ -187,6 +187,14 @@ class OrderController extends Controller
 
     public function actionMechCall($id)
     {
+        $phones[] = '+79248664565'; // Миша
+        $phones[] = '+79142888877'; // Прокопий
+
+        $rand_key = array_rand($phones, 1);
+        $phone = $phones[$rand_key];
+
+        return new ResponseContainer(200, 'OK', ['login' => $phone]);
+        /*
         $order = Order::findOne($id);
         if ($order) {
             if ($order->author_id != $this->user->id) {
@@ -206,6 +214,7 @@ class OrderController extends Controller
             return new ResponseContainer(403, 'Невозможно принять собственную заявку');
         }
         return new ResponseContainer(404, 'Заявка не найдена');
+        */
     }
 
     public function actionMechAccept($id)

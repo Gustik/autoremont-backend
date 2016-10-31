@@ -35,15 +35,17 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Главная', 'url' => ['/site/index']],
-                    ['label' => 'О приложении', 'url' => ['/site/about']],
-                    ['label' => 'Лицензионное соглашение', 'url' => ['/site/license']],
+                    ['label' => 'Главная', 'url' => ['/']],
+                    ['label' => 'Лицензионное соглашение', 'url' => ['/license']],
                 ],
             ]);
             NavBar::end();
         ?>
 
         <div class="container">
+            <br>
+            <br>
+            <br>
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>

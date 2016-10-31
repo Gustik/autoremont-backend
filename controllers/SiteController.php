@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Page;
 use Yii;
 use yii\web\Controller;
 
@@ -27,13 +28,10 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
 
     public function actionLicense()
     {
-        return $this->render('license');
+        $page = Page::findOne(1);
+        return $this->render('license', ['page' => $page]);
     }
 }

@@ -49,11 +49,11 @@ class BillPayment extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'created_at' => 'Created At',
-            'amount' => 'Amount',
-            'tariff_id' => 'Tariff ID',
-            'days' => 'Days',
+            'user_id' => 'ID пользователя',
+            'created_at' => 'Создан',
+            'amount' => 'Сумма',
+            'tariff_id' => 'Тариф',
+            'days' => 'Сутки',
         ];
     }
 

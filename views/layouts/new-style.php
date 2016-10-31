@@ -52,7 +52,7 @@
     <nav class="navbar navbar-fixed-top navbar-slide" data-sticky="">
         <div class="container_fluid">
         <span class="container-logo" id="logo">
-            <a class="navbar-brand goto" href="index.html" title="Авторемонт">
+            <a class="navbar-brand goto" href="/" title="Авторемонт">
                 <img src="myassets/images/logowb.png"> Авторемонт
             </a>
         </span>

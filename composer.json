@@ -28,7 +28,8 @@
         "kartik-v/yii2-mpdf": "dev-master",
         "kartik-v/yii2-date-range": "dev-master",
         "2amigos/yii2-taggable-behavior": "~1.0",
-        "2amigos/yii2-selectize-widget": "~1.0"
+        "2amigos/yii2-selectize-widget": "~1.0",
+        "yiidoc/yii2-redactor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

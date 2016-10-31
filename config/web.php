@@ -18,7 +18,8 @@ $config = [
         ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
-        ]
+        ],
+        'redactor' => 'yii\redactor\RedactorModule',
     ],
     'components' => [
         'request' => [
@@ -77,6 +78,9 @@ $config = [
         'urlManager' => [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
+            'rules' => [
+                'license' => 'site/license'
+            ],
         ],
         'db' => require(__DIR__ . '/db.php'),
     ],

@@ -2,8 +2,11 @@ class_name: ApiTester
 modules:
     enabled:
         - REST:
-            url: /api/v3
+            url: /api
             depends: Yii2
         - \Helper\Api
+        - Yii2:
+            configFile: 'config/test.php'
+            part: fixtures
     config:
         - Yii2

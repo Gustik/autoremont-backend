@@ -28,7 +28,7 @@ class CityController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": [city1, city2]
      *     }

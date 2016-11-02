@@ -31,7 +31,7 @@ class CompanyController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": [Company1, Company2]
      *     }

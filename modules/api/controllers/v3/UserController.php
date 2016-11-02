@@ -30,16 +30,16 @@ class UserController extends Controller
      * @apiParam {String} phone номер телефона на который будет отправлено СМС. Формат: \^+\d\d{10}$\.
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200"
+     *       "status": 200
      *       "message": "Вам отправлено СМС с кодом подтверждения"
      *     }
      * @apiErrorExample {json} Ошибки:
      *     {
-     *       "status": "400",
+     *       "status": 400,
      *       "message": "Неверный формат номера телефона"
      *     }
      *     {
-     *       "status": "500",
+     *       "status": 500,
      *       "message": "Ошибка отправки СМС"
      *     }
      * @apiVersion 3.0.0
@@ -90,17 +90,17 @@ class UserController extends Controller
      * @apiParam {String} code код подтверждения из СМС..
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": {"token": "<токен доступа>"}
      *     }
      * @apiErrorExample {json} Ошибки:
      *     {
-     *       "status": "400",
+     *       "status": 400,
      *       "message": "Неверный код"
      *     }
      *     {
-     *       "status": "404",
+     *       "status": 404,
      *       "message": "Пользователь не найден (возвращается в случае указания номера телефона, отличного от номера во время вызова get-code)"
      *     }
      * @apiVersion 3.0.0
@@ -140,7 +140,7 @@ class UserController extends Controller
      * @apiDescription Проверка токена на валидность (не сохраняет данные, нет обязательных параметров)
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK"
      *     }
      * @apiVersion 3.0.0
@@ -159,7 +159,7 @@ class UserController extends Controller
      * @apiDescription Пересоздание токена (нет обязательных параметров).
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": {"token": "<токен доступа>"}
      *     }

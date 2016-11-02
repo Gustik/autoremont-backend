@@ -1,9 +1,13 @@
 <?php
+use app\tests\fixtures\PageFixture;
+
 class SiteCest
 {
     public function _before(\FunctionalTester $I)
     {
-
+        $I->haveFixtures([
+            'pages' => ['class' => PageFixture::className()],
+        ]);
     }
 
     public function openSiteIndex(\FunctionalTester $I)
@@ -14,7 +18,7 @@ class SiteCest
 
     public function openSiteLicense(\FunctionalTester $I)
     {
-        $I->amOnPage(['/site/license']);
+        $I->amOnPage(['/license']);
         $I->see('Лицензионное соглашение');
     }
 

@@ -30,14 +30,14 @@ class OfferController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Offer
      *     }
      *
      * @apiErrorExample {json} Ошибки:
      *     {
-     *       "status": "404",
+     *       "status": 404,
      *       "message": "Заявка не найдена"
      *     }
      *
@@ -81,14 +81,14 @@ class OfferController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Offer
      *     }
      *
      * @apiErrorExample {json} Ошибки:
      *     {
-     *       "status": "404",
+     *       "status": 404,
      *       "message": "Предложение не найдена"
      *     }
      *

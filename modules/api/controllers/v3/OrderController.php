@@ -44,7 +44,7 @@ class OrderController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Order
      *     }
@@ -67,7 +67,7 @@ class OrderController extends Controller
                 PushHelper::send($topic, "{$order->category->name}: новый заказ", ['type' => PushHelper::TYPE_ORDER, 'order_id' => $order->id, "cat" => $order->category_id]);
                 // Отправка пушей на старые топики для обратней совместимости.
                 // УБРАТЬ В НОВОЙ ВЕРСИИ
-                PushHelper::send("/topics/{$order->category->topic}", "{$order->category->name}: новый заказ");
+                // PushHelper::send("/topics/{$order->category->topic}", "{$order->category->name}: новый заказ");
                 return new ResponseContainer(200, 'OK', $order->safeAttributes);
             }
         }
@@ -78,7 +78,7 @@ class OrderController extends Controller
      * @apiName actionClientUpdate
      * @apiGroup Order
      * @apiDescription Обновление заказа клиентом
-     * @api {post} api/v3/order/client-create Обновление заказа
+     * @api {post} api/v3/order/client-update Обновление заказа
      *
      * @apiParam {Object} Order Заказ
      * @apiParam {Number} Order.id ID заказа
@@ -91,22 +91,22 @@ class OrderController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Order
      *     }
      *
      * @apiErrorExample {json} Ошибки:
      *     {
-     *       "status": "400",
+     *       "status": 400,
      *       "message": "Отсутствует обязательный параметр: id"
      *     }
      *     {
-     *       "status": "403",
+     *       "status": 403,
      *       "message": "Заявка принадлежит не вам"
      *     }
      *     {
-     *       "status": "404",
+     *       "status": 404,
      *       "message": "Заявка не найдена"
      *     }
      *
@@ -302,6 +302,7 @@ class OrderController extends Controller
      * @apiParam {Number} id ID заказа
      *
      * @apiSuccess {Object} Order Объект заказа
+     * @apiSuccess {Number} Order.id ID закза
      * @apiSuccess {String} Order.description Описание требуемых работ к выполнению или название запчасти
      * @apiSuccess {Number} Order.category_id Категория (1 - ремонт, 2 - запчасти)
      * @apiSuccess {String} Order.car_brand Марка машиный
@@ -318,14 +319,14 @@ class OrderController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Order
      *     }
      *
      * @apiErrorExample {json} Ошибки:
      *     {
-     *       "status": "404",
+     *       "status": 404,
      *       "message": "Заявка не найдена"
      *     }
      *

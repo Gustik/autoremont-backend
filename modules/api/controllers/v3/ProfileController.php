@@ -41,7 +41,7 @@ class ProfileController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Profile
      *     }
@@ -76,7 +76,7 @@ class ProfileController extends Controller
      * @apiDescription Просмотр своего профиля (не сохраняет данные, нет обязательных параметров).
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Profile
      *     }

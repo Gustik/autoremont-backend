@@ -35,7 +35,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": [city1, city2]\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": [city1, city2]\n}",
           "type": "json"
         }
       ]
@@ -107,7 +107,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": [Company1, Company2]\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": [Company1, Company2]\n}",
           "type": "json"
         }
       ]
@@ -165,7 +165,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": Offer\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Offer\n}",
           "type": "json"
         }
       ]
@@ -174,7 +174,7 @@
       "examples": [
         {
           "title": "Ошибки:",
-          "content": "{\n  \"status\": \"404\",\n  \"message\": \"Заявка не найдена\"\n}",
+          "content": "{\n  \"status\": 404,\n  \"message\": \"Заявка не найдена\"\n}",
           "type": "json"
         }
       ]
@@ -198,7 +198,7 @@
             "type": "Number",
             "optional": false,
             "field": "id",
-            "description": "<p>ID Предложение</p>"
+            "description": "<p>ID Заказа</p>"
           }
         ]
       }
@@ -218,7 +218,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": Offer\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Offer\n}",
           "type": "json"
         }
       ]
@@ -227,7 +227,7 @@
       "examples": [
         {
           "title": "Ошибки:",
-          "content": "{\n  \"status\": \"404\",\n  \"message\": \"Предложение не найдена\"\n}",
+          "content": "{\n  \"status\": 404,\n  \"message\": \"Предложение не найдена\"\n}",
           "type": "json"
         }
       ]
@@ -271,7 +271,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": [{\"name\": \"Ходовка\"}, {\"name\": \"Электрика\"}, {\"name\": \"Двигатель\"}, {\"name\": \"Кузов\"}]\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": [{\"name\": \"Ходовка\"}, {\"name\": \"Электрика\"}, {\"name\": \"Двигатель\"}, {\"name\": \"Кузов\"}]\n}",
           "type": "json"
         }
       ]
@@ -346,7 +346,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": Order\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Order\n}",
           "type": "json"
         }
       ]
@@ -360,7 +360,7 @@
     "group": "Order",
     "description": "<p>Обновление заказа клиентом</p>",
     "type": "post",
-    "url": "api/v3/order/client-create",
+    "url": "api/v3/order/client-update",
     "title": "Обновление заказа",
     "parameter": {
       "fields": {
@@ -428,7 +428,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": Order\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Order\n}",
           "type": "json"
         }
       ]
@@ -437,12 +437,105 @@
       "examples": [
         {
           "title": "Ошибки:",
-          "content": "{\n  \"status\": \"400\",\n  \"message\": \"Отсутствует обязательный параметр: id\"\n}\n{\n  \"status\": \"403\",\n  \"message\": \"Заявка принадлежит не вам\"\n}\n{\n  \"status\": \"404\",\n  \"message\": \"Заявка не найдена\"\n}",
+          "content": "{\n  \"status\": 400,\n  \"message\": \"Отсутствует обязательный параметр: id\"\n}\n{\n  \"status\": 403,\n  \"message\": \"Заявка принадлежит не вам\"\n}\n{\n  \"status\": 404,\n  \"message\": \"Заявка не найдена\"\n}",
           "type": "json"
         }
       ]
     },
     "version": "3.0.0",
+    "filename": "modules/api/controllers/v3/OrderController.php",
+    "groupTitle": "Order"
+  },
+  {
+    "name": "actionClientView",
+    "group": "Order",
+    "description": "<p>Просмотр заказа клиентом (смотри actionView)</p>",
+    "type": "get",
+    "url": "api/v3/order/client-view?id=:id",
+    "title": "Просмотр заказа клиентом",
+    "version": "0.0.0",
+    "filename": "modules/api/controllers/v3/OrderController.php",
+    "groupTitle": "Order"
+  },
+  {
+    "name": "actionMechCall",
+    "group": "Order",
+    "description": "<p>Звонок мастера клиенту</p>",
+    "type": "get",
+    "url": "api/v3/order/mech-call?id=:id",
+    "title": "Звонок мастера клиенту",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID заказа</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Успех:",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": [\"login\": \"+71234567890\"]\n}",
+          "type": "json"
+        },
+        {
+          "title": "Мастеру нужно заплатить:",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": [\"login\": \"need_payment\"]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "3.0.0",
+    "filename": "modules/api/controllers/v3/OrderController.php",
+    "groupTitle": "Order"
+  },
+  {
+    "name": "actionMechIndex",
+    "group": "Order",
+    "description": "<p>Просмотр списка заказов мастером</p>",
+    "type": "get",
+    "url": "api/v3/order/mech-index?id=:id",
+    "title": "Просмотр списка заказов",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID категории заказа (1 - ремонт, 2 - запчасти)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Успех:",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Order[]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "3.0.0",
+    "filename": "modules/api/controllers/v3/OrderController.php",
+    "groupTitle": "Order"
+  },
+  {
+    "name": "actionMechView",
+    "group": "Order",
+    "description": "<p>Просмотр заказа мастером (смотри actionView)</p>",
+    "type": "get",
+    "url": "api/v3/order/mech-view?id=:id",
+    "title": "Просмотр заказа мастером",
+    "version": "0.0.0",
     "filename": "modules/api/controllers/v3/OrderController.php",
     "groupTitle": "Order"
   },
@@ -475,6 +568,13 @@
             "optional": false,
             "field": "Order",
             "description": "<p>Объект заказа</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "Order.id",
+            "description": "<p>ID закза</p>"
           },
           {
             "group": "Success 200",
@@ -572,7 +672,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": Order\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Order\n}",
           "type": "json"
         }
       ]
@@ -581,7 +681,7 @@
       "examples": [
         {
           "title": "Ошибки:",
-          "content": "{\n  \"status\": \"404\",\n  \"message\": \"Заявка не найдена\"\n}",
+          "content": "{\n  \"status\": 404,\n  \"message\": \"Заявка не найдена\"\n}",
           "type": "json"
         }
       ]
@@ -601,7 +701,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": Profile\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Profile\n}",
           "type": "json"
         }
       ]
@@ -697,7 +797,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": Profile\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Profile\n}",
           "type": "json"
         }
       ]
@@ -737,7 +837,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n}",
           "type": "json"
         }
       ]
@@ -757,7 +857,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\"\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\"\n}",
           "type": "json"
         }
       ]
@@ -777,7 +877,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": {\"token\": \"<токен доступа>\"}\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": {\"token\": \"<токен доступа>\"}\n}",
           "type": "json"
         }
       ]
@@ -801,7 +901,7 @@
             "type": "String",
             "optional": false,
             "field": "phone",
-            "description": "<p>номер телефона на который будет отправлено СМС. Формат: ^+7\\d{10}$.</p>"
+            "description": "<p>номер телефона на который будет отправлено СМС. Формат: ^+\\d\\d{10}$.</p>"
           }
         ]
       }
@@ -810,7 +910,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\"\n  \"message\": \"Вам отправлено СМС с кодом подтверждения\"\n}",
+          "content": "{\n  \"status\": 200\n  \"message\": \"Вам отправлено СМС с кодом подтверждения\"\n}",
           "type": "json"
         }
       ]
@@ -819,7 +919,7 @@
       "examples": [
         {
           "title": "Ошибки:",
-          "content": "{\n  \"status\": \"400\",\n  \"message\": \"Неверный формат номера телефона\"\n}\n{\n  \"status\": \"500\",\n  \"message\": \"Ошибка отправки СМС\"\n}",
+          "content": "{\n  \"status\": 400,\n  \"message\": \"Неверный формат номера телефона\"\n}\n{\n  \"status\": 500,\n  \"message\": \"Ошибка отправки СМС\"\n}",
           "type": "json"
         }
       ]
@@ -859,7 +959,7 @@
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": \"200\",\n  \"message\": \"OK\",\n  \"data\": {\"token\": \"<токен доступа>\"}\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": {\"token\": \"<токен доступа>\"}\n}",
           "type": "json"
         }
       ]
@@ -868,7 +968,7 @@
       "examples": [
         {
           "title": "Ошибки:",
-          "content": "{\n  \"status\": \"400\",\n  \"message\": \"Неверный код\"\n}\n{\n  \"status\": \"404\",\n  \"message\": \"Пользователь не найден (возвращается в случае указания номера телефона, отличного от номера во время вызова get-code)\"\n}",
+          "content": "{\n  \"status\": 400,\n  \"message\": \"Неверный код\"\n}\n{\n  \"status\": 404,\n  \"message\": \"Пользователь не найден (возвращается в случае указания номера телефона, отличного от номера во время вызова get-code)\"\n}",
           "type": "json"
         }
       ]

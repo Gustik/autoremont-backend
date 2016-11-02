@@ -75,7 +75,7 @@ class OfferController extends Controller
      * @apiDescription Просмотр предложения
      * @api {get} api/v3/offer/view?id=:id Просмотр предложения
      *
-     * @apiParam {Number} id ID Предложение
+     * @apiParam {Number} id ID Заказа
      *
      * @apiSuccess {Object} Offer Преложение
      *
@@ -98,7 +98,8 @@ class OfferController extends Controller
      */
     public function actionView($id)
     {
-        if ($offer = Offer::findOne(['order_id' => $id, 'author_id' => $this->user->id]) && $offer->is_active) {
+        $offer = Offer::findOne(['order_id' => $id, 'author_id' => $this->user->id]);
+        if ($offer && $offer->is_active) {
             $offer->setScenario('api-view');
             return new ResponseContainer(200, 'OK', $offer->safeAttributes);
         }

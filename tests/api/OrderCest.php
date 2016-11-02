@@ -82,9 +82,26 @@ class OrderCest {
                 'category_id' => 'integer',
                 'new_calls' => 'string|null',
                 'new_offers' => 'string|null',
-                'my_offer' => 'string|null',
+                'my_offer' => 'object|null',
                 'tagNames' => 'string|null',
+                'author' => ['login' => 'string'],
             ]
         ]);
+    }
+
+    public function mechIndex(\ApiTester $I) {
+        $order = $I->grabFixture('orders', 'order3');
+        $I->sendGET('/v3/order/mech-index', ['id' => $order->category_id]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseContainsJson(['data'=>[['description' => $order->description]]]);
+    }
+
+    public function mechCall(\ApiTester $I) {
+        $order = $I->grabFixture('orders', 'order3');
+        $I->sendGET('/v3/order/mech-call', ['id' => $order->id]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseContainsJson(['data'=>['login' => $order->author->login]]);
     }
 }

@@ -15,5 +15,14 @@ return [
         'password_hash' => '$2y$13$kkgpvJ8lnjKo8RuoR30ay.RjDf15bMcHIF7Vz1zz/6viYG5xJExU6',
         'is_admin' => '0',
         'is_active' => '1',
+        'can_work' => 1,
+    ],
+    'user3' => [
+        'id' => 3,
+        'login' => '+71234567892',
+        'access_token' => '$2y$13$kkgqwJ8lnjKo8RuoR30ay.RjDf15bMcHIF7Vz1zz/8viYG5xJExU9',
+        'password_hash' => '$2y$13$kkgqwJ8lnjKo8RuoR30ay.RjDf15bMcHIF7Vz1zz/8viYG5xJExU9',
+        'is_admin' => '0',
+        'is_active' => '1',
     ],
 ];

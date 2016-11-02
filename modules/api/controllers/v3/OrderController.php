@@ -135,6 +135,12 @@ class OrderController extends Controller
     }
 
 
+    /**
+     * @apiName actionClientView
+     * @apiGroup Order
+     * @apiDescription Просмотр заказа клиентом (смотри actionView)
+     * @api {get} api/v3/order/client-view?id=:id Просмотр заказа клиентом
+     */
     public function actionClientView($id)
     {
         $this->redirect(['view', 'id' => $id]);
@@ -219,12 +225,38 @@ class OrderController extends Controller
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
-    //Mech Actions
+    /**
+     * @apiName actionMechView
+     * @apiGroup Order
+     * @apiDescription Просмотр заказа мастером (смотри actionView)
+     * @api {get} api/v3/order/mech-view?id=:id Просмотр заказа мастером
+     */
     public function actionMechView($id)
     {
         $this->redirect(['view', 'id' => $id]);
     }
 
+    /**
+     * @apiName actionMechIndex
+     * @apiGroup Order
+     * @apiDescription Просмотр списка заказов мастером
+     * @api {get} api/v3/order/mech-index?id=:id Просмотр списка заказов
+     *
+     * @apiParam {Number} id ID категории заказа (1 - ремонт, 2 - запчасти)
+     *
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": 200,
+     *       "message": "OK",
+     *       "data": Order[]
+     *     }
+     *
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
     public function actionMechIndex($id = 1)
     {
         $orderModels = Order::findFree($id)->all();
@@ -250,6 +282,34 @@ class OrderController extends Controller
         return new ResponseContainer(200, 'OK', $orders);
     }
 
+    /**
+     * @apiName actionMechCall
+     * @apiGroup Order
+     * @apiDescription Звонок мастера клиенту
+     * @api {get} api/v3/order/mech-call?id=:id Звонок мастера клиенту
+     *
+     * @apiParam {Number} id ID заказа
+     *
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": 200,
+     *       "message": "OK",
+     *       "data": ["login": "+71234567890"]
+     *     }
+     *
+     * @apiSuccessExample {json} Мастеру нужно заплатить:
+     *     {
+     *       "status": 200,
+     *       "message": "OK",
+     *       "data": ["login": "need_payment"]
+     *     }
+     *
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
     public function actionMechCall($id)
     {
         /** @var $order Order */

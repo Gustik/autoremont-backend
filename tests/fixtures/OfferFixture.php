@@ -4,11 +4,11 @@ namespace app\tests\fixtures;
 
 use yii\test\ActiveFixture;
 
-class ProfileFixture extends ActiveFixture
+class OfferFixture extends ActiveFixture
 {
-    public $modelClass = 'app\models\Profile';
+    public $modelClass = 'app\models\Offer';
     public $depends = [
-        'app\tests\fixtures\CityFixture',
+        'app\tests\fixtures\OrderFixture',
         'app\tests\fixtures\UserFixture',
     ];
 }

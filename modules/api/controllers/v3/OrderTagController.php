@@ -3,7 +3,6 @@
 namespace app\modules\api\controllers\v3;
 
 use app\helpers\ResponseContainer;
-use Yii;
 use app\models\OrderTag;
 use yii\filters\VerbFilter;
 
@@ -13,7 +12,7 @@ use yii\filters\VerbFilter;
 class OrderTagController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -21,6 +20,7 @@ class OrderTagController extends Controller
         $behaviors['verbs'] = [
             'class' => VerbFilter::className(),
         ];
+
         return $behaviors;
     }
 
@@ -36,7 +36,7 @@ class OrderTagController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": [{"name": "Ходовка"}, {"name": "Электрика"}, {"name": "Двигатель"}, {"name": "Кузов"}]
      *     }
@@ -57,5 +57,4 @@ class OrderTagController extends Controller
 
         return new ResponseContainer(200, 'OK', $items);
     }
-
 }

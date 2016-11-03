@@ -6,12 +6,13 @@ use Yii;
 use app\modules\admin\models\MechOrderStatSearch;
 
 /**
- * MechOrderStatController
+ * MechOrderStatController.
  */
 class MechOrderStatController extends Controller
 {
     /**
      * Lists all MechOrderStat models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -24,5 +25,4 @@ class MechOrderStatController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
 }

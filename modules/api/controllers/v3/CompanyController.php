@@ -1,10 +1,8 @@
 <?php
+
 namespace app\modules\api\controllers\v3;
 
-use Yii;
-
 use app\helpers\ResponseContainer;
-
 use app\models\Company;
 
 class CompanyController extends Controller
@@ -12,6 +10,7 @@ class CompanyController extends Controller
     public function behaviors()
     {
         $behaviors = parent::behaviors();
+
         return $behaviors;
     }
 
@@ -31,7 +30,7 @@ class CompanyController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": [Company1, Company2]
      *     }
@@ -48,6 +47,7 @@ class CompanyController extends Controller
             $company->setScenario('api-view');
             $companies[] = $company->safeAttributes;
         }
+
         return new ResponseContainer(200, 'OK', $companies);
     }
 }

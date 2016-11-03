@@ -1,11 +1,10 @@
 <?php
+
 namespace app\modules\api\controllers\v2;
 
 use Yii;
-
 use app\helpers\ResponseContainer;
 use yii\filters\VerbFilter;
-
 use app\models\Profile;
 
 class ProfileController extends Controller
@@ -19,6 +18,7 @@ class ProfileController extends Controller
                 'update' => ['post'],
             ],
         ];
+
         return $behaviors;
     }
 
@@ -38,6 +38,7 @@ class ProfileController extends Controller
                 return new ResponseContainer(200, 'OK', $profile->safeAttributes);
             }
         }
+
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $profile->errors);
     }
 
@@ -52,6 +53,7 @@ class ProfileController extends Controller
             }
         }
         $profile->setScenario('api-view');
+
         return new ResponseContainer(200, 'OK', $profile->safeAttributes);
     }
 }

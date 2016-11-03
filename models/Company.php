@@ -2,19 +2,17 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "company".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $updated_at
- * @property integer $category
+ * @property int $category
  * @property string $name
  * @property string $phone
  * @property string $description
- * @property integer $is_active
+ * @property int $is_active
  */
 class Company extends Model
 {
@@ -38,7 +36,7 @@ class Company extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -46,17 +44,18 @@ class Company extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
         $scenarios = parent::scenarios();
         $scenarios['api-view'] = ['id', 'name', 'phone', 'description'];
+
         return $scenarios;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -70,7 +69,7 @@ class Company extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

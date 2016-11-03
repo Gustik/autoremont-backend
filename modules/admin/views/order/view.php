@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'price',
             [
                 'label' => 'Автомобиль',
-                'value' => "{$model->car_brand} {$model->car_model} {$model->car_color} {$model->car_year}"
+                'value' => "{$model->car_brand} {$model->car_model} {$model->car_color} {$model->car_year}",
             ],
             'author.profile.name:text:Автор',
             'executor.profile.name:text:Исполнитель',
@@ -70,8 +70,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
             </thead>
             <?php foreach ($model->offers as $offer) {
-                echo $this->render('_offer', ['model' => $offer]);
-            } ?>
+        echo $this->render('_offer', ['model' => $offer]);
+    } ?>
         </table>
     </div>
 

@@ -25,12 +25,12 @@ use dosamigos\datepicker\DatePicker;
             'language' => 'ru',
             'clientOptions' => [
                 'format' => 'yyyy-mm-dd',
-                'startView' => 2
+                'startView' => 2,
             ],
             'options' => [
-                'name' => 'Profile[birth_date]'
-            ]
-    ]);?>
+                'name' => 'Profile[birth_date]',
+            ],
+    ]); ?>
 
     <?= $form->field($profile, 'gcm_id')->textInput(['maxlength' => true, 'name' => 'Profile[gcm_id]']) ?>
 

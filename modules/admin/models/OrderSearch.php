@@ -2,7 +2,6 @@
 
 namespace app\modules\admin\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Order;
@@ -15,7 +14,7 @@ class OrderSearch extends Order
     public $name;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -26,7 +25,7 @@ class OrderSearch extends Order
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -35,7 +34,7 @@ class OrderSearch extends Order
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Creates data provider instance with search query applied.
      *
      * @param array $params
      *
@@ -49,12 +48,12 @@ class OrderSearch extends Order
             'query' => $query,
             'sort' => [
                 'attributes' => [
-                    'created_at'
+                    'created_at',
                 ],
                 'defaultOrder' => [
-                    'created_at' => SORT_DESC
-                ]
-            ]
+                    'created_at' => SORT_DESC,
+                ],
+            ],
         ]);
 
         $this->load($params);

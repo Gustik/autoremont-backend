@@ -2,7 +2,6 @@
 
 namespace app\modules\admin\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\StatCall;
@@ -16,7 +15,7 @@ class StatCallSearch extends StatCall
     public $date_to;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -27,7 +26,7 @@ class StatCallSearch extends StatCall
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -36,7 +35,7 @@ class StatCallSearch extends StatCall
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Creates data provider instance with search query applied.
      *
      * @param array $params
      *
@@ -70,12 +69,12 @@ class StatCallSearch extends StatCall
         $query->andFilterWhere(['=', 'from', $this->from])
             ->andFilterWhere(['=', 'to', $this->to]);
 
-        $year = date("Y");
-        if(!isset($this->date_from)) {
+        $year = date('Y');
+        if (!isset($this->date_from)) {
             $this->date_from = "$year-01-01";
         }
 
-        if(!isset($this->date_to)) {
+        if (!isset($this->date_to)) {
             $this->date_to = "$year-12-31";
         }
 

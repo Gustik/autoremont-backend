@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\BillTariff */
 
-$this->title = 'Update Bill Tariff: ' . $model->name;
+$this->title = 'Update Bill Tariff: '.$model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Платежи', 'url' => ['bill-payment/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Тарифы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];

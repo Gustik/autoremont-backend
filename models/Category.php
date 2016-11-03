@@ -2,20 +2,17 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "category".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $topic
- *
  */
 class Category extends Model
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -23,19 +20,19 @@ class Category extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
             [['name', 'topic'], 'required'],
             [['name', 'topic'], 'string', 'max' => 255],
-            [['name', 'topic'], 'unique']
+            [['name', 'topic'], 'unique'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

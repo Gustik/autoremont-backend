@@ -2,21 +2,18 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "call".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $updated_at
- * @property integer $client_id
- * @property integer $mech_id
- * @property integer $order_id
- * @property integer $client_accept
- * @property integer $mech_accept
- * @property integer $is_active
- *
+ * @property int $client_id
+ * @property int $mech_id
+ * @property int $order_id
+ * @property int $client_accept
+ * @property int $mech_accept
+ * @property int $is_active
  * @property User $client
  * @property User $executor
  * @property Order $order
@@ -24,7 +21,7 @@ use Yii;
 class Call extends Model
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -32,29 +29,30 @@ class Call extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
         $scenarios = parent::scenarios();
         $scenarios['api-view'] = ['id', 'client', 'executor'];
+
         return $scenarios;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
             [['client_id', 'mech_id', 'order_id'], 'required'],
             [['created_at', 'updated_at', 'client_accept', 'mech_accept'], 'safe'],
-            [['client_id', 'mech_id', 'order_id', 'client_accept', 'mech_accept', 'is_active'], 'integer']
+            [['client_id', 'mech_id', 'order_id', 'client_accept', 'mech_accept', 'is_active'], 'integer'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -96,19 +94,21 @@ class Call extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($insert) {
-                $call = Call::findOne(['order_id' => $this->order_id, 'mech_id' => $this->mech_id]);
+                $call = self::findOne(['order_id' => $this->order_id, 'mech_id' => $this->mech_id]);
                 if ($call) {
                     $call->delete();
                 }
             }
+
             return true;
         }
+
         return false;
     }
 }

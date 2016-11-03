@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="company-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);?>
 
     <p>
         <?= Html::a('Добавить компанию', ['create'], ['class' => 'btn btn-success']) ?>
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'category',
                 'value' => 'categoryName',
-                'filter' => Company::$categories
+                'filter' => Company::$categories,
             ],
             'name',
             'created_at',

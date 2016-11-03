@@ -2,19 +2,16 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "offer".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $updated_at
  * @property string $text
- * @property integer $order_id
- * @property integer $author_id
- * @property integer $is_active
- *
+ * @property int $order_id
+ * @property int $author_id
+ * @property int $is_active
  * @property User $author
  * @property Order $order
  * @property bool is_call
@@ -22,7 +19,7 @@ use Yii;
 class Offer extends Model
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -30,7 +27,7 @@ class Offer extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -38,11 +35,12 @@ class Offer extends Model
         $scenarios['api-create'] = ['text', 'order_id'];
         $scenarios['api-update'] = ['text'];
         $scenarios['api-view'] = ['id', 'text', 'created_at', 'updated_at', 'author_id', 'order_id', 'author'];
+
         return $scenarios;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -57,7 +55,7 @@ class Offer extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -90,19 +88,20 @@ class Offer extends Model
 
     public static function findProduce($orderID, $userID)
     {
-        if ($offer = Offer::findOne(['is_active' => true, 'order_id' => $orderID, 'author_id' => $userID])) {
+        if ($offer = self::findOne(['is_active' => true, 'order_id' => $orderID, 'author_id' => $userID])) {
             $offer->setScenario('api-update');
         } else {
-            $offer = new Offer();
+            $offer = new self();
             $offer->setScenario('api-create');
             $offer->author_id = $userID;
             $offer->order_id = $orderID;
         }
+
         return $offer;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeSave($insert)
     {
@@ -110,8 +109,10 @@ class Offer extends Model
             if (!array_key_exists('is_new', $this->dirtyAttributes)) {
                 $this->is_new = true;
             }
+
             return true;
         }
+
         return false;
     }
 }

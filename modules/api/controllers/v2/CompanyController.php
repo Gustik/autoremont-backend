@@ -1,10 +1,8 @@
 <?php
+
 namespace app\modules\api\controllers\v2;
 
-use Yii;
-
 use app\helpers\ResponseContainer;
-
 use app\models\Company;
 
 class CompanyController extends Controller
@@ -12,6 +10,7 @@ class CompanyController extends Controller
     public function behaviors()
     {
         $behaviors = parent::behaviors();
+
         return $behaviors;
     }
 
@@ -23,6 +22,7 @@ class CompanyController extends Controller
             $company->setScenario('api-view');
             $companies[] = $company->safeAttributes;
         }
+
         return new ResponseContainer(200, 'OK', $companies);
     }
 }

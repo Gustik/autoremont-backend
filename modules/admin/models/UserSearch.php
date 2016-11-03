@@ -1,7 +1,7 @@
 <?php
+
 namespace app\modules\admin\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\User;
@@ -15,7 +15,7 @@ class UserSearch extends User
     public $is_online;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -27,7 +27,7 @@ class UserSearch extends User
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -36,7 +36,7 @@ class UserSearch extends User
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Creates data provider instance with search query applied.
      *
      * @param array $params
      *
@@ -59,7 +59,7 @@ class UserSearch extends User
                         'desc' => ['user.visited_at' => SORT_DESC],
                     ],
                 ],
-            ]
+            ],
         ]);
 
         $this->load($params);
@@ -81,10 +81,10 @@ class UserSearch extends User
             'user.is_admin' => $this->is_admin,
         ]);
 
-        $date = date('Y-m-d H:i:s', time() - 60*15);
+        $date = date('Y-m-d H:i:s', time() - 60 * 15);
         if ($this->is_online === '1') {
             $query->andFilterWhere(['>=', 'user.visited_at', $date]);
-        } else if ($this->is_online === '0') {
+        } elseif ($this->is_online === '0') {
             $query->andFilterWhere(['<', 'user.visited_at', $date]);
         }
 

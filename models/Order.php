@@ -8,20 +8,20 @@ use Yii;
 /**
  * This is the model class for table "order".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $updated_at
  * @property string $description
- * @property integer $price
+ * @property int $price
  * @property string $car_brand
  * @property string $car_model
  * @property string $car_year
  * @property string $car_color
- * @property integer $author_id
- * @property integer $executor_id
- * @property integer $is_active
- * @property integer $tagNames // Виртуальное свойство
- *
+ * @property int $author_id
+ * @property int $executor_id
+ * @property int $category_id
+ * @property int $is_active
+ * @property int $tagNames // Виртуальное свойство
  * @property User $author
  * @property User $executor
  * @property Call[] $calls
@@ -33,7 +33,7 @@ class Order extends Model
     public $my_offer;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -49,10 +49,12 @@ class Order extends Model
     {
         $values = parent::getAttributes($names, $except);
         $values['tagNames'] = $this->tagNames;
+
         return $values;
     }
 
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             [
                 'class' => Taggable::className(),
@@ -61,36 +63,37 @@ class Order extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['api-create'] = ['description', 'price', 'tagNames', 'car_brand', 'car_model', 'car_year', 'car_color', 'category_id'];
+        $scenarios['api-create'] = ['id', 'description', 'price', 'tagNames', 'car_brand', 'car_model', 'car_year', 'car_color', 'category_id'];
         $scenarios['api-update'] = ['description', 'car_brand', 'car_model', 'car_year', 'car_color', 'category_id', 'tagNames'];
         $scenarios['api-view'] = ['id', 'description', 'price', 'tagNames', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'new_offers', 'my_offer', 'offers', 'calls', 'executor', 'author', 'category'];
         $scenarios['api-view-without-calls'] = ['id', 'description', 'price', 'tagNames', 'created_at', 'updated_at', 'car_brand', 'car_model', 'car_year', 'car_color', 'author_id', 'category_id', 'new_calls', 'new_offers', 'executor', 'author', 'category'];
+
         return $scenarios;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['description', 'price'], 'required'],
-            [['created_at', 'updated_at', 'tagNames', 'tags'], 'safe'],
+            [['description', 'category_id'], 'required'],
+            [['created_at', 'updated_at', 'tagNames', 'tags', 'id'], 'safe'],
             [['description'], 'string'],
             [['price', 'author_id', 'is_active', 'category_id'], 'integer'],
             [['car_brand', 'car_model', 'car_year', 'car_color'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 512],
-            ['category_id', 'default', 'value' => 1]
+            ['category_id', 'default', 'value' => 1],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -107,10 +110,9 @@ class Order extends Model
             'author_id' => 'Author ID',
             'executor_id' => 'Executor ID',
             'is_active' => 'Is Active',
-            'tagNames' => 'Теги'
+            'tagNames' => 'Теги',
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -161,7 +163,7 @@ class Order extends Model
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getOffersCount()
     {
@@ -169,7 +171,7 @@ class Order extends Model
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getAutoOffersCount()
     {
@@ -201,7 +203,7 @@ class Order extends Model
             // don't show self-created orders
             ->andWhere(['!=', 'author_id', Yii::$app->user->identity->id])
             // date of last update must be earlier than 2 days
-            ->andWhere(['>', 'updated_at', date("Y-m-d H:i:s", time() - 60*60*24*2)])
+            ->andWhere(['>', 'updated_at', date('Y-m-d H:i:s', time() - 60 * 60 * 24 * 2)])
             // show only order from master's city
             ->andWhere(['city_id' => Yii::$app->user->identity->profile->city_id])
             // show only order from selected category
@@ -215,11 +217,12 @@ class Order extends Model
             $offer->is_new = false;
             $offer->save();
         }
+
         return true;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeSave($insert)
     {
@@ -228,8 +231,10 @@ class Order extends Model
                 $this->author_id = Yii::$app->user->identity->id;
             }
             $this->description = trim($this->description);
+
             return true;
         }
+
         return false;
     }
 }

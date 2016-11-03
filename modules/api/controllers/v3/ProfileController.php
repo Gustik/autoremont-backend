@@ -1,11 +1,10 @@
 <?php
+
 namespace app\modules\api\controllers\v3;
 
 use Yii;
-
 use app\helpers\ResponseContainer;
 use yii\filters\VerbFilter;
-
 use app\models\Profile;
 
 class ProfileController extends Controller
@@ -19,6 +18,7 @@ class ProfileController extends Controller
                 'update' => ['post'],
             ],
         ];
+
         return $behaviors;
     }
 
@@ -26,6 +26,7 @@ class ProfileController extends Controller
      * @apiName actionUpdate
      * @apiGroup Profile
      * @apiDescription Обновление профиля.
+     *
      * @api {post} api/v3/profile/update Обновление профиля
      *
      * @apiParam {Object} Profile Профиль
@@ -41,7 +42,7 @@ class ProfileController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Profile
      *     }
@@ -66,6 +67,7 @@ class ProfileController extends Controller
                 return new ResponseContainer(200, 'OK', $profile->safeAttributes);
             }
         }
+
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $profile->errors);
     }
 
@@ -76,7 +78,7 @@ class ProfileController extends Controller
      * @apiDescription Просмотр своего профиля (не сохраняет данные, нет обязательных параметров).
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Profile
      *     }
@@ -95,6 +97,7 @@ class ProfileController extends Controller
             }
         }
         $profile->setScenario('api-view');
+
         return new ResponseContainer(200, 'OK', $profile->safeAttributes);
     }
 }

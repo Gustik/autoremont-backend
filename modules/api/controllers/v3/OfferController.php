@@ -1,8 +1,8 @@
 <?php
+
 namespace app\modules\api\controllers\v3;
 
 use Yii;
-
 use app\helpers\ResponseContainer;
 use app\helpers\PushHelper;
 use app\models\Offer;
@@ -13,6 +13,7 @@ class OfferController extends Controller
     public function behaviors()
     {
         $behaviors = parent::behaviors();
+
         return $behaviors;
     }
 
@@ -20,6 +21,7 @@ class OfferController extends Controller
      * @apiName actionProduce
      * @apiGroup Offer
      * @apiDescription Создание/обновление предложения
+     *
      * @api {post} api/v3/offer/produce Создание/обновление предложения
      *
      * @apiParam {Object} Offer Предложение
@@ -30,14 +32,14 @@ class OfferController extends Controller
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Offer
      *     }
      *
      * @apiErrorExample {json} Ошибки:
      *     {
-     *       "status": "404",
+     *       "status": 404,
      *       "message": "Заявка не найдена"
      *     }
      *
@@ -56,16 +58,19 @@ class OfferController extends Controller
                 if ($offer->save()) {
                     PushHelper::send(
                         $offer->order->author->profile->gcm_id,
-                        "Новое предложение по вашему заказу!",
-                        ["type" => PushHelper::TYPE_OFFER, "order_id" => $offer->order->id, "cat" => $offer->order->category_id]
+                        'Новое предложение по вашему заказу!',
+                        ['type' => PushHelper::TYPE_OFFER, 'order_id' => $offer->order->id, 'cat' => $offer->order->category_id]
                     );
                     $offer->setScenario('api-view');
                     unset($offer->author);
+
                     return new ResponseContainer(200, 'OK', $offer->safeAttributes);
                 }
             }
+
             return new ResponseContainer(500, 'Внутренняя ошибка сервера', $offer->errors);
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -73,22 +78,23 @@ class OfferController extends Controller
      * @apiName actionView
      * @apiGroup Offer
      * @apiDescription Просмотр предложения
+     *
      * @api {get} api/v3/offer/view?id=:id Просмотр предложения
      *
-     * @apiParam {Number} id ID Предложение
+     * @apiParam {Number} id ID Заказа
      *
      * @apiSuccess {Object} Offer Преложение
      *
      * @apiSuccessExample {json} Успех:
      *     {
-     *       "status": "200",
+     *       "status": 200,
      *       "message": "OK",
      *       "data": Offer
      *     }
      *
      * @apiErrorExample {json} Ошибки:
      *     {
-     *       "status": "404",
+     *       "status": 404,
      *       "message": "Предложение не найдена"
      *     }
      *
@@ -98,10 +104,13 @@ class OfferController extends Controller
      */
     public function actionView($id)
     {
-        if ($offer = Offer::findOne(['order_id' => $id, 'author_id' => $this->user->id]) && $offer->is_active) {
+        $offer = Offer::findOne(['order_id' => $id, 'author_id' => $this->user->id]);
+        if ($offer && $offer->is_active) {
             $offer->setScenario('api-view');
+
             return new ResponseContainer(200, 'OK', $offer->safeAttributes);
         }
+
         return new ResponseContainer(404, 'Предложение не найдено');
     }
 }

@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
 class StatCallController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -30,6 +30,7 @@ class StatCallController extends Controller
 
     /**
      * Lists all StatCall models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -43,13 +44,14 @@ class StatCallController extends Controller
         ]);
     }
 
-
-
     /**
      * Finds the StatCall model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return StatCall the loaded model
+     *
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

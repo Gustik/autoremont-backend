@@ -1,4 +1,5 @@
 <?php
+// access_token должен быть уникальным
 return [
     'user1' => [
         'id' => 1,
@@ -24,5 +25,14 @@ return [
         'password_hash' => '$2y$13$kkgqwJ8lnjKo8RuoR30ay.RjDf15bMcHIF7Vz1zz/8viYG5xJExU9',
         'is_admin' => '0',
         'is_active' => '1',
+    ],
+    'cantWorkUser' => [
+        'id' => 4,
+        'login' => '+71234567893',
+        'access_token' => '$2y$13$kkgpzJ8lnjKo8RuoR30ay.RjDf15bMcHIF7Vz1zz/6viYG5xJExU6',
+        'password_hash' => '$2y$13$kkgpvJ8lnjKo8RuoR30ay.RjDf15bMcHIF7Vz1zz/6viYG5xJExU6',
+        'is_admin' => '0',
+        'is_active' => '1',
+        'can_work' => '0',
     ],
 ];

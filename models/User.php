@@ -8,20 +8,19 @@ use yii\web\IdentityInterface;
 /**
  * This is the model class for table "user".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $updated_at
  * @property string $visited_at
  * @property string $login
  * @property string $password_hash
  * @property string $access_token
- * @property integer $auth_key
- * @property integer $sms_code
- * @property integer $sms_code_time
- * @property integer $is_active
- * @property integer $is_admin
- * @property boolean $can_work
- *
+ * @property int $auth_key
+ * @property int $sms_code
+ * @property int $sms_code_time
+ * @property int $is_active
+ * @property int $is_admin
+ * @property bool $can_work
  * @property Profile $profile
  */
 class User extends Model implements IdentityInterface
@@ -31,7 +30,7 @@ class User extends Model implements IdentityInterface
     const TEST_CODE = '1234';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -39,7 +38,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -47,11 +46,12 @@ class User extends Model implements IdentityInterface
         $scenarios['admin-create'] = ['login', 'is_admin', 'password'];
         $scenarios['admin-update'] = ['login', 'is_admin', 'password'];
         $scenarios['api-view'] = ['login', 'profile'];
+
         return $scenarios;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -65,7 +65,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -89,7 +89,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function findIdentity($id)
     {
@@ -97,7 +97,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
@@ -113,7 +113,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -121,7 +121,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAuthKey()
     {
@@ -129,15 +129,15 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * @return Boolean On-Line status
+     * @return bool On-Line status
      */
     public function getIsOnline()
     {
-        return ( (strtotime($this->visited_at)) > time() -  60*15 ) && $this->is_active;
+        return ((strtotime($this->visited_at)) > time() - 60 * 15) && $this->is_active;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validateAuthKey($authKey)
     {
@@ -145,7 +145,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * @return Boolean
+     * @return bool
      */
     public function validatePassword($password)
     {
@@ -153,7 +153,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * @return Boolean
+     * @return bool
      */
     public function validateSmsCode($code)
     {
@@ -161,7 +161,8 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * Generates a password hash
+     * Generates a password hash.
+     *
      * @param string $password user password
      */
     public function setPassword($password)
@@ -202,46 +203,49 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * Return true, if user can accept order
+     * Return true, if user can accept order.
      *
-     * @return boolean
+     * @return bool
      **/
     public function canAcceptCall(Call $call, $type)
-    {        
+    {
         if (array_search($type, ['client', 'mech']) === false) {
             return false;
         }
         if (($type == 'client' && $call->client_id == $this->id) ||
             ($type == 'mech' && $call->mech_id == $this->id)) {
-                return true;
+            return true;
         }
+
         return false;
     }
 
     /**
-     * Return true, if user can decline order
+     * Return true, if user can decline order.
      *
-     * @return boolean
+     * @return bool
      **/
     public function canDeclineCall(Call $call, $type)
-    {        
+    {
         if (array_search($type, ['client', 'mech']) === false) {
             return false;
         }
         if (($type == 'client' && $call->client_id == $this->id) ||
             ($type == 'mech' && $call->mech_id == $this->id)) {
-                return true;
+            return true;
         }
+
         return false;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             $this->visited_at = date('Y-m-d H:i:s');
+
             return true;
         } else {
             return false;
@@ -251,12 +255,14 @@ class User extends Model implements IdentityInterface
     public function ban($date)
     {
         $this->banned_to = $date;
+
         return $this->save();
     }
 
     public function unban()
     {
         $this->banned_to = null;
+
         return $this->save();
     }
 }

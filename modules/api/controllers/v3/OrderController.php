@@ -1,14 +1,14 @@
 <?php
+
 namespace app\modules\api\controllers\v3;
 
+use app\models\Category;
 use Yii;
-
 use app\helpers\ResponseContainer;
 use app\helpers\PushHelper;
 use app\models\Variable;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
-
 use app\models\Call;
 use app\models\Order;
 use app\models\Offer;
@@ -25,6 +25,7 @@ class OrderController extends Controller
                 'update' => ['post'],
             ],
         ];
+
         return $behaviors;
     }
 
@@ -32,6 +33,7 @@ class OrderController extends Controller
      * @apiName actionClientCreate
      * @apiGroup Order
      * @apiDescription Создание заказа клиентом
+     *
      * @api {post} api/v3/order/client-create Создание заказа
      *
      * @apiParam {Object} Order Заказ
@@ -62,15 +64,16 @@ class OrderController extends Controller
             if ($order->save()) {
                 $topic = "/topics/{$order->city_id}-{$order->category->topic}";
                 if (Variable::getParam('environment') == 'DEV') {
-                    $topic .= "-dev";
+                    $topic .= '-dev';
                 }
-                PushHelper::send($topic, "{$order->category->name}: новый заказ", ['type' => PushHelper::TYPE_ORDER, 'order_id' => $order->id, "cat" => $order->category_id]);
+                PushHelper::send($topic, "{$order->category->name}: новый заказ", ['type' => PushHelper::TYPE_ORDER, 'order_id' => $order->id, 'cat' => $order->category_id]);
                 // Отправка пушей на старые топики для обратней совместимости.
                 // УБРАТЬ В НОВОЙ ВЕРСИИ
                 // PushHelper::send("/topics/{$order->category->topic}", "{$order->category->name}: новый заказ");
                 return new ResponseContainer(200, 'OK', $order->safeAttributes);
             }
         }
+
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
     }
 
@@ -78,6 +81,7 @@ class OrderController extends Controller
      * @apiName actionClientUpdate
      * @apiGroup Order
      * @apiDescription Обновление заказа клиентом
+     *
      * @api {post} api/v3/order/client-update Обновление заказа
      *
      * @apiParam {Object} Order Заказ
@@ -125,20 +129,24 @@ class OrderController extends Controller
                     if ($order->load(Yii::$app->request->getBodyParams()) && $order->save()) {
                         return new ResponseContainer(200, 'OK', $order->safeAttributes);
                     }
+
                     return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
                 }
+
                 return new ResponseContainer(403, 'Заявка принадлежит не вам');
             }
+
             return new ResponseContainer(404, 'Заявка не найдена');
         }
+
         return new ResponseContainer(400, 'Отсутствует обязательный параметр: id');
     }
-
 
     /**
      * @apiName actionClientView
      * @apiGroup Order
      * @apiDescription Просмотр заказа клиентом (смотри actionView)
+     *
      * @api {get} api/v3/order/client-view?id=:id Просмотр заказа клиентом
      */
     public function actionClientView($id)
@@ -153,12 +161,13 @@ class OrderController extends Controller
             if ($order->is_active) {
                 $order->setScenario('api-view-without-calls');
                 if ($order->executor) {
-                    $order->executor->setScenario('api-view');                    
+                    $order->executor->setScenario('api-view');
                 }
                 $order->new_offers = $order->newOffers;
                 $orders[] = $order->safeAttributes;
             }
         }
+
         return new ResponseContainer(200, 'OK', $orders);
     }
 
@@ -175,12 +184,16 @@ class OrderController extends Controller
                     if ($order->save()) {
                         return new ResponseContainer(200, 'OK');
                     }
+
                     return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
                 }
+
                 return new ResponseContainer(403, 'Нельзя отменить уже принятую заявку');
             }
+
             return new ResponseContainer(403, 'Заявка принадлежит не вам');
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -193,10 +206,13 @@ class OrderController extends Controller
                 if ($order->save()) {
                     return new ResponseContainer(200, 'OK', ['price' => $order->price]);
                 }
+
                 return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
             }
+
             return new ResponseContainer(403, 'Заявка принадлежит не вам');
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -218,10 +234,13 @@ class OrderController extends Controller
                 foreach ($order->calls as $call) {
                     $call->delete();
                 }
+
                 return new ResponseContainer();
             }
+
             return new ResponseContainer(403, 'Заявка принадлежит не вам');
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -229,6 +248,7 @@ class OrderController extends Controller
      * @apiName actionMechView
      * @apiGroup Order
      * @apiDescription Просмотр заказа мастером (смотри actionView)
+     *
      * @api {get} api/v3/order/mech-view?id=:id Просмотр заказа мастером
      */
     public function actionMechView($id)
@@ -240,6 +260,7 @@ class OrderController extends Controller
      * @apiName actionMechIndex
      * @apiGroup Order
      * @apiDescription Просмотр списка заказов мастером
+     *
      * @api {get} api/v3/order/mech-index?id=:id Просмотр списка заказов
      *
      * @apiParam {Number} id ID категории заказа (1 - ремонт, 2 - запчасти)
@@ -266,6 +287,7 @@ class OrderController extends Controller
             $order->my_offer = $order->myOffer;
             $orders[] = $order->safeAttributes;
         }
+
         return new ResponseContainer(200, 'OK', $orders);
     }
 
@@ -279,6 +301,7 @@ class OrderController extends Controller
                 $orders[] = $order->safeAttributes;
             }
         }
+
         return new ResponseContainer(200, 'OK', $orders);
     }
 
@@ -286,6 +309,7 @@ class OrderController extends Controller
      * @apiName actionMechCall
      * @apiGroup Order
      * @apiDescription Звонок мастера клиенту
+     *
      * @api {get} api/v3/order/mech-call?id=:id Звонок мастера клиенту
      *
      * @apiParam {Number} id ID заказа
@@ -308,6 +332,7 @@ class OrderController extends Controller
      *
      * @apiVersion 3.0.0
      *
+     * @param int $id ID заказа
      * @return ResponseContainer
      */
     public function actionMechCall($id)
@@ -318,8 +343,11 @@ class OrderController extends Controller
             if ($order->author_id != $this->user->id) {
                 if (!$order->executor_id) { // Если исполнитель не присвоен к заказу
 
-                    if(!$this->user->can_work) // Если не может работать (не оплачен аккаунт)
+                    // Если не может работать (не оплачен аккаунт)
+                    // для магазинов пока бесплатно (category_id 1 - ремонт, 2 - запчасти)
+                    if (!$this->user->can_work && $order->category_id == 1) {
                         return new ResponseContainer(200, 'OK', ['login' => 'need_payment']);
+                    }
 
                     // Create offer
                     /** @var $offer Offer */
@@ -329,15 +357,19 @@ class OrderController extends Controller
                         $offer->text = 'Вам звонили';
                         $offer->save();
                         PushHelper::send($order->author->profile->gcm_id,
-                            "Новое предложение по вашему заказу!",
+                            'Новое предложение по вашему заказу!',
                             ['type' => PushHelper::TYPE_OFFER, 'order_id' => $order->id]);
                     }
+
                     return new ResponseContainer(200, 'OK', ['login' => $order->author->login]);
                 }
+
                 return new ResponseContainer(403, 'Заявка уже принята');
             }
+
             return new ResponseContainer(403, 'Невозможно принять собственную заявку');
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -357,6 +389,7 @@ class OrderController extends Controller
      * @apiName actionView
      * @apiGroup Order
      * @apiDescription Просмотр заказа
+     *
      * @api {get} api/v3/order/view?id=:id Просмотр заказа
      *
      * @apiParam {Number} id ID заказа
@@ -409,7 +442,7 @@ class OrderController extends Controller
                 }
                 $order->readAllOffers();
                 $order->author->setScenario('api-view');
-            } else if ($order->executor_id == $this->user->id) {
+            } elseif ($order->executor_id == $this->user->id) {
                 // If user is executor show my offer and author
                 foreach ($order->offers as $offer) {
                     $offer->setScenario('api-view');
@@ -427,8 +460,10 @@ class OrderController extends Controller
             if ($order->executor) {
                 $order->executor->setScenario('api-view');
             }
+
             return new ResponseContainer(200, 'OK', $order->safeAttributes);
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -447,23 +482,29 @@ class OrderController extends Controller
                             foreach ($order->calls as $call) {
                                 $call->delete();
                             }
+
                             return new ResponseContainer();
                         }
+
                         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
                     }
-                    if ($type == "client") {
+                    if ($type == 'client') {
                         foreach ($order->calls as $c) {
                             if ($c->id != $call->id) {
                                 $c->delete();
                             }
                         }
                     }
+
                     return new ResponseContainer();
                 }
+
                 return new ResponseContainer(500, 'Внутренняя ошибка сервера', $call->errors);
             }
+
             return new ResponseContainer(403, 'Вы не можете принять эту заявку');
         }
+
         return new ResponseContainer(404, 'Звонок не найден');
     }
 
@@ -474,10 +515,13 @@ class OrderController extends Controller
             $order = $call->order;
             if ($this->user->canDeclineCall($call, $type)) {
                 $call->delete();
+
                 return new ResponseContainer();
             }
+
             return new ResponseContainer(403, 'Вы не можете отклонить этот звонок');
         }
+
         return new ResponseContainer(404, 'Звонок не найден');
     }
 }

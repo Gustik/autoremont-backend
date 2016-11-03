@@ -2,23 +2,21 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "variable".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $updated_at
  * @property string $name
  * @property string $param
  * @property string $value
- * @property integer $is_active
+ * @property int $is_active
  */
 class Variable extends Model
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -26,7 +24,7 @@ class Variable extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -34,12 +32,12 @@ class Variable extends Model
             [['name', 'param', 'value'], 'required'],
             [['is_active'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['name', 'param', 'value'], 'string', 'max' => 255]
+            [['name', 'param', 'value'], 'string', 'max' => 255],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -56,20 +54,23 @@ class Variable extends Model
 
     public static function getParam($param)
     {
-    	$model = static::findOne(['param' => $param]);
-    	if ($model) {
-    		return $model->value;
-    	}
-    	return null;
+        $model = static::findOne(['param' => $param]);
+        if ($model) {
+            return $model->value;
+        }
+
+        return null;
     }
 
     public static function setParam($param, $value)
     {
-    	$model = static::findOne(['param' => $param]);
-    	if ($model) {
-	    	$model->value = $value;
-	    	return $model->save();
-    	}
-    	return null;
+        $model = static::findOne(['param' => $param]);
+        if ($model) {
+            $model->value = $value;
+
+            return $model->save();
+        }
+
+        return null;
     }
 }

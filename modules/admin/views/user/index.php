@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);?>
 
     <p>
         <?= Html::a('Новый пользователь', ['create'], ['class' => 'btn btn-success']) ?>
@@ -25,58 +25,58 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-            	'attribute' => 'name',
-            	'value' => 'profile.name'
+                'attribute' => 'name',
+                'value' => 'profile.name',
             ],
             'login',
             [
                 'attribute' => 'can_work',
                 'format' => 'raw',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return $model->getFriendly('can_work', 'boolean');
                 },
                 'contentOptions' => [
-                    'align' => 'center'
+                    'align' => 'center',
                 ],
             ],
             [
                 'attribute' => 'isOnline',
                 'format' => 'raw',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return $model->getFriendly('isOnline', 'boolean');
                 },
                 'contentOptions' => [
-                    'align' => 'center'
+                    'align' => 'center',
                 ],
                 'filter' => Html::activeDropDownList($searchModel, 'is_online',
                     [
                         '1' => 'Да',
-                        '0' => 'Нет'
+                        '0' => 'Нет',
                     ],
                     [
-                        'class'=>'form-control',
-                        'prompt' => ''
+                        'class' => 'form-control',
+                        'prompt' => '',
                     ]),
             ],
             [
-    			'attribute' => 'is_admin',
-    			'format' => 'raw',
-    			'value' => function($model) {
+                'attribute' => 'is_admin',
+                'format' => 'raw',
+                'value' => function ($model) {
                     return $model->getFriendly('is_admin', 'boolean');
-			    },
-			    'contentOptions' => [
-			    	'align' => 'center'
-			    ],
-    			'filter' => Html::activeDropDownList($searchModel, 'is_admin',
-    				[
-    					'1' => 'Да',
-    					'0' => 'Нет'
-    				],
-    				[
-    					'class'=>'form-control',
-    					'prompt' => ''
-    				]),
-			],
+                },
+                'contentOptions' => [
+                    'align' => 'center',
+                ],
+                'filter' => Html::activeDropDownList($searchModel, 'is_admin',
+                    [
+                        '1' => 'Да',
+                        '0' => 'Нет',
+                    ],
+                    [
+                        'class' => 'form-control',
+                        'prompt' => '',
+                    ]),
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete} {send}',
@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['data-method' => 'POST']
                         );
                     },
-                ]
+                ],
             ],
         ],
     ]); ?>

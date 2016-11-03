@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\OrderTag */
 
-$this->title = 'Update Order Tag: ' . $model->name;
+$this->title = 'Update Order Tag: '.$model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['order/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Теги', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];

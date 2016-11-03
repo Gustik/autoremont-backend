@@ -3,26 +3,24 @@
 namespace app\models;
 
 use dosamigos\taggable\Taggable;
-use Yii;
 
 /**
  * This is the model class for table "profile".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $updated_at
  * @property string $name
  * @property string $birth_date
  * @property string $gcm_id
- * @property integer $user_id
- * @property integer $is_active
- *
+ * @property int $user_id
+ * @property int $is_active
  * @property User $user
  */
 class Profile extends Model
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -30,7 +28,7 @@ class Profile extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -40,6 +38,7 @@ class Profile extends Model
         $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
         $scenarios['api-view'] = ['name', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
         $scenarios['api-view-lite'] = ['name'];
+
         return $scenarios;
     }
 
@@ -47,10 +46,12 @@ class Profile extends Model
     {
         $values = parent::getAttributes($names, $except);
         $values['tagNames'] = $this->tagNames;
+
         return $values;
     }
 
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             [
                 'class' => Taggable::className(),
@@ -59,7 +60,7 @@ class Profile extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -69,12 +70,12 @@ class Profile extends Model
             [['birth_date'], 'date', 'format' => 'php:Y-m-d'],
             [['user_id', 'is_active', 'car_year'], 'integer'],
             [['gcm_id', 'apns_id', 'name', 'car_brand', 'car_model', 'car_color'], 'string', 'max' => 255],
-            [['user_id'], 'unique']
+            [['user_id'], 'unique'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -120,13 +121,14 @@ class Profile extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $this->name = ( $this->name ? : 'Аноним' );
-            $this->birth_date = ( $this->birth_date ? : '1970-01-01' );
+            $this->name = ($this->name ?: 'Аноним');
+            $this->birth_date = ($this->birth_date ?: '1970-01-01');
+
             return true;
         } else {
             return false;

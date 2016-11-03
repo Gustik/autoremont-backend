@@ -2,22 +2,19 @@
 
 namespace app\models;
 
-use Yii;
-use yii\web\BadRequestHttpException;
-
 /**
  * This is the model class for table "stat".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $from
  * @property string $to
- * @property integer $cat
+ * @property int $cat
  */
 class StatCall extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -25,7 +22,7 @@ class StatCall extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -33,12 +30,12 @@ class StatCall extends \yii\db\ActiveRecord
             [['created_at'], 'safe'],
             [['from', 'to', 'cat'], 'required'],
             [['from', 'to'], 'string'],
-            [['cat'], 'integer']
+            [['cat'], 'integer'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -47,7 +44,7 @@ class StatCall extends \yii\db\ActiveRecord
             'created_at' => 'Время',
             'from' => 'Кто звонил',
             'to' => 'Компания',
-            'cat' => 'Категория'
+            'cat' => 'Категория',
         ];
     }
 

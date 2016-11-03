@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\api\controllers\v3;
 
 use Yii;
@@ -41,11 +42,13 @@ class Controller extends BaseController
                         if (isset($this->user)) {
                             return $this->user->is_active;
                         }
+
                         return true;
-                    }
+                    },
                 ],
             ],
         ];
+
         return $behaviors;
     }
 
@@ -53,9 +56,10 @@ class Controller extends BaseController
     {
         $result = parent::beforeAction($action);
         $this->user = Yii::$app->user->identity;
-        if ($this->user && $this->user->banned_to && $this->user->banned_to > date("Y-m-d H:i:s")) {
-            throw new HttpException(423, "Бан до ".$this->user->banned_to);
+        if ($this->user && $this->user->banned_to && $this->user->banned_to > date('Y-m-d H:i:s')) {
+            throw new HttpException(423, 'Бан до '.$this->user->banned_to);
         }
+
         return $result;
     }
 
@@ -66,6 +70,7 @@ class Controller extends BaseController
             $this->user->visited_at = date('Y-m-d H:i:s');
             $this->user->save();
         }
+
         return $result;
     }
 }

@@ -2,12 +2,10 @@
 
 namespace app\models;
 
-use Yii;
-
 class Model extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function formName()
     {
@@ -36,6 +34,7 @@ class Model extends \yii\db\ActiveRecord
                 }
             }
         }
+
         return $attributes;
     }
 
@@ -44,20 +43,21 @@ class Model extends \yii\db\ActiveRecord
         $attribute = $this->$name;
         switch ($type) {
             case 'boolean':
-                $icon = ( $attribute ? 'ok' : 'remove' );
-                $color = ( $attribute ? 'green' : 'darkred' );
+                $icon = ($attribute ? 'ok' : 'remove');
+                $color = ($attribute ? 'green' : 'darkred');
                 $result = "<i style='color: $color;' class='glyphicon glyphicon-$icon'></i>";
                 break;
-            
+
             default:
                 $result = false;
                 break;
         }
+
         return $result;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeSave($insert)
     {
@@ -70,20 +70,24 @@ class Model extends \yii\db\ActiveRecord
                 return true;
             }
             $this->addError('is_active', 'Объект помечен как удаленный.');
+
             return false;
         }
+
         return false;
     }
 
     public function delete()
     {
         $this->is_active = 0;
+
         return $this->save();
     }
 
     public function restore()
     {
         $this->is_active = 1;
+
         return $this->save();
     }
 }

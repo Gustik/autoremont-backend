@@ -97,8 +97,46 @@ class OrderCest {
         $I->seeResponseContainsJson(['data'=>[['description' => $order->description]]]);
     }
 
-    public function mechCall(\ApiTester $I) {
-        $order = $I->grabFixture('orders', 'order3');
+    public function mechCallReapir(\ApiTester $I) {
+        $order = $I->grabFixture('orders', 'repairOrder');
+        $I->sendGET('/v3/order/mech-call', ['id' => $order->id]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseContainsJson(['data'=>['login' => $order->author->login]]);
+    }
+
+    public function mechCallPart(\ApiTester $I) {
+        $order = $I->grabFixture('orders', 'partOrder');
+        $I->sendGET('/v3/order/mech-call', ['id' => $order->id]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseContainsJson(['data'=>['login' => $order->author->login]]);
+    }
+
+    /**
+     * Звонок не оплатившего на заказ по ремонту
+     * @param ApiTester $I
+     */
+    public function cantWorkMechCallToReapir(\ApiTester $I) {
+        $cantWorkUser = $I->grabFixture('users', 'cantWorkUser');
+        $order = $I->grabFixture('orders', 'repairOrder');
+
+        $I->amHttpAuthenticated($cantWorkUser->access_token, '123456');
+        $I->sendGET('/v3/order/mech-call', ['id' => $order->id]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseContainsJson(['data'=>['login' => 'need_payment']]);
+    }
+
+    /**
+     * Звонок не оплатившего на заказ по запчастям
+     * @param ApiTester $I
+     */
+    public function cantWorkMechCallToPart(\ApiTester $I) {
+        $cantWorkUser = $I->grabFixture('users', 'cantWorkUser');
+        $order = $I->grabFixture('orders', 'partOrder');
+
+        $I->amHttpAuthenticated($cantWorkUser->access_token, '123456');
         $I->sendGET('/v3/order/mech-call', ['id' => $order->id]);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 200]);

@@ -2,21 +2,18 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "bill_tariff".
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
- * @property integer $day_cost
- *
+ * @property int $day_cost
  * @property BillPayment[] $billPayments
  */
 class BillTariff extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -24,7 +21,7 @@ class BillTariff extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -36,7 +33,7 @@ class BillTariff extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

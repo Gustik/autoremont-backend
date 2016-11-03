@@ -2,7 +2,6 @@
 
 namespace app\modules\admin\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\BillAccount;
@@ -13,7 +12,7 @@ use app\models\BillAccount;
 class BillAccountSearch extends BillAccount
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -23,7 +22,7 @@ class BillAccountSearch extends BillAccount
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -32,7 +31,7 @@ class BillAccountSearch extends BillAccount
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Creates data provider instance with search query applied.
      *
      * @param array $params
      *

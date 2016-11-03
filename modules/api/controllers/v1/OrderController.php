@@ -1,14 +1,12 @@
 <?php
+
 namespace app\modules\api\controllers\v1;
 
 use Yii;
-
 use app\helpers\ResponseContainer;
 use app\helpers\PushHelper;
 use app\models\Variable;
 use yii\filters\VerbFilter;
-use yii\helpers\Json;
-
 use app\models\Call;
 use app\models\Order;
 
@@ -24,6 +22,7 @@ class OrderController extends Controller
                 'update' => ['post'],
             ],
         ];
+
         return $behaviors;
     }
 
@@ -37,15 +36,17 @@ class OrderController extends Controller
             if ($order->save()) {
                 $topic = "/topics/{$order->city_id}-{$order->category->topic}";
                 if (Variable::getParam('environment') == 'DEV') {
-                    $topic .= "-dev";
+                    $topic .= '-dev';
                 }
                 PushHelper::send($topic, "{$order->category->name}: новый заказ");
                 // Отправка пушей на старые топики для обратней совместимости.
                 // УБРАТЬ В НОВОЙ ВЕРСИИ
                 PushHelper::send("/topics/{$order->category->topic}", "{$order->category->name}: новый заказ");
+
                 return new ResponseContainer(200, 'OK', $order->safeAttributes);
             }
         }
+
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
     }
 
@@ -60,12 +61,16 @@ class OrderController extends Controller
                     if ($order->load(Yii::$app->request->getBodyParams()) && $order->save()) {
                         return new ResponseContainer(200, 'OK', $order->safeAttributes);
                     }
+
                     return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
                 }
+
                 return new ResponseContainer(403, 'Заявка принадлежит не вам');
             }
+
             return new ResponseContainer(404, 'Заявка не найдена');
         }
+
         return new ResponseContainer(400, 'Отсутствует обязательный параметр: id');
     }
 
@@ -81,7 +86,7 @@ class OrderController extends Controller
             if ($order->is_active) {
                 $order->setScenario('api-view-without-calls');
                 if ($order->executor) {
-                    $order->executor->setScenario('api-view');                    
+                    $order->executor->setScenario('api-view');
                 }
                 $flag = true;
                 foreach ($order->calls as $call) {
@@ -92,15 +97,16 @@ class OrderController extends Controller
                 $order->new_calls = 0;
                 if ($flag) {
                     foreach ($order->calls as $call) {
-                        $order->new_calls++;
+                        ++$order->new_calls;
                         $call->setScenario('api-view');
                         $call->executor->setScenario('api-view');
                     }
-                    $order->setScenario('api-view');           
+                    $order->setScenario('api-view');
                 }
                 $orders[] = $order->safeAttributes;
             }
         }
+
         return new ResponseContainer(200, 'OK', $orders);
     }
 
@@ -117,12 +123,16 @@ class OrderController extends Controller
                     if ($order->save()) {
                         return new ResponseContainer(200, 'OK');
                     }
+
                     return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
                 }
+
                 return new ResponseContainer(403, 'Нельзя отменить уже принятую заявку');
             }
+
             return new ResponseContainer(403, 'Заявка принадлежит не вам');
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -135,10 +145,13 @@ class OrderController extends Controller
                 if ($order->save()) {
                     return new ResponseContainer(200, 'OK', ['price' => $order->price]);
                 }
+
                 return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
             }
+
             return new ResponseContainer(403, 'Заявка принадлежит не вам');
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -160,10 +173,13 @@ class OrderController extends Controller
                 foreach ($order->calls as $call) {
                     $call->delete();
                 }
+
                 return new ResponseContainer();
             }
+
             return new ResponseContainer(403, 'Заявка принадлежит не вам');
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -181,6 +197,7 @@ class OrderController extends Controller
             $order->setScenario('api-view');
             $orders[] = $order->safeAttributes;
         }
+
         return new ResponseContainer(200, 'OK', $orders);
     }
 
@@ -194,6 +211,7 @@ class OrderController extends Controller
                 $orders[] = $order->safeAttributes;
             }
         }
+
         return new ResponseContainer(200, 'OK', $orders);
     }
 
@@ -262,16 +280,18 @@ class OrderController extends Controller
             $order->new_calls = 0;
             if ($flag) {
                 foreach ($order->calls as $call) {
-                    $order->new_calls++;
+                    ++$order->new_calls;
                     $call->setScenario('api-view');
                     $call->executor->setScenario('api-view');
                     $call->client->setScenario('api-view');
                     $call->executor->setScenario('api-view');
                 }
-                $order->setScenario('api-view');    
+                $order->setScenario('api-view');
             }
+
             return new ResponseContainer(200, 'OK', $order->safeAttributes);
         }
+
         return new ResponseContainer(404, 'Заявка не найдена');
     }
 
@@ -290,23 +310,29 @@ class OrderController extends Controller
                             foreach ($order->calls as $call) {
                                 $call->delete();
                             }
+
                             return new ResponseContainer();
                         }
+
                         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $order->errors);
                     }
-                    if ($type == "client") {
+                    if ($type == 'client') {
                         foreach ($order->calls as $c) {
                             if ($c->id != $call->id) {
                                 $c->delete();
                             }
                         }
                     }
+
                     return new ResponseContainer();
                 }
+
                 return new ResponseContainer(500, 'Внутренняя ошибка сервера', $call->errors);
             }
+
             return new ResponseContainer(403, 'Вы не можете принять эту заявку');
         }
+
         return new ResponseContainer(404, 'Звонок не найден');
     }
 
@@ -317,10 +343,13 @@ class OrderController extends Controller
             $order = $call->order;
             if ($this->user->canDeclineCall($call, $type)) {
                 $call->delete();
+
                 return new ResponseContainer();
             }
+
             return new ResponseContainer(403, 'Вы не можете отклонить этот звонок');
         }
+
         return new ResponseContainer(404, 'Звонок не найден');
     }
 }

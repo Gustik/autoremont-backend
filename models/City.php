@@ -2,24 +2,21 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "city".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $updated_at
  * @property string $name
- * @property integer $is_active
- *
+ * @property int $is_active
  * @property Order[] $orders
  * @property Profile[] $profiles
  */
 class City extends Model
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -27,17 +24,18 @@ class City extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
         $scenarios = parent::scenarios();
         $scenarios['api-view'] = ['id', 'name'];
+
         return $scenarios;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -45,12 +43,12 @@ class City extends Model
             [['name'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['is_active'], 'integer'],
-            [['name'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;    
+use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $orderId integer */
@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Новое предложение';
 $this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $orderId, 'url' => ["/admin/order/view", 'id' => $orderId]];
+$this->params['breadcrumbs'][] = ['label' => $orderId, 'url' => ['/admin/order/view', 'id' => $orderId]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="offer-create">

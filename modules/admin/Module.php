@@ -1,19 +1,20 @@
 <?php
+
 namespace app\modules\admin;
 
 /**
- * news module definition class
+ * news module definition class.
  */
 class Module extends \yii\base\Module
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public $controllerNamespace = 'app\modules\admin\controllers';
     public $defaultRoute = 'main';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {

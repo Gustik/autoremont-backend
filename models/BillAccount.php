@@ -2,23 +2,21 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\Expression;
 
 /**
  * This is the model class for table "bill_account".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $days
- * @property integer $processed_at
- *
+ * @property int $id
+ * @property int $user_id
+ * @property int $days
+ * @property int $processed_at
  * @property User $user
  */
 class BillAccount extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -26,7 +24,7 @@ class BillAccount extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -39,7 +37,7 @@ class BillAccount extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -59,7 +57,7 @@ class BillAccount extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeSave($insert)
     {
@@ -69,8 +67,10 @@ class BillAccount extends \yii\db\ActiveRecord
 
                 return true;
             }
+
             return true;
         }
+
         return false;
     }
 }

@@ -28,11 +28,12 @@ class Controller extends WebController
                 [
                     'allow' => true,
                     'matchCallback' => function ($rule, $action) {
-                        return (!Yii::$app->user->isGuest && $this->user->is_admin);
-                    }
+                        return !Yii::$app->user->isGuest && $this->user->is_admin;
+                    },
                 ],
             ],
         ];
+
         return $behaviors;
     }
 
@@ -52,6 +53,7 @@ class Controller extends WebController
             $this->user->visited_at = date('Y-m-d H:i:s');
             $this->user->save();
         }
+
         return $result;
     }
 }

@@ -9,7 +9,6 @@ use Exception;
 use Yii;
 use app\models\BillPayment;
 use app\modules\admin\models\BillPaymentSearch;
-use app\modules\admin\controllers\Controller;
 use yii\web\NotAcceptableHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,7 +19,7 @@ use yii\filters\VerbFilter;
 class BillPaymentController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -31,11 +30,13 @@ class BillPaymentController extends Controller
                 'delete' => ['post'],
             ],
         ];
+
         return $behaviors;
     }
 
     /**
      * Lists all BillPayment models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -51,7 +52,9 @@ class BillPaymentController extends Controller
 
     /**
      * Displays a single BillPayment model.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionView($id)
@@ -64,7 +67,9 @@ class BillPaymentController extends Controller
     /**
      * Creates a new BillPayment model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
+     *
      * @throws NotAcceptableHttpException
      * @throws \yii\db\Exception
      */
@@ -77,6 +82,7 @@ class BillPaymentController extends Controller
         try {
             if (!$model->load(Yii::$app->request->post()) || !$model->validate()) {
                 $transaction->rollback();
+
                 return $this->render('create', [
                     'model' => $model,
                 ]);
@@ -85,13 +91,13 @@ class BillPaymentController extends Controller
             // Расчитываем сумму в зависимости от тарифа
             $model->amount = (int) ($model->days * BillTariff::findOne($model->tariff_id)->day_cost);
 
-            if(!$model->save()) {
+            if (!$model->save()) {
                 throw new Exception('Ошибка создания платежа');
             }
 
             $account = BillAccount::find()->where(['=', 'user_id', $model->user_id])->one();
 
-            if(!$account) {
+            if (!$account) {
                 $account = new BillAccount();
             }
 
@@ -99,25 +105,25 @@ class BillPaymentController extends Controller
             $account->user_id = $model->user_id;
             $account->days += $model->days;
 
-            if(!$account->save()){
+            if (!$account->save()) {
                 throw new Exception('Ошибка обновления аккаунтинга');
             }
 
             $user = User::findOne($model->user_id);
 
             // Если пользователь был отключен ранее, то включаем возможность работать
-            if(!$user->can_work) {
+            if (!$user->can_work) {
                 $user->can_work = true;
-                if(!$user->save()){
+                if (!$user->save()) {
                     throw new Exception('Ошибка активации аккаунта');
                 }
             }
 
             $transaction->commit();
             Yii::$app->session->setFlash('success', 'Запрос на взнос успешно создан, ожидайте подтверждения');
-            return $this->redirect(['index']);
 
-        } catch(Exception $e) {
+            return $this->redirect(['index']);
+        } catch (Exception $e) {
             $transaction->rollback();
             throw new NotAcceptableHttpException($e->getMessage());
         }
@@ -126,7 +132,9 @@ class BillPaymentController extends Controller
     /**
      * Updates an existing BillPayment model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionUpdate($id)
@@ -145,7 +153,9 @@ class BillPaymentController extends Controller
     /**
      * Deletes an existing BillPayment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionDelete($id)
@@ -158,8 +168,11 @@ class BillPaymentController extends Controller
     /**
      * Finds the BillPayment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return BillPayment the loaded model
+     *
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

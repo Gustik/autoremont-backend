@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'content' => '',
         ],
         'R' => [
-            'content' => 'Сформированно: '.date("Y-m-d, h:i"),
+            'content' => 'Сформированно: '.date('Y-m-d, h:i'),
         ],
         'line' => true,
     ];
@@ -53,55 +53,55 @@ $this->params['breadcrumbs'][] = $this->title;
                 'config' => [
                     'methods' => [
                         'SetHeader' => [
-                            ['odd' => $pdfHeader, 'even' => $pdfHeader]
+                            ['odd' => $pdfHeader, 'even' => $pdfHeader],
                         ],
                         'SetFooter' => [
-                            ['odd' => $pdfFooter, 'even' => $pdfFooter]
+                            ['odd' => $pdfFooter, 'even' => $pdfFooter],
                         ],
                     ],
-                ]
+                ],
             ],
             GridView::EXCEL => [
                 'filename' => 'call-report',
-            ]
+            ],
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                'class'=>'\kartik\grid\DataColumn',
-                'attribute'=>'created_at',
-                'format'=>['date', 'php:Y-m-d h:i'],
-                'filter'=> DateRangePicker::widget([
+                'class' => '\kartik\grid\DataColumn',
+                'attribute' => 'created_at',
+                'format' => ['date', 'php:Y-m-d h:i'],
+                'filter' => DateRangePicker::widget([
                     'name' => 'date_range',
-                    'convertFormat'=>true,
-                    'startAttribute'=>'StatCallSearch[date_from]',
-                    'endAttribute'=>'StatCallSearch[date_to]',
+                    'convertFormat' => true,
+                    'startAttribute' => 'StatCallSearch[date_from]',
+                    'endAttribute' => 'StatCallSearch[date_to]',
                     'startInputOptions' => ['value' => $searchModel->date_from],
                     'endInputOptions' => ['value' => $searchModel->date_to],
-                    'pluginOptions'=>[
-                        'timePicker'=>false,
-                        'timePickerIncrement'=>30,
-                        'locale'=>[
-                            'format'=>'Y-m-d'
-                        ]
-                    ]
-                ])
+                    'pluginOptions' => [
+                        'timePicker' => false,
+                        'timePickerIncrement' => 30,
+                        'locale' => [
+                            'format' => 'Y-m-d',
+                        ],
+                    ],
+                ]),
             ],
             'from:ntext',
             [
                 'attribute' => 'to',
                 'value' => 'companyName',
-                'filter' => ArrayHelper::map(Company::find()->all(),'phone','name')
+                'filter' => ArrayHelper::map(Company::find()->all(), 'phone', 'name'),
             ],
             [
                 'attribute' => 'cat',
-                'value' =>'companyCategory',
-                'filter' => Company::$categories
+                'value' => 'companyCategory',
+                'filter' => Company::$categories,
             ],
 
         ],
         'panel' => [
-            'type' => GridView::TYPE_PRIMARY
+            'type' => GridView::TYPE_PRIMARY,
         ],
     ]); ?>
 </div>

@@ -22,11 +22,13 @@ class OrderController extends Controller
                 'delete' => ['post'],
             ],
         ];
+
         return $behaviors;
     }
 
     /**
      * Lists all Order models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -42,6 +44,7 @@ class OrderController extends Controller
 
     /**
      * Lists all Order models.
+     *
      * @return mixed
      */
     public function actionBan($id)
@@ -55,6 +58,7 @@ class OrderController extends Controller
 
     /**
      * Lists all Order models.
+     *
      * @return mixed
      */
     public function actionUnban($id)
@@ -66,7 +70,9 @@ class OrderController extends Controller
 
     /**
      * Displays a single Order model.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionView($id)
@@ -79,6 +85,7 @@ class OrderController extends Controller
     /**
      * Creates a new Order model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -97,7 +104,9 @@ class OrderController extends Controller
     /**
      * Updates an existing Order model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionUpdate($id)
@@ -116,7 +125,9 @@ class OrderController extends Controller
     /**
      * Deletes an existing Order model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionDelete($id)
@@ -129,7 +140,9 @@ class OrderController extends Controller
     /**
      * Restores an existing Order model.
      * If restore is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionRestore($id)
@@ -142,8 +155,11 @@ class OrderController extends Controller
     /**
      * Finds the Order model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return Order the loaded model
+     *
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

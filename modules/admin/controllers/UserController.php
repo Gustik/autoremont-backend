@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\admin\controllers;
 
 use Yii;
@@ -22,11 +23,13 @@ class UserController extends Controller
                 'delete' => ['post'],
             ],
         ];
+
         return $behaviors;
     }
 
     /**
      * Lists all User models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -42,7 +45,9 @@ class UserController extends Controller
 
     /**
      * Displays a single User model.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionView($id)
@@ -55,6 +60,7 @@ class UserController extends Controller
     /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -76,6 +82,7 @@ class UserController extends Controller
             $user->save();
             $profile->user_id = $user->id;
             $profile->save();
+
             return $this->redirect(['view', 'id' => $user->id]);
         } else {
             return $this->render('create', [
@@ -88,7 +95,9 @@ class UserController extends Controller
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionUpdate($id)
@@ -109,6 +118,7 @@ class UserController extends Controller
         if ($validate) {
             $user->save();
             $profile->save();
+
             return $this->redirect(['view', 'id' => $user->id]);
         } else {
             return $this->render('update', [
@@ -121,7 +131,9 @@ class UserController extends Controller
     /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionDelete($id)
@@ -132,14 +144,18 @@ class UserController extends Controller
             $model->is_active = 0;
             $model->save();
         }
+
         return $this->redirect(['index']);
     }
 
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return User the loaded model
+     *
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tariff_id') ?>
 
-    <?php // echo $form->field($model, 'days') ?>
+    <?php // echo $form->field($model, 'days')?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -41,14 +41,14 @@ AdminAsset::register($this);
                         ['label' => 'Компании', 'url' => ['company/index']],
                         ['label' => 'Биллинг', 'url' => ['bill-payment/index']],
                         ['label' => 'Страницы', 'url' => ['page/index']],
-                        ['label' => 'Push', 'url' => ['main/push']]
+                        ['label' => 'Push', 'url' => ['main/push']],
                     ],
                 ]);
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav navbar-right'],
                     'items' => [
                         ['label' => 'Выход', 'url' => ['main/logout'],
-                            'linkOptions' => ['data-method' => 'post']]
+                            'linkOptions' => ['data-method' => 'post'], ],
                     ],
                 ]);
                 NavBar::end();

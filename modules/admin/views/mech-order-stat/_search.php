@@ -25,9 +25,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'category_id') ?>
 
-    <?php // echo $form->field($model, 'first_action') ?>
+    <?php // echo $form->field($model, 'first_action')?>
 
-    <?php // echo $form->field($model, 'last_action') ?>
+    <?php // echo $form->field($model, 'last_action')?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

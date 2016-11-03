@@ -36,17 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'isOnline',
                 'format' => 'raw',
-                'value' => $model->getFriendly('isOnline', 'boolean')
+                'value' => $model->getFriendly('isOnline', 'boolean'),
             ],
             [
                 'attribute' => 'is_active',
                 'format' => 'raw',
-                'value' => $model->getFriendly('is_active', 'boolean')
+                'value' => $model->getFriendly('is_active', 'boolean'),
             ],
             [
                 'attribute' => 'is_admin',
                 'format' => 'raw',
-                'value' => $model->getFriendly('is_admin', 'boolean')
+                'value' => $model->getFriendly('is_admin', 'boolean'),
             ],
             'visited_at:datetime',
         ],
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'password_hash',
                         'access_token',
                         'sms_code',
-                        'profile.gcm_id'
+                        'profile.gcm_id',
                     ],
                 ]),
             ],
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]),
             ],
-        ]
+        ],
     ]); ?>
 
 </div>

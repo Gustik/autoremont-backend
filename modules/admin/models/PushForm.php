@@ -4,9 +4,7 @@ namespace app\modules\admin\models;
 
 use Yii;
 use yii\base\Model;
-
 use app\models\User;
-use app\helpers\Phone;
 use app\helpers\PushHelper;
 
 class PushForm extends Model
@@ -19,7 +17,7 @@ class PushForm extends Model
     {
         return [
             [['username', 'message'], 'required'],
-            [['regID'], 'required', 'message' => 'У данного пользователя отсутствует регистрационный токен']
+            [['regID'], 'required', 'message' => 'У данного пользователя отсутствует регистрационный токен'],
 ];
     }
 
@@ -28,7 +26,7 @@ class PushForm extends Model
         return [
             'username' => 'Номер телефона',
             'message' => 'Сообщение',
-            'regID' => 'Регистрационный токен'
+            'regID' => 'Регистрационный токен',
         ];
     }
 
@@ -42,11 +40,13 @@ class PushForm extends Model
                 } else {
                     Yii::$app->session->setFlash('pushSendFail');
                 }
+
                 return false;
             }
         } else {
             $this->addError('username', "Пользователь $this->username не найден");
         }
+
         return false;
     }
 }

@@ -13,7 +13,7 @@ class SiteCest
     public function openSiteIndex(\FunctionalTester $I)
     {
         $I->amOnPage(['/']);
-        $I->see('Ремонт и запчасти для Вашего авто в Якутске', 'h1');
+        $I->see('Ремонт и запчасти для Вашего авто', 'h1');
     }
 
     public function openSiteLicense(\FunctionalTester $I)

@@ -85,7 +85,7 @@
                 <div class="col-sm-7 col-sm-offset-1 pull-right">
                     <h1 class="logo"><img src="myassets/images/logowb.png">Авторемонт</h1>
 
-                    <h1 class="slogan">Ремонт и запчасти для Вашего авто в Якутске</h1>
+                    <h1 class="slogan">Ремонт и запчасти для Вашего авто</h1>
 
                     <div class="utp">Экономь до 30% на ремонте своего авто и запчастях через мобильное приложение
                         Авторемонт
@@ -99,7 +99,7 @@
                 </div>
                 <div class="col-sm-4 featured hidden-sm hidden-xs">
                     <img src="myassets/screenshots/main-phone.png" class="intro-screen"
-                         data-animation="bounceInUp" data-wow-delay="0.5s" width="400" height="775"
+                         data-animation="bounceInUp" data-wow-delay="0.5s" height="775"
                          alt="Image Not Found"/>
                 </div>
             </div>
@@ -258,8 +258,7 @@
                     </div>
                     <div id="builder-module-547dfb11b1d34" class="module rich-text">
                         <div class="video-container">
-                            <iframe src="http://player.vimeo.com/video/166306613?title=0&#038;byline=0&#038;portrait=0"
-                                    allowfullscreen></iframe>
+                            <iframe width="1280" height="720" src="https://www.youtube.com/embed/5eeWx01En5o?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
@@ -272,20 +271,23 @@
                     <h2>СКРИНШОТЫ</h2>
 
                     <div id="screenshots-slider168740082" class="screenshots-slider owl-carousel">
-                        <a class="item" href="myassets/screenshots/1.jpg" title="App Screen">
-                            <img src="myassets/screenshots/1.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/sreenshots/1.png" title="App Screen">
+                            <img src="myassets/screenshots/sreenshots/thumb/1.png" alt="screen" width="250"/>
                         </a>
-                        <a class="item" href="myassets/screenshots/2.jpg" title="App Screen">
-                            <img src="myassets/screenshots/2.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/sreenshots/2.png" title="App Screen">
+                            <img src="myassets/screenshots/sreenshots/thumb/2.png" alt="screen" width="250"/>
                         </a>
-                        <a class="item" href="myassets/screenshots/3.jpg" title="App Screen">
-                            <img src="myassets/screenshots/3.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/sreenshots/3.png" title="App Screen">
+                            <img src="myassets/screenshots/sreenshots/thumb/3.png" alt="screen" width="250"/>
                         </a>
-                        <a class="item" href="myassets/screenshots/4.jpg" title="App Screen">
-                            <img src="myassets/screenshots/4.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/sreenshots/4.png" title="App Screen">
+                            <img src="myassets/screenshots/sreenshots/thumb/4.png" alt="screen" width="250"/>
                         </a>
-                        <a class="item" href="myassets/screenshots/5.jpg" title="App Screen">
-                            <img src="myassets/screenshots/5.jpg" alt="screen" width="250" height="444"/>
+                        <a class="item" href="myassets/screenshots/sreenshots/5.png" title="App Screen">
+                            <img src="myassets/screenshots/sreenshots/thumb/5.png" alt="screen" width="250"/>
+                        </a>
+                        <a class="item" href="myassets/screenshots/sreenshots/6.png" title="App Screen">
+                            <img src="myassets/screenshots/sreenshots/thumb/6.png" alt="screen" width="250"/>
                         </a>
                     </div>
                 </div>
@@ -299,25 +301,25 @@
                         <li data-animation="bounceIn">
                             <i class="icon icon-cloud-download"></i>
 
-                            <h3 class="wow">3369</h3>
+                            <h3 class="wow">7022</h3>
                             <h4>Скачиваний</h4>
                         </li>
                         <li data-animation="bounceIn" data-wow-delay="0.4s">
                             <i class="icon icon-star"></i>
 
-                            <h3 class="wow">36</h3>
+                            <h3 class="wow">60</h3>
                             <h4>Оценок с наивысшим рейтингом</h4>
                         </li>
                         <li data-animation="bounceIn" data-wow-delay="0.8s">
                             <i class="icon icon-like"></i>
 
-                            <h3 class="wow">77</h3>
-                            <h4>Лайков</h4>
+                            <h3 class="wow">1000</h3>
+                            <h4>Заказов в месяц</h4>
                         </li>
                         <li data-animation="bounceIn" data-wow-delay="1.2s">
                             <i class="icon icon-clock"></i>
 
-                            <h3 class="wow">741</h3>
+                            <h3 class="wow">1438</h3>
                             <h4>Часов сэкономлено</h4>
                         </li>
                     </ul>

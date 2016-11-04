@@ -90,7 +90,12 @@ class OrderCest {
     }
 
     public function mechIndex(\ApiTester $I) {
+        $user = $I->grabFixture('users', 'user2');
         $order = $I->grabFixture('orders', 'order3');
+        $order->created_at = date('Y-m-d H:i:s');
+        $order->save();
+
+        $I->amHttpAuthenticated($user->access_token, '123456');
         $I->sendGET('/v3/order/mech-index', ['id' => $order->category_id]);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 200]);
@@ -135,6 +140,21 @@ class OrderCest {
     public function cantWorkMechCallToPart(\ApiTester $I) {
         $cantWorkUser = $I->grabFixture('users', 'cantWorkUser');
         $order = $I->grabFixture('orders', 'partOrder');
+
+        $I->amHttpAuthenticated($cantWorkUser->access_token, '123456');
+        $I->sendGET('/v3/order/mech-call', ['id' => $order->id]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseContainsJson(['data'=>['login' => $order->author->login]]);
+    }
+
+    /**
+     * Звонок в горде где не включена тарификация
+     * @param ApiTester $I
+     */
+    public function freeCityMechCallToPart(\ApiTester $I) {
+        $cantWorkUser = $I->grabFixture('users', 'freeCityMech');
+        $order = $I->grabFixture('orders', 'freeCityRepairOrder');
 
         $I->amHttpAuthenticated($cantWorkUser->access_token, '123456');
         $I->sendGET('/v3/order/mech-call', ['id' => $order->id]);

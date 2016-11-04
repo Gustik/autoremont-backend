@@ -333,6 +333,7 @@ class OrderController extends Controller
      * @apiVersion 3.0.0
      *
      * @param int $id ID заказа
+     *
      * @return ResponseContainer
      */
     public function actionMechCall($id)
@@ -343,9 +344,10 @@ class OrderController extends Controller
             if ($order->author_id != $this->user->id) {
                 if (!$order->executor_id) { // Если исполнитель не присвоен к заказу
 
-                    // Если не может работать (не оплачен аккаунт)
-                    // для магазинов пока бесплатно (category_id 1 - ремонт, 2 - запчасти)
-                    if (!$this->user->can_work && $order->category_id == 1) {
+                    if (!$this->user->can_work // Если не может работать (не оплачен аккаунт)
+                        && $order->category_id == 1 // для магазинов пока бесплатно (category_id 1 - ремонт, 2 - запчасти)
+                        && $this->user->profile->city->need_payment // Если в городе включена тарификация
+                    ) {
                         return new ResponseContainer(200, 'OK', ['login' => 'need_payment']);
                     }
 

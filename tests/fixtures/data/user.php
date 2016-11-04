@@ -35,4 +35,22 @@ return [
         'is_active' => '1',
         'can_work' => '0',
     ],
+    'freeCityMech' => [
+        'id' => 5,
+        'login' => '+71234567894',
+        'access_token' => '$2y$13$kkgpzJ8lnjKo8RuoR30ay.RjDf18bMcHIF7Vz1zz/6viYG5xJExU6',
+        'password_hash' => '$2y$13$kkgpvJ8lnjKo8RuoR30ay.RjDf18bMcHIF7Vz1zz/6viYG5xJExU6',
+        'is_admin' => '0',
+        'is_active' => '1',
+        'can_work' => '0',
+    ],
+    'freeCityUser1' => [
+        'id' => 6,
+        'login' => '+71234567895',
+        'access_token' => '$2y$13$kkgpzJ8lnjKo8RuoR40ay.RjDf18bMcHIF7Vz1zz/6viYG5xJExU6',
+        'password_hash' => '$2y$13$kkgpvJ8lnjKo8RuoR40ay.RjDf18bMcHIF7Vz1zz/6viYG5xJExU6',
+        'is_admin' => '0',
+        'is_active' => '1',
+        'can_work' => '0',
+    ],
 ];

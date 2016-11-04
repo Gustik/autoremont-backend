@@ -10,6 +10,7 @@ namespace app\models;
  * @property string $updated_at
  * @property string $name
  * @property int $is_active
+ * @property bool $need_payment
  * @property Order[] $orders
  * @property Profile[] $profiles
  */
@@ -42,7 +43,7 @@ class City extends Model
         return [
             [['name'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['is_active'], 'integer'],
+            [['is_active', 'need_payment'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -56,8 +57,9 @@ class City extends Model
             'id' => 'ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'name' => 'Name',
-            'is_active' => 'Is Active',
+            'name' => 'Город',
+            'is_active' => 'Включен',
+            'need_payment' => 'Тарификация',
         ];
     }
 

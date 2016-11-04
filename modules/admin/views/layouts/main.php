@@ -41,6 +41,7 @@ AdminAsset::register($this);
                         ['label' => 'Компании', 'url' => ['company/index']],
                         ['label' => 'Биллинг', 'url' => ['bill-payment/index']],
                         ['label' => 'Страницы', 'url' => ['page/index']],
+                        ['label' => 'Города', 'url' => ['city/index']],
                         ['label' => 'Push', 'url' => ['main/push']],
                     ],
                 ]);

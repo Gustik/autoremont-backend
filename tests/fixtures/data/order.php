@@ -45,4 +45,14 @@ return [
         'author_id' => 3,
         'city_id' => 1,
     ],
+    'freeCityRepairOrder' => [
+        'id' => 6,
+        'created_at' => '2016-11-02 01:51:27',
+        'updated_at' => '2016-11-02 01:51:27',
+        'description' => 'Need repair',
+        'category_id' => 1,
+        'author_id' => 6,
+        'city_id' => 2,
+    ],
+
 ];

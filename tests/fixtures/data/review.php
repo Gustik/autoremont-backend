@@ -1,0 +1,9 @@
+<?php
+return [
+    'review1' => [
+        'order_id' => 3,
+        'comment' => 'good',
+        'rating' => 4,
+        'mech_id' => 3,
+    ],
+];

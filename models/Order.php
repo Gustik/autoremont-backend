@@ -25,6 +25,7 @@ use Yii;
  * @property User $author
  * @property User $executor
  * @property Call[] $calls
+ * @property Offer[] offers
  */
 class Order extends Model
 {

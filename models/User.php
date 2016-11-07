@@ -21,7 +21,11 @@ use yii\web\IdentityInterface;
  * @property int $is_active
  * @property int $is_admin
  * @property bool $can_work
+ * @property float $rating
  * @property Profile $profile
+ * @property Order[] $orders
+ * @property Review[] $reviews
+ * @property Review[] $myReviews
  */
 class User extends Model implements IdentityInterface
 {
@@ -195,6 +199,26 @@ class User extends Model implements IdentityInterface
     }
 
     /**
+     * Написанные мне отзывы
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReviews()
+    {
+        return $this->hasMany(Review::className(), ['mech_id' => 'id']);
+    }
+
+    /**
+     * Написанные мной отзывы
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMyReviews()
+    {
+        return $this->hasMany(Review::className(), ['author_id' => 'id']);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getAcceptedOrders()
@@ -264,5 +288,18 @@ class User extends Model implements IdentityInterface
         $this->banned_to = null;
 
         return $this->save();
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getRating()
+    {
+        $ratingSum = 0;
+        foreach($this->reviews as $review) {
+            $ratingSum += $review->rating;
+        }
+
+        return $ratingSum > 0 ? $ratingSum/count($this->reviews) : 0;
     }
 }

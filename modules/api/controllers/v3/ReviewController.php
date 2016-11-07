@@ -5,7 +5,6 @@ namespace app\modules\api\controllers\v3;
 use app\helpers\ResponseContainer;
 use app\models\Order;
 use app\models\Review;
-use app\models\StatCall;
 use app\models\User;
 use Yii;
 
@@ -54,13 +53,13 @@ class ReviewController extends Controller
     {
         $order_id = Yii::$app->request->getBodyParam('order_id');
         /**
-         * @var Order $order
+         * @var Order
          */
         $order = Order::findOne(['id' => $order_id]);
         if (!$order || !$order->is_active) {
             return new ResponseContainer(404, 'Заявка не найдена');
         }
-        if($order->author_id != $this->user->id) {
+        if ($order->author_id != $this->user->id) {
             return new ResponseContainer(400, 'Вы не можете создавать отзывы на не свои заказы');
         }
         $mech_id = Yii::$app->request->getBodyParam('mech_id');
@@ -70,12 +69,12 @@ class ReviewController extends Controller
         }
 
         $validMech = false; // Учавствовал ли СТО/Магазин в заявке
-        foreach($order->offers as $offer) {
-            if($offer->author_id == $mech_id) {
+        foreach ($order->offers as $offer) {
+            if ($offer->author_id == $mech_id) {
                 $validMech = true;
             }
         }
-        if(!$validMech) {
+        if (!$validMech) {
             return new ResponseContainer(400, 'Этот СТО/Магазин не участвовал в этом заказе');
         }
 
@@ -83,7 +82,6 @@ class ReviewController extends Controller
         $review->setScenario('api-create');
         if ($review->load(Yii::$app->request->getBodyParams(), '')
             && $review->save()) {
-
             return new ResponseContainer(200, 'OK', $review->safeAttributes);
         }
 
@@ -98,7 +96,7 @@ class ReviewController extends Controller
      * @api {post} api/v3/review/update Обновление отзыва
      *
      * @apiParam {Object} Review Отзыв
-     * @apiParam {Number} id ID отзыва
+     * @apiParam {Number} Review.id ID отзыва
      * @apiParam {String} Review.comment Текст отзыва
      * @apiParam {Number} Review.rating Оценка от 1 до 10
      *
@@ -125,34 +123,18 @@ class ReviewController extends Controller
     {
         $review_id = Yii::$app->request->getBodyParam('id');
         /**
-         * @var Review $review
+         * @var Review
          */
         $review = Review::findOne(['id' => $review_id]);
         if (!$review) {
-            return new ResponseContainer(404, 'Отзыв не найден');
+            return new ResponseContainer(404, 'Отзыв не найден '.$review_id);
         }
-        if($review->author_id != $this->user->id) {
+        if ($review->author_id != $this->user->id) {
             return new ResponseContainer(400, 'Вы не можете создавать отзывы на не свои заказы');
-        }
-        $mech_id = Yii::$app->request->getBodyParam('mech_id');
-        $mech = User::findOne(['id' => $mech_id]);
-        if (!$mech) {
-            return new ResponseContainer(404, 'СТО/Магазин не найден');
-        }
-
-        $validMech = false; // Учавствовал ли СТО/Магазин в заявке
-        foreach($review->offers as $offer) {
-            if($offer->author_id == $mech_id) {
-                $validMech = true;
-            }
-        }
-        if(!$validMech) {
-            return new ResponseContainer(400, 'Этот СТО/Магазин не участвовал в этом заказе');
         }
 
         $review->setScenario('api-update');
-        $review->comment = Yii::$app->request->getBodyParam('comment');
-        $review->rating = Yii::$app->request->getBodyParam('rating');
+        $review->load(Yii::$app->request->getBodyParams());
 
         if ($review->save()) {
             return new ResponseContainer(200, 'OK', $review->safeAttributes);
@@ -161,4 +143,3 @@ class ReviewController extends Controller
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $review->errors);
     }
 }
-

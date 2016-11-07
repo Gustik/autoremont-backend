@@ -30,6 +30,7 @@ use yii\web\IdentityInterface;
 class User extends Model implements IdentityInterface
 {
     public $authKey;
+    //public $rating;
     const TEST_LOGIN = '+71234567890';
     const TEST_CODE = '1234';
 
@@ -41,6 +42,14 @@ class User extends Model implements IdentityInterface
         return 'user';
     }
 
+    public function getAttributes($names = null, $except = [])
+    {
+        $values = parent::getAttributes($names, $except);
+        $values['rating'] = $this->rating;
+
+        return $values;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -49,7 +58,7 @@ class User extends Model implements IdentityInterface
         $scenarios = parent::scenarios();
         $scenarios['admin-create'] = ['login', 'is_admin', 'password'];
         $scenarios['admin-update'] = ['login', 'is_admin', 'password'];
-        $scenarios['api-view'] = ['login', 'profile'];
+        $scenarios['api-view'] = ['login', 'profile', 'rating'];
 
         return $scenarios;
     }
@@ -199,7 +208,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * Написанные мне отзывы
+     * Написанные мне отзывы.
      *
      * @return \yii\db\ActiveQuery
      */
@@ -209,7 +218,7 @@ class User extends Model implements IdentityInterface
     }
 
     /**
-     * Написанные мной отзывы
+     * Написанные мной отзывы.
      *
      * @return \yii\db\ActiveQuery
      */
@@ -224,6 +233,19 @@ class User extends Model implements IdentityInterface
     public function getAcceptedOrders()
     {
         return $this->hasMany(Order::className(), ['executor_id' => 'id'])->with('author');
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getRating()
+    {
+        $ratingSum = 0;
+        foreach ($this->reviews as $review) {
+            $ratingSum += $review->rating;
+        }
+
+        return $ratingSum > 0 ? $ratingSum / count($this->reviews) : 0;
     }
 
     /**
@@ -288,18 +310,5 @@ class User extends Model implements IdentityInterface
         $this->banned_to = null;
 
         return $this->save();
-    }
-
-    /**
-     * @return float|int
-     */
-    public function getRating()
-    {
-        $ratingSum = 0;
-        foreach($this->reviews as $review) {
-            $ratingSum += $review->rating;
-        }
-
-        return $ratingSum > 0 ? $ratingSum/count($this->reviews) : 0;
     }
 }

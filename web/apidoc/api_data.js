@@ -648,6 +648,20 @@ define({ "api": [
           },
           {
             "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Order.offers.author.login",
+            "description": "<p>Номер телефона Мастера</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "Order.offers.author.rating",
+            "description": "<p>Рейтинг мастера</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "Object",
             "optional": false,
             "field": "Order.offers.author.profile",
@@ -908,7 +922,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "id",
+            "field": "Review.id",
             "description": "<p>ID отзыва</p>"
           },
           {

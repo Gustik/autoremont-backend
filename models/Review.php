@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\behaviors\BlameableBehavior;
@@ -16,12 +17,13 @@ use yii\behaviors\BlameableBehavior;
  * @property int $rating
  * @property string $created_at
  * @property string $updated_at
- *
  * @property User $author
  * @property User $mech
  */
 class Review extends Model
 {
+    public $is_active = 1;
+
     public function behaviors()
     {
         return [
@@ -110,5 +112,4 @@ class Review extends Model
     {
         return $this->hasOne(Order::className(), ['id' => 'order_id']);
     }
-
 }

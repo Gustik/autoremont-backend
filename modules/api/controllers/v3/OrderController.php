@@ -413,6 +413,8 @@ class OrderController extends Controller
      * @apiSuccess {String} Order.offers.created_at Дата создания преложения
      * @apiSuccess {String} Order.offers.text Текст предложения
      * @apiSuccess {Object} Order.offers.author Автор предложения (User)
+     * @apiSuccess {String} Order.offers.author.login Номер телефона Мастера
+     * @apiSuccess {Number} Order.offers.author.rating Рейтинг мастера
      * @apiSuccess {Object} Order.offers.author.profile Профиль автора предложения (Profile)
      * @apiSuccess {Object} Order.executor Исполнитель заказа (User)
      * @apiSuccess {Object} Order.author Автор заказа (User)

@@ -1,5 +1,6 @@
 <?php
 
+use app\tests\fixtures\OfferFixture;
 use app\tests\fixtures\OrderFixture;
 use app\tests\fixtures\ProfileFixture;
 use app\tests\fixtures\UserFixture;
@@ -14,6 +15,7 @@ class OrderCest {
             'users' => ['class' => UserFixture::className()],
             'profiles' => ['class' => ProfileFixture::className()],
             'orders' => ['class' => OrderFixture::className()],
+            'offers' => ['class' => OfferFixture::className()],
         ]);
         $this->user = $I->grabFixture('users', 'user2');
 
@@ -79,6 +81,45 @@ class OrderCest {
                 'new_offers' => 'string|null',
                 'my_offer' => 'string|null',
                 'tagNames' => 'string|null',
+            ]
+        ]);
+    }
+
+    public function clientViewWithOffersAndRating(\ApiTester $I) {
+        $user = $I->grabFixture('users', 'user3');
+
+        $order = $I->grabFixture('orders', 'order3');
+        $offer = $I->grabFixture('offers', 'offer1');
+        $offer->order_id = $order->id;
+        $offer->save();
+
+        $I->amHttpAuthenticated($user->access_token, '123456');
+        $I->sendGET('/v3/order/client-view', ['id'=>$order->id]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseMatchesJsonType([
+            'data' => [
+                'id' => 'integer',
+                'created_at' => 'string',
+                'updated_at' => 'string',
+                'description' => 'string|null',
+                'car_brand' => 'string|null',
+                'car_model' => 'string|null',
+                'car_year' => 'string|null',
+                'car_color' => 'string|null',
+                'author_id' => 'integer',
+                'category_id' => 'integer',
+                'new_calls' => 'string|null',
+                'new_offers' => 'string|null',
+                'my_offer' => 'string|null',
+                'tagNames' => 'string|null',
+                'offers' => [
+                    [
+                        'author' => [
+                            'rating' => 'integer|float'
+                        ]
+                    ],
+                ]
             ]
         ]);
     }

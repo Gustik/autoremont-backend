@@ -10,7 +10,7 @@ class ReviewCest {
     {
         $I->haveFixtures([
             'orders' => ['class' => OrderFixture::className()],
-            //'review' => ['class' => ReviewFixture::className()],
+            'reviews' => ['class' => ReviewFixture::className()],
             'offers' => ['class' => OfferFixture::className()],
             'users' => ['class' => UserFixture::className()]
         ]);
@@ -43,22 +43,30 @@ class ReviewCest {
     {
         $user = $I->grabFixture('users', 'user3');
         $order = $user->orders[0];
+
+        // Предложение от cantWorkUser
+        $mech = $I->grabFixture('users', 'cantWorkUser');
         $offer = $I->grabFixture('offers', 'offer1');
+        $offer->author_id = $mech->id;
         $offer->order_id = $order->id;
         $offer->save();
-        $review = new \app\models\Review();
 
+        $review = $I->grabFixture('reviews', 'review1');
         $review->mech_id = $offer->author_id;
         $review->author_id = $user->id;
-        $review->comment = 'bad';
         $review->save();
 
+        $updatedReview = [
+            'id' => $review->id,
+            'comment' => 'not bad!',
+            'rating' => 5,
+        ];
 
         $I->amHttpAuthenticated($user->access_token, '123456');
-        $I->sendPOST('/v3/review/create', $review);
+        $I->sendPOST('/v3/review/update', $updatedReview);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 200]);
-        $I->seeResponseContainsJson(['data'=>['comment' => $review->comment]]);
+        $I->seeResponseContainsJson(['data'=>['comment' => $updatedReview['comment']]]);
     }
 
 }

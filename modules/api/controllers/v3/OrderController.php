@@ -59,7 +59,9 @@ class OrderController extends Controller
     {
         $order = new Order();
         $category_id = Yii::$app->request->getBodyParam('category_id');
-        if(!isset($category_id)) $category_id = 1;
+        if (!isset($category_id)) {
+            $category_id = 1;
+        }
         $order->setScenario('api-create');
         if ($order->load(Yii::$app->request->getBodyParams())) {
             $order->city_id = $this->user->profile->city_id;

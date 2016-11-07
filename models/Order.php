@@ -180,6 +180,17 @@ class Order extends Model
     }
 
     /**
+     * @return int
+     */
+    public function getCanWorkOffersCount()
+    {
+        return $this->hasMany(Offer::className(), ['order_id' => 'id'])
+            ->leftJoin('user', 'user.id = offer.author_id')
+            ->andWhere(['=', 'user.can_work', 1])
+            ->count();
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCategory()

@@ -58,9 +58,12 @@ class OrderController extends Controller
     public function actionClientCreate()
     {
         $order = new Order();
+        $category_id = Yii::$app->request->getBodyParam('category_id');
+        if(!isset($category_id)) $category_id = 1;
         $order->setScenario('api-create');
         if ($order->load(Yii::$app->request->getBodyParams())) {
             $order->city_id = $this->user->profile->city_id;
+            $order->category_id = $category_id;
             if ($order->save()) {
                 $topic = "/topics/{$order->city_id}-{$order->category->topic}";
                 if (Variable::getParam('environment') == 'DEV') {

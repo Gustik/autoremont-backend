@@ -27,7 +27,21 @@ class OrderCest {
             'car_model' => 's',
             'car_year' => '2005',
             'description' => 'Need repair',
-            'category_id' => 1,
+            'category_id' => 2,
+            'price' => '1',
+            'tagNames' => 'Ходовка',
+        ];
+        $I->sendPOST('/v3/order/client-create', $order);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+    }
+
+    public function clientCreateWithoutCategory(\ApiTester $I) {
+        $order = [
+            'car_brand' => 't',
+            'car_model' => 's',
+            'car_year' => '2005',
+            'description' => 'Need repair',
             'price' => '1',
             'tagNames' => 'Ходовка',
         ];

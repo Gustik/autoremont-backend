@@ -23,8 +23,13 @@ class OrderCest {
 
     public function clientCreate(\ApiTester $I) {
         $order = [
+            'car_brand' => 't',
+            'car_model' => 's',
+            'car_year' => '2005',
             'description' => 'Need repair',
             'category_id' => 1,
+            'price' => '1',
+            'tagNames' => 'Ходовка',
         ];
         $I->sendPOST('/v3/order/client-create', $order);
         $I->seeResponseIsJson();

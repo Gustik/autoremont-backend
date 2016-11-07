@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Предложения',
                 'value' => function ($model) {
-                    return "{$model->offersCount}/{$model->autoOffersCount}";
+                    return "{$model->canWorkOffersCount}/{$model->offersCount}/{$model->autoOffersCount}";
                 },
             ],
             [

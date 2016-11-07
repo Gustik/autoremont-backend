@@ -48,6 +48,7 @@ class OrderCest {
         $I->sendPOST('/v3/order/client-create', $order);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseContainsJson(['data' => ['category_id' => 1]]);
     }
 
     public function clientUpdate(\ApiTester $I) {

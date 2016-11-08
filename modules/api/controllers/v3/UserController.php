@@ -169,6 +169,7 @@ class UserController extends Controller
      * @apiName actionCheckToken
      * @apiGroup User
      * @apiDescription Пересоздание токена (нет обязательных параметров).
+     *
      * @apiSuccessExample {json} Успех:
      *     {
      *       "status": 200,
@@ -189,5 +190,56 @@ class UserController extends Controller
         }
 
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $this->user->errors);
+    }
+
+    /**
+     * @api {get} api/v3/user/view?phone=:phone Просмотр пользователя
+     * @apiName actionView
+     * @apiGroup User
+     * @apiDescription Просмотр профиля пользователя.
+     * @apiParam {String} phone номер телефона пользователя.
+     *
+     * @apiSuccess {Object} User Объект пользователя
+     * @apiSuccess {Profile} User.profile Объект профиля пользователя
+     * @apiSuccess {String} User.profile.name Дата создания преложения
+     * @apiSuccess {Number} User.rating Рейтинг пользователя
+     * @apiSuccess {String} User.login Телефон(логин) пользователя
+     * @apiSuccess {Object[]} User.reviews Отзывы
+     * @apiSuccess {Number} User.reviews.id ID отзыва
+     * @apiSuccess {Number} User.reviews.order_id ID заказа, на который оставлен отзыв
+     * @apiSuccess {Number} User.reviews.mech_id ID мастера, которму оставлен отзыв
+     * @apiSuccess {Number} User.reviews.rating Оценка к отзыву 1..10
+     * @apiSuccess {String} User.reviews.comment Текст отзыва
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": 200,
+     *       "message": "OK",
+     *       "data": User
+     *     }
+     * @apiVersion 3.0.0
+     *
+     * @param $phone
+     *
+     * @return ResponseContainer
+     *
+     * @throws \yii\base\Exception
+     */
+    public function actionView($phone)
+    {
+        $login = Phone::prepare($phone);
+        if (!$login) {
+            return new ResponseContainer(400, 'Некорретный номер телефона');
+        }
+
+        $user = User::findIdentityByLogin($login);
+        if (!$user) {
+            return new ResponseContainer(404, 'Пользователь не найден');
+        }
+
+        $user->setScenario('api-view');
+        $user->profile->setScenario('api-view');
+
+        return new ResponseContainer(200, 'OK', $user->safeAttributes);
     }
 }

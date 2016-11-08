@@ -1,4 +1,5 @@
 <?php
+
 return [
     'offer1' => [
         'text' => 'offer1',

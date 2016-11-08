@@ -1,4 +1,5 @@
 <?php
+
 use app\tests\fixtures\PageFixture;
 
 class SiteCest
@@ -21,5 +22,4 @@ class SiteCest
         $I->amOnPage(['/license']);
         $I->see('Лицензионное соглашение');
     }
-
 }

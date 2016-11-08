@@ -9,4 +9,5 @@ class ReviewFixture extends ActiveFixture
     public $modelClass = 'app\models\Review';
     public $depends = [
         'app\tests\fixtures\OrderFixture',
-    ];}
+    ];
+}

@@ -4,7 +4,8 @@ use app\tests\fixtures\OfferFixture;
 use app\tests\fixtures\ProfileFixture;
 use app\tests\fixtures\UserFixture;
 
-class OfferCest {
+class OfferCest
+{
     public function _before(\ApiTester $I)
     {
         $I->haveFixtures([
@@ -23,7 +24,7 @@ class OfferCest {
         $I->sendGET('/v3/offer/view', ['id' => $offer->order_id]);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 200]);
-        $I->seeResponseContainsJson(['data'=>['text' => $offer->text]]);
+        $I->seeResponseContainsJson(['data' => ['text' => $offer->text]]);
     }
 
     public function produce(\ApiTester $I)
@@ -39,6 +40,6 @@ class OfferCest {
         $I->sendPOST('/v3/offer/produce', $newOffer);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 200]);
-        $I->seeResponseContainsJson(['data'=>['text' => $newOffer['text']]]);
+        $I->seeResponseContainsJson(['data' => ['text' => $newOffer['text']]]);
     }
 }

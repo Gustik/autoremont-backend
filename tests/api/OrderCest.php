@@ -82,7 +82,7 @@ class OrderCest
                 'category_id' => 'integer',
                 'new_calls' => 'string|null',
                 'new_offers' => 'string|null',
-                'my_offer' => 'string|null',
+                'my_offer' => 'array|null',
                 'tagNames' => 'string|null',
             ],
         ]);

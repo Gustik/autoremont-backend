@@ -438,42 +438,38 @@ class OrderController extends Controller
      */
     public function actionView($id)
     {
+        /** @var Order $order */
         $order = Order::find()->where(['id' => $id])->with('offers', 'offers.author', 'offers.author.profile', 'executor', 'author')->one();
-        if ($order && $order->is_active) {
-            $order->new_offers = $order->newOffers;
-            $order->setScenario('api-view');
-            if ($order->author_id == $this->user->id) {
-                // If user is author show all offers and mark it read
-                foreach ($order->offers as $offer) {
-                    $offer->setScenario('api-view');
-                    $offer->author->setScenario('api-view');
-                    $offer->author->profile->setScenario('api-view-lite');
-                }
-                $order->readAllOffers();
-                $order->author->setScenario('api-view');
-            } elseif ($order->executor_id == $this->user->id) {
-                // If user is executor show my offer and author
-                foreach ($order->offers as $offer) {
-                    $offer->setScenario('api-view');
-                    $offer->author->setScenario('api-view');
-                    $offer->author->profile->setScenario('api-view-lite');
-                }
-                $order->author->setScenario('api-view');
-                $order->my_offer = $order->myOffer;
-            } else {
-                // If user is not both show my offer and unset author
-                unset($order->author);
-                unset($order->offers);
-                $order->my_offer = $order->myOffer;
-            }
-            if ($order->executor) {
-                $order->executor->setScenario('api-view');
-            }
+        if (!$order && !$order->is_active) {
+            return new ResponseContainer(404, 'Заявка не найдена');
+        }
+        $order->new_offers = $order->newOffers;
+        $order->setScenario('api-view');
 
-            return new ResponseContainer(200, 'OK', $order->safeAttributes);
+        foreach ($order->offers as $offer) {
+            $offer->setScenario('api-view');
+            $offer->author->setScenario('api-view');
+            $offer->author->profile->setScenario('api-view-lite');
+        }
+        $order->author->setScenario('api-view');
+
+        if ($order->author_id == $this->user->id) {
+            $order->readAllOffers();
+        } elseif ($order->executor_id == $this->user->id) {
+            $order->my_offer = $order->myOffer;
+        } else {
+            // If user is not both show my offer and unset author
+            unset($order->author);
+            unset($order->offers);
+            $order->my_offer = $order->myOffer;
         }
 
-        return new ResponseContainer(404, 'Заявка не найдена');
+        if ($order->executor) {
+            $order->executor->setScenario('api-view');
+        }
+
+        return new ResponseContainer(200, 'OK', $order->safeAttributes);
+
     }
 
     public function actionAccept($id, $type)

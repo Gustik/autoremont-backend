@@ -22,11 +22,14 @@ class ReviewCest
     public function create(\ApiTester $I)
     {
         $user = $I->grabFixture('users', 'user3');
-        $order = $user->orders[0];
-        $offer = $I->grabFixture('offers', 'offer1');
+
+        $order = $I->grabFixture('orders', 'order2');
+        $order->author_id = $user->id;
+        $order->save();
+
+        $offer = $I->grabFixture('offers', 'offer2');
         $offer->order_id = $order->id;
         $offer->save();
-
         $review = [
             'order_id' => $order->id,
             'comment' => 'good',
@@ -45,6 +48,38 @@ class ReviewCest
                     'rating' => $review['rating'],
                 ]
             ]);
+    }
+
+    public function createMoreReviewsInOneOrder(\ApiTester $I)
+    {
+        $user = $I->grabFixture('users', 'user3');
+
+        $order = $I->grabFixture('orders', 'order2');
+        $order->author_id = $user->id;
+        $order->save();
+
+        $offer = $I->grabFixture('offers', 'offer2');
+        $offer->order_id = $order->id;
+        $offer->save();
+
+        $review = [
+            'order_id' => $order->id,
+            'comment' => 'good',
+            'rating' => 0.5,
+            'mech_id' => $offer->author_id,
+        ];
+
+        $I->amHttpAuthenticated($user->access_token, '123456');
+        $I->sendPOST('/v3/review/create', $review);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+
+        $I->amHttpAuthenticated($user->access_token, '123456');
+        $I->sendPOST('/v3/review/create', $review);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 400]);
+
+
     }
 
     public function update(\ApiTester $I)

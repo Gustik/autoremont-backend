@@ -206,6 +206,7 @@ class UserController extends Controller
      * @apiSuccess {String} User.login Телефон(логин) пользователя
      * @apiSuccess {Object[]} User.reviews Отзывы
      * @apiSuccess {Number} User.reviews.id ID отзыва
+     * @apiSuccess {String} User.reviews.authorName Имя автора отзыва
      * @apiSuccess {Number} User.reviews.order_id ID заказа, на который оставлен отзыв
      * @apiSuccess {Number} User.reviews.mech_id ID мастера, которму оставлен отзыв
      * @apiSuccess {Number} User.reviews.rating Оценка к отзыву 1..10
@@ -239,6 +240,9 @@ class UserController extends Controller
 
         $user->setScenario('api-view');
         $user->profile->setScenario('api-view');
+        foreach($user->reviews as $review) {
+            $review->setScenario('api-view');
+        }
 
         return new ResponseContainer(200, 'OK', $user->safeAttributes);
     }

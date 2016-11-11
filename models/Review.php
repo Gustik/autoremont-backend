@@ -39,6 +39,14 @@ class Review extends Model
         ];
     }
 
+    public function getAttributes($names = null, $except = [])
+    {
+        $values = parent::getAttributes($names, $except);
+        $values['authorName'] = $this->getAuthorName();
+
+        return $values;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -47,7 +55,7 @@ class Review extends Model
         $scenarios = parent::scenarios();
         $scenarios['api-create'] = ['order_id', 'comment', 'mech_id', 'rating'];
         $scenarios['api-update'] = ['id', 'comment', 'rating'];
-        $scenarios['api-view'] = ['id', 'order_id', 'mech_id', 'comment', 'rating'];
+        $scenarios['api-view'] = ['id', 'order_id', 'mech_id', 'comment', 'rating', 'authorName'];
 
         return $scenarios;
     }
@@ -68,7 +76,7 @@ class Review extends Model
         return [
             [['comment', 'rating', 'order_id'], 'required'],
             [['id', 'mech_id', 'order_id'], 'integer'],
-            [['rating'], 'integer', 'min' => 1, 'max' => 10],
+            [['rating'], 'number', 'min' => 0.5, 'max' => 5],
             [['comment'], 'string', 'max' => 255],
         ];
     }
@@ -96,6 +104,11 @@ class Review extends Model
     public function getAuthor()
     {
         return $this->hasOne(User::className(), ['id' => 'author_id']);
+    }
+
+    public function getAuthorName()
+    {
+        return $this->author->profile->name;
     }
 
     /**

@@ -68,6 +68,7 @@ class UserCest
                     [
                         'comment' => $review->comment,
                         'rating' => $review->rating,
+                        'authorName' => $user->profile->name,
                     ],
                 ],
             ],

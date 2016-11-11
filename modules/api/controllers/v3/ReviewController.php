@@ -64,6 +64,7 @@ class ReviewController extends Controller
         }
         $mech_id = Yii::$app->request->getBodyParam('mech_id');
         $mech = User::findOne(['id' => $mech_id]);
+
         if (!$mech) {
             return new ResponseContainer(404, 'СТО/Магазин не найден');
         }

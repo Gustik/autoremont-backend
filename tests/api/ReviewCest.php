@@ -2,6 +2,7 @@
 
 use app\tests\fixtures\OfferFixture;
 use app\tests\fixtures\OrderFixture;
+use app\tests\fixtures\ProfileFixture;
 use app\tests\fixtures\ReviewFixture;
 use app\tests\fixtures\UserFixture;
 
@@ -14,6 +15,7 @@ class ReviewCest
             'reviews' => ['class' => ReviewFixture::className()],
             'offers' => ['class' => OfferFixture::className()],
             'users' => ['class' => UserFixture::className()],
+            'profiles' => ['class' => ProfileFixture::className()],
         ]);
     }
 
@@ -28,7 +30,7 @@ class ReviewCest
         $review = [
             'order_id' => $order->id,
             'comment' => 'good',
-            'rating' => 4,
+            'rating' => 0.5,
             'mech_id' => $offer->author_id,
         ];
 
@@ -36,7 +38,13 @@ class ReviewCest
         $I->sendPOST('/v3/review/create', $review);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 200]);
-        $I->seeResponseContainsJson(['data' => ['comment' => $review['comment']]]);
+        $I->seeResponseContainsJson(
+            [
+                'data' => [
+                    'comment' => $review['comment'],
+                    'rating' => $review['rating'],
+                ]
+            ]);
     }
 
     public function update(\ApiTester $I)

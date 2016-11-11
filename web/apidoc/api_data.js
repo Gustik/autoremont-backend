@@ -1220,6 +1220,13 @@ define({ "api": [
           },
           {
             "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "User.reviews.authorName",
+            "description": "<p>Имя автора отзыва</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "Number",
             "optional": false,
             "field": "User.reviews.order_id",

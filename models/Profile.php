@@ -7,14 +7,27 @@ use dosamigos\taggable\Taggable;
 /**
  * This is the model class for table "profile".
  *
- * @property int $id
+ * @property integer $id
  * @property string $created_at
  * @property string $updated_at
  * @property string $name
  * @property string $birth_date
+ * @property string $avatar
+ * @property integer $user_id
  * @property string $gcm_id
- * @property int $user_id
- * @property int $is_active
+ * @property string $apns_id
+ * @property string $car_brand
+ * @property string $car_model
+ * @property string $car_color
+ * @property integer $car_year
+ * @property integer $is_active
+ * @property integer $city_id
+ * @property string $company_name
+ * @property string $company_address
+ * @property string $company_logo
+ * @property string $lat
+ * @property string $lng
+ *
  * @property User $user
  */
 class Profile extends Model
@@ -36,7 +49,7 @@ class Profile extends Model
         $scenarios['admin-create'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
         $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
         $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
-        $scenarios['api-view'] = ['name', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
+        $scenarios['api-view'] = ['name', 'avatar', 'company_name', 'company_address', 'company_logo', 'lat', 'lng', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
         $scenarios['api-view-lite'] = ['name'];
 
         return $scenarios;
@@ -69,7 +82,8 @@ class Profile extends Model
             [['created_at', 'updated_at', 'birth_date'], 'safe'],
             [['birth_date'], 'date', 'format' => 'php:Y-m-d'],
             [['user_id', 'is_active', 'car_year'], 'integer'],
-            [['gcm_id', 'apns_id', 'name', 'car_brand', 'car_model', 'car_color'], 'string', 'max' => 255],
+            [['lat', 'lng'], 'number'],
+            [['name', 'avatar', 'gcm_id', 'apns_id', 'car_brand', 'car_model', 'car_color', 'company_name', 'company_address', 'company_logo'], 'string', 'max' => 255],
             [['user_id'], 'unique'],
         ];
     }
@@ -93,6 +107,12 @@ class Profile extends Model
             'car_color' => 'Цвет автомобиля',
             'car_year' => 'Год выпуска автомобиля',
             'is_active' => 'Активен',
+            'company_name' => 'Имя компании',
+            'company_address' => 'Адрес компании',
+            'company_logo' => 'Логотип компании',
+            'avatar' => 'Аватар',
+            'lat' => 'Широта',
+            'lng' => 'Долгота',
         ];
     }
 

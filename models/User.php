@@ -21,11 +21,16 @@ use yii\web\IdentityInterface;
  * @property int $is_active
  * @property int $is_admin
  * @property bool $can_work
+ * @property float $rating
  * @property Profile $profile
+ * @property Order[] $orders
+ * @property Review[] $reviews
+ * @property Review[] $myReviews
  */
 class User extends Model implements IdentityInterface
 {
     public $authKey;
+    //public $rating;
     const TEST_LOGIN = '+71234567890';
     const TEST_CODE = '1234';
 
@@ -37,6 +42,14 @@ class User extends Model implements IdentityInterface
         return 'user';
     }
 
+    public function getAttributes($names = null, $except = [])
+    {
+        $values = parent::getAttributes($names, $except);
+        $values['rating'] = $this->rating;
+
+        return $values;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -45,7 +58,7 @@ class User extends Model implements IdentityInterface
         $scenarios = parent::scenarios();
         $scenarios['admin-create'] = ['login', 'is_admin', 'password'];
         $scenarios['admin-update'] = ['login', 'is_admin', 'password'];
-        $scenarios['api-view'] = ['login', 'profile'];
+        $scenarios['api-view'] = ['id', 'login', 'profile', 'rating', 'reviews'];
 
         return $scenarios;
     }
@@ -195,11 +208,44 @@ class User extends Model implements IdentityInterface
     }
 
     /**
+     * Написанные мне отзывы.
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReviews()
+    {
+        return $this->hasMany(Review::className(), ['mech_id' => 'id']);
+    }
+
+    /**
+     * Написанные мной отзывы.
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMyReviews()
+    {
+        return $this->hasMany(Review::className(), ['author_id' => 'id']);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getAcceptedOrders()
     {
         return $this->hasMany(Order::className(), ['executor_id' => 'id'])->with('author');
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getRating()
+    {
+        $ratingSum = 0;
+        foreach ($this->reviews as $review) {
+            $ratingSum += $review->rating;
+        }
+
+        return $ratingSum > 0 ? $ratingSum / count($this->reviews) : 0;
     }
 
     /**

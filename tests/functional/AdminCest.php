@@ -1,9 +1,9 @@
 <?php
+
 class AdminCest
 {
     public function _before(\FunctionalTester $I)
     {
-
     }
 
     public function openAdminLoginPage(\FunctionalTester $I)

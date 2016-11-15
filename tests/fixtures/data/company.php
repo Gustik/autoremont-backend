@@ -1,4 +1,5 @@
 <?php
+
 return [
     'company1' => [
         'name' => 'super company',

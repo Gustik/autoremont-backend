@@ -3,12 +3,13 @@
 use app\tests\fixtures\CityFixture;
 use app\tests\fixtures\UserFixture;
 
-class CityCest {
+class CityCest
+{
     public function _before(\ApiTester $I)
     {
         $I->haveFixtures([
             'cities' => ['class' => CityFixture::className()],
-            'users' => ['class' => UserFixture::className()]
+            'users' => ['class' => UserFixture::className()],
         ]);
     }
 
@@ -21,7 +22,6 @@ class CityCest {
         $I->sendGET('/v3/city/index');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 200]);
-        $I->seeResponseContainsJson(['data'=>[['name' => $city->name]]]);
+        $I->seeResponseContainsJson(['data' => [['name' => $city->name]]]);
     }
-
 }

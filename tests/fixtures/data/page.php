@@ -1,4 +1,5 @@
 <?php
+
 return [
     'license' => [
         'id' => '1',

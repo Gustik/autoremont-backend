@@ -9,7 +9,7 @@ class BillAccountController extends Controller
 {
     public function actionProceed()
     {
-        $sql = "
+        $sql = '
             SET @diff := 0;
             UPDATE bill_account AS ba, user AS u
             SET
@@ -18,7 +18,7 @@ class BillAccountController extends Controller
                 u.can_work = IF(ba.days <= 0, false, true)
             WHERE
                 ba.user_id = u.id
-         ";
+         ';
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand($sql);
 

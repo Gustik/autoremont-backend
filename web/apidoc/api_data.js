@@ -648,6 +648,20 @@ define({ "api": [
           },
           {
             "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Order.offers.author.login",
+            "description": "<p>Номер телефона Мастера</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "Order.offers.author.rating",
+            "description": "<p>Рейтинг мастера</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "Object",
             "optional": false,
             "field": "Order.offers.author.profile",
@@ -805,6 +819,161 @@ define({ "api": [
     "version": "3.0.0",
     "filename": "modules/api/controllers/v3/ProfileController.php",
     "groupTitle": "Profile"
+  },
+  {
+    "name": "actionCreate",
+    "group": "Review",
+    "description": "<p>Создание отзыва к СТО/Магазину</p>",
+    "type": "post",
+    "url": "api/v3/review/create",
+    "title": "Создание отзыва",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "Review",
+            "description": "<p>Отзыв</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "Review.order_id",
+            "description": "<p>ID заказа</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Review.comment",
+            "description": "<p>Текст отзыва</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "Review.mech_id",
+            "description": "<p>ID СТО/Магазина</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "Review.rating",
+            "description": "<p>Оценка от 1 до 10</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "Review",
+            "description": "<p>Отзыв</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Успех:",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Review\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Ошибки:",
+          "content": "{\n  \"status\": 404,\n  \"message\": \"Заявка не найдена\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "3.0.0",
+    "filename": "modules/api/controllers/v3/ReviewController.php",
+    "groupTitle": "Review"
+  },
+  {
+    "name": "actionUpdate",
+    "group": "Review",
+    "description": "<p>Создание отзыва к СТО/Магазину</p>",
+    "type": "post",
+    "url": "api/v3/review/update",
+    "title": "Обновление отзыва",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "Review",
+            "description": "<p>Отзыв</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "Review.id",
+            "description": "<p>ID отзыва</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Review.comment",
+            "description": "<p>Текст отзыва</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "Review.rating",
+            "description": "<p>Оценка от 1 до 10</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "Review",
+            "description": "<p>Отзыв</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Успех:",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": Review\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Ошибки:",
+          "content": "{\n  \"status\": 404,\n  \"message\": \"Заявка не найдена\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "3.0.0",
+    "filename": "modules/api/controllers/v3/ReviewController.php",
+    "groupTitle": "Review"
   },
   {
     "type": "get",
@@ -969,6 +1138,127 @@ define({ "api": [
         {
           "title": "Ошибки:",
           "content": "{\n  \"status\": 400,\n  \"message\": \"Неверный код\"\n}\n{\n  \"status\": 404,\n  \"message\": \"Пользователь не найден (возвращается в случае указания номера телефона, отличного от номера во время вызова get-code)\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "3.0.0",
+    "filename": "modules/api/controllers/v3/UserController.php",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "api/v3/user/view?phone=:phone",
+    "title": "Просмотр пользователя",
+    "name": "actionView",
+    "group": "User",
+    "description": "<p>Просмотр профиля пользователя.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>номер телефона пользователя.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "User",
+            "description": "<p>Объект пользователя</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Profile",
+            "optional": false,
+            "field": "User.profile",
+            "description": "<p>Объект профиля пользователя</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "User.profile.name",
+            "description": "<p>Дата создания преложения</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "User.rating",
+            "description": "<p>Рейтинг пользователя</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "User.login",
+            "description": "<p>Телефон(логин) пользователя</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "User.reviews",
+            "description": "<p>Отзывы</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "User.reviews.id",
+            "description": "<p>ID отзыва</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "User.reviews.authorName",
+            "description": "<p>Имя автора отзыва</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "User.reviews.order_id",
+            "description": "<p>ID заказа, на который оставлен отзыв</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "User.reviews.mech_id",
+            "description": "<p>ID мастера, которму оставлен отзыв</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "User.reviews.rating",
+            "description": "<p>Оценка к отзыву 1..10</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "User.reviews.comment",
+            "description": "<p>Текст отзыва</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Успех:",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": User\n}",
           "type": "json"
         }
       ]

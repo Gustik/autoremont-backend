@@ -25,13 +25,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'new-style';
+
         return $this->render('index');
     }
-
 
     public function actionLicense()
     {
         $page = Page::findOne(1);
+
         return $this->render('license', ['page' => $page]);
     }
 }

@@ -58,7 +58,7 @@ class User extends Model implements IdentityInterface
         $scenarios = parent::scenarios();
         $scenarios['admin-create'] = ['login', 'is_admin', 'password'];
         $scenarios['admin-update'] = ['login', 'is_admin', 'password'];
-        $scenarios['api-view'] = ['login', 'profile', 'rating', 'reviews'];
+        $scenarios['api-view'] = ['id', 'login', 'profile', 'rating', 'reviews'];
 
         return $scenarios;
     }

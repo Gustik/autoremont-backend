@@ -8,6 +8,7 @@ use app\models\Profile;
 use app\modules\admin\models\UserSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -73,12 +74,16 @@ class UserController extends Controller
         if ($password = Yii::$app->request->post('User[password]')) {
             $user->password = $password;
         }
+        $profile->crop_info = Yii::$app->request->post('crop_info');
         $validate = false;
         if ($user->load(Yii::$app->request->post(), 'User') && $user->validate() &&
             $profile->load(Yii::$app->request->post(), 'Profile') && $profile->validate()) {
             $validate = true;
         }
         if ($validate) {
+            if($profile->company_logo_image = UploadedFile::getInstanceByName('company_logo_image')) {
+                $profile->company_logo = 'logo_'.time().'.'.$profile->company_logo_image->getExtension();
+            }
             $user->save();
             $profile->user_id = $user->id;
             $profile->save();
@@ -110,12 +115,18 @@ class UserController extends Controller
         if ($password = Yii::$app->request->post('User[password]')) {
             $user->password = $password;
         }
+        $profile->crop_info = Yii::$app->request->post('crop_info');
         $validate = false;
         if ($user->load(Yii::$app->request->post(), 'User') && $user->validate() &&
             $profile->load(Yii::$app->request->post(), 'Profile') && $profile->validate()) {
             $validate = true;
         }
         if ($validate) {
+            if($profile->company_logo_image = UploadedFile::getInstanceByName('company_logo_image')) {
+                @unlink(Yii::getAlias('@webroot/img/upload/company-logo/') . $profile->company_logo);
+                $profile->company_logo = 'logo_'.time().'.'.$profile->company_logo_image->getExtension();
+            }
+
             $user->save();
             $profile->save();
 

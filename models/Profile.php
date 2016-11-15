@@ -3,6 +3,11 @@
 namespace app\models;
 
 use dosamigos\taggable\Taggable;
+use Imagine\Image\Box;
+use Imagine\Image\Point;
+use Yii;
+use yii\helpers\Json;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "profile".
@@ -32,6 +37,9 @@ use dosamigos\taggable\Taggable;
  */
 class Profile extends Model
 {
+    public $company_logo_image;
+    public $crop_info;
+
     /**
      * {@inheritdoc}
      */
@@ -46,8 +54,8 @@ class Profile extends Model
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['admin-create'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
-        $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id'];
+        $scenarios['admin-create'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'company_name', 'company_address', 'company_logo_image'];
+        $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'company_name', 'company_address', 'company_logo_image'];
         $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
         $scenarios['api-view'] = ['name', 'avatar', 'company_name', 'company_address', 'company_logo', 'lat', 'lng', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
         $scenarios['api-view-lite'] = ['name'];
@@ -85,6 +93,12 @@ class Profile extends Model
             [['lat', 'lng'], 'number'],
             [['name', 'avatar', 'gcm_id', 'apns_id', 'car_brand', 'car_model', 'car_color', 'company_name', 'company_address', 'company_logo'], 'string', 'max' => 255],
             [['user_id'], 'unique'],
+            [
+                'company_logo_image',
+                'image',
+                'extensions' => ['jpg', 'jpeg', 'png', 'gif'],
+                'mimeTypes' => ['image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'],
+            ],
         ];
     }
 
@@ -152,6 +166,31 @@ class Profile extends Model
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($this->company_logo_image) {
+            // open image
+            $image = Image::getImagine()->open($this->company_logo_image->tempName);
+
+            // rendering information about crop of ONE option
+            $cropInfo = Json::decode($this->crop_info)[0];
+            $cropInfo['dWidth'] = (int)$cropInfo['dWidth']; //new width image
+            $cropInfo['dHeight'] = (int)$cropInfo['dHeight']; //new height image
+            $cropInfo['x'] = $cropInfo['x']; //begin position of frame crop by X
+            $cropInfo['y'] = $cropInfo['y']; //begin position of frame crop by Y
+
+            //saving thumbnail
+            $newSizeThumb = new Box($cropInfo['dWidth'], $cropInfo['dHeight']);
+            $cropSizeThumb = new Box(800, 250); //frame size of crop
+            $cropPointThumb = new Point($cropInfo['x'], $cropInfo['y']);
+            $pathThumbImage = Yii::getAlias('@webroot/img/upload/company-logo/') . $this->company_logo;
+
+            $image->resize($newSizeThumb)
+                ->crop($cropPointThumb, $cropSizeThumb)
+                ->save($pathThumbImage, ['quality' => 100]);
         }
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use bupy7\cropbox\Cropbox;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datepicker\DatePicker;
@@ -12,7 +13,7 @@ use dosamigos\datepicker\DatePicker;
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->errorSummary([$user, $profile]); ?>
 
@@ -32,7 +33,22 @@ use dosamigos\datepicker\DatePicker;
             ],
     ]); ?>
 
-    <?= $form->field($profile, 'gcm_id')->textInput(['maxlength' => true, 'name' => 'Profile[gcm_id]']) ?>
+    <hr>
+    <?= $form->field($profile, 'company_name')->textInput(['maxlength' => true, 'name' => 'Profile[company_name]']) ?>
+    <?= $form->field($profile, 'company_address')->textInput(['maxlength' => true, 'name' => 'Profile[company_address]']) ?>
+    <?= $form->field($profile, 'company_logo_image')->widget(Cropbox::className(), [
+        'attributeCropInfo' => 'crop_info',
+        'originalImageUrl' => Yii::getAlias('@web/img/upload/company-logo/').$profile->company_logo,
+        'pluginOptions' => [
+            'variants' => [
+                [
+                    'width' => 800,
+                    'height' => 250
+                ]
+            ]
+        ]
+    ]) ?>
+    <hr>
 
     <?= $form->field($profile, 'car_brand')->textInput(['maxlength' => true, 'name' => 'Profile[car_brand]']) ?>
 

@@ -27,6 +27,7 @@ class CompanyController extends Controller
      * @apiSuccess {String} Company.name Название города
      * @apiSuccess {String} Company.phone Телефон
      * @apiSuccess {String} Company.url Url
+     * @apiSuccess {String} Company.logo Url рисунка/логотипа
      * @apiSuccess {String} Company.description Описание компании
      *
      * @apiSuccessExample {json} Успех:

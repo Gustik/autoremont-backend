@@ -99,6 +99,13 @@
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "Company.url",
+            "description": "<p>Url</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "Company.description",
             "description": "<p>Описание компании</p>"
           }

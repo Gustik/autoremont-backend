@@ -19,6 +19,8 @@ use app\models\Company;
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'description')->widget(\yii\redactor\widgets\Redactor::className()) ?>
 
 

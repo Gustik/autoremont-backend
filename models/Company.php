@@ -11,16 +11,18 @@ namespace app\models;
  * @property int $category
  * @property string $name
  * @property string $phone
+ * @property string $url
  * @property string $description
  * @property int $is_active
  */
 class Company extends Model
 {
-    const CAT_LAWYER = 1;
-    const CAT_EVACUATOR = 2;
-    const CAT_COMMISSAR = 3;
-    const CAT_SALE = 4;
-    const CAT_OUTREACH_SERVICE = 5;
+    const CAT_LAWYER = 1; // Автоюристы
+    const CAT_EVACUATOR = 2; // Эваукуаторы
+    const CAT_COMMISSAR = 3; //Автокомиссары
+    const CAT_SALE = 4; // Акции
+    const CAT_OUTREACH_SERVICE = 5; // Выездные услуги
+    const CAT_INSURANCE = 6; // Страховые компании
 
     public static $categories = [
         self::CAT_LAWYER => 'Автоюрист',
@@ -28,6 +30,7 @@ class Company extends Model
         self::CAT_COMMISSAR => 'Аварийный комиссар',
         self::CAT_SALE => 'Акции',
         self::CAT_OUTREACH_SERVICE => 'Выездные услуги',
+        self::CAT_INSURANCE => 'Страховые компании',
     ];
 
     public function getCategoryName()
@@ -49,7 +52,7 @@ class Company extends Model
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['api-view'] = ['id', 'name', 'phone', 'description'];
+        $scenarios['api-view'] = ['id', 'name', 'phone', 'url', 'description'];
 
         return $scenarios;
     }
@@ -64,7 +67,7 @@ class Company extends Model
             [['created_at', 'updated_at'], 'safe'],
             [['category', 'is_active'], 'integer'],
             [['description'], 'string'],
-            [['name', 'phone'], 'string', 'max' => 255],
+            [['name', 'phone', 'url'], 'string', 'max' => 255],
         ];
     }
 
@@ -80,6 +83,7 @@ class Company extends Model
             'category' => 'Category',
             'name' => 'Name',
             'phone' => 'Phone',
+            'url' => 'Url',
             'description' => 'Description',
             'is_active' => 'Is Active',
         ];

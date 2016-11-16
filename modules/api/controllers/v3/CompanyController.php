@@ -26,6 +26,7 @@ class CompanyController extends Controller
      * @apiSuccess {String} Company.id ID компании
      * @apiSuccess {String} Company.name Название города
      * @apiSuccess {String} Company.phone Телефон
+     * @apiSuccess {String} Company.url Url
      * @apiSuccess {String} Company.description Описание компании
      *
      * @apiSuccessExample {json} Успех:

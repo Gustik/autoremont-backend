@@ -1,6 +1,11 @@
 <?php
 
 namespace app\models;
+use yii\imagine\Image;
+use yii\helpers\Json;
+use Imagine\Image\Box;
+use Imagine\Image\Point;
+use Yii;
 
 /**
  * This is the model class for table "company".
@@ -12,6 +17,7 @@ namespace app\models;
  * @property string $name
  * @property string $phone
  * @property string $url
+ * @property string $logo
  * @property string $description
  * @property int $is_active
  */
@@ -24,6 +30,7 @@ class Company extends Model
     const CAT_OUTREACH_SERVICE = 5; // Выездные услуги
     const CAT_INSURANCE = 6; // Страховые компании
 
+
     public static $categories = [
         self::CAT_LAWYER => 'Автоюрист',
         self::CAT_EVACUATOR => 'Эвакуатор',
@@ -32,6 +39,11 @@ class Company extends Model
         self::CAT_OUTREACH_SERVICE => 'Выездные услуги',
         self::CAT_INSURANCE => 'Страховые компании',
     ];
+
+    public $logo_image;
+    public $crop_info;
+    const LOGO_WIDTH = 800;
+    const LOGO_HEIGHT = 400;
 
     public function getCategoryName()
     {
@@ -52,7 +64,7 @@ class Company extends Model
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['api-view'] = ['id', 'name', 'phone', 'url', 'description'];
+        $scenarios['api-view'] = ['id', 'name', 'phone', 'url', 'logo', 'description'];
 
         return $scenarios;
     }
@@ -63,11 +75,17 @@ class Company extends Model
     public function rules()
     {
         return [
-            [['name', 'phone', 'description'], 'required'],
+            [['name', 'description'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['category', 'is_active'], 'integer'],
             [['description'], 'string'],
-            [['name', 'phone', 'url'], 'string', 'max' => 255],
+            [['name', 'phone', 'url', 'logo'], 'string', 'max' => 255],
+            [
+                'logo_image',
+                'image',
+                'extensions' => ['jpg', 'jpeg', 'png', 'gif'],
+                'mimeTypes' => ['image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'],
+            ],
         ];
     }
 
@@ -87,5 +105,30 @@ class Company extends Model
             'description' => 'Description',
             'is_active' => 'Is Active',
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($this->logo_image) {
+            // open image
+            $image = Image::getImagine()->open($this->logo_image->tempName);
+
+            // rendering information about crop of ONE option
+            $cropInfo = Json::decode($this->crop_info)[0];
+            $cropInfo['dWidth'] = (int)$cropInfo['dWidth']; //new width image
+            $cropInfo['dHeight'] = (int)$cropInfo['dHeight']; //new height image
+            $cropInfo['x'] = $cropInfo['x']; //begin position of frame crop by X
+            $cropInfo['y'] = $cropInfo['y']; //begin position of frame crop by Y
+
+            //saving thumbnail
+            $newSizeThumb = new Box($cropInfo['dWidth'], $cropInfo['dHeight']);
+            $cropSizeThumb = new Box(Company::LOGO_WIDTH, Company::LOGO_HEIGHT); //frame size of crop
+            $cropPointThumb = new Point($cropInfo['x'], $cropInfo['y']);
+            $pathThumbImage = Yii::getAlias('@webroot/img/upload/companies/') . $this->logo;
+
+            $image->resize($newSizeThumb)
+                ->crop($cropPointThumb, $cropSizeThumb)
+                ->save($pathThumbImage, ['quality' => 100]);
+        }
     }
 }

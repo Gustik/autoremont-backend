@@ -3,6 +3,7 @@
 use app\tests\fixtures\OfferFixture;
 use app\tests\fixtures\OrderFixture;
 use app\tests\fixtures\ProfileFixture;
+use app\tests\fixtures\ReviewFixture;
 use app\tests\fixtures\UserFixture;
 
 class OrderCest
@@ -16,6 +17,7 @@ class OrderCest
             'profiles' => ['class' => ProfileFixture::className()],
             'orders' => ['class' => OrderFixture::className()],
             'offers' => ['class' => OfferFixture::className()],
+            'reviews' => ['class' => ReviewFixture::className()],
         ]);
         $this->user = $I->grabFixture('users', 'user2');
 
@@ -122,6 +124,44 @@ class OrderCest
                         'author' => [
                             'rating' => 'integer|float',
                         ],
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * Поле reviewed у offer, на который я создал отзыв, должен быть true.
+     *
+     * @param ApiTester $I
+     */
+    public function clientViewWithReviewedOffer(\ApiTester $I)
+    {
+        $user = $I->grabFixture('users', 'user3');
+
+        $order = $I->grabFixture('orders', 'order3');
+        $order->author_id = $user->id;
+        $order->save();
+
+        $offer = $I->grabFixture('offers', 'offer1');
+        $offer->order_id = $order->id;
+        $offer->save();
+
+        $review = $I->grabFixture('reviews', 'review1');
+        $review->mech_id = $offer->author_id;
+        $review->author_id = $user->id;
+        $review->save();
+
+        $I->amHttpAuthenticated($user->access_token, '123456');
+        $I->sendGET('/v3/order/client-view', ['id' => $order->id]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseContainsJson([
+            'data' => [
+                'offers' => [
+                    [
+                        'id' => $offer->id,
+                        'reviewed' => true,
                     ],
                 ],
             ],

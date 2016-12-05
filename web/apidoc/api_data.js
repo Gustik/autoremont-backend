@@ -106,6 +106,13 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "Company.logo",
+            "description": "<p>Url рисунка/логотипа</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "Company.description",
             "description": "<p>Описание компании</p>"
           }
@@ -634,6 +641,13 @@ define({ "api": [
           },
           {
             "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "Order.offers.reviewed",
+            "description": "<p>Произведена ли оценка мастера по данному предложению</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "Order.offers.created_at",
@@ -666,6 +680,13 @@ define({ "api": [
             "optional": false,
             "field": "Order.offers.author.rating",
             "description": "<p>Рейтинг мастера</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "Order.offers.author.reviews",
+            "description": "<p>Отзывы</p>"
           },
           {
             "group": "Success 200",
@@ -897,6 +918,60 @@ define({ "api": [
     },
     "error": {
       "examples": [
+        {
+          "title": "Ошибки:",
+          "content": "{\n  \"status\": 404,\n  \"message\": \"Заявка не найдена\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "3.0.0",
+    "filename": "modules/api/controllers/v3/ReviewController.php",
+    "groupTitle": "Review"
+  },
+  {
+    "name": "actionDelete",
+    "group": "Review",
+    "description": "<p>Удаление отзыва к СТО/Магазину</p>",
+    "type": "post",
+    "url": "api/v3/review/delete",
+    "title": "Удаление отзыва",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "Review",
+            "description": "<p>Отзыв</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "Review.id",
+            "description": "<p>ID отзыва</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Успех:",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Ошибки:",
+          "content": "{\n  \"status\": 403,\n  \"message\": \"Вы не можете удалить не свой отзыв\"\n}",
+          "type": "json"
+        },
         {
           "title": "Ошибки:",
           "content": "{\n  \"status\": 404,\n  \"message\": \"Заявка не найдена\"\n}",

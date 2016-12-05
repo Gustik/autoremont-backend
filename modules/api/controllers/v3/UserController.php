@@ -240,10 +240,20 @@ class UserController extends Controller
 
         $user->setScenario('api-view');
         $user->profile->setScenario('api-view');
-        foreach($user->reviews as $review) {
+        foreach ($user->reviews as $key => $review) {
             $review->setScenario('api-view');
+            $review->my = ($review->author_id == $this->user->id);
         }
 
-        return new ResponseContainer(200, 'OK', $user->safeAttributes);
+        $res = $user->safeAttributes;
+
+        foreach ($res['reviews'] as $key => $review) {
+            $my[$key] = $review['my'];
+            $id[$key] = $review['id'];
+        }
+
+        array_multisort($my, SORT_DESC, $id, SORT_DESC, $res['reviews']);
+
+        return new ResponseContainer(200, 'OK', $res);
     }
 }

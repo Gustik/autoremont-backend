@@ -43,10 +43,10 @@ use dosamigos\datepicker\DatePicker;
             'variants' => [
                 [
                     'width' => 800,
-                    'height' => 250
-                ]
-            ]
-        ]
+                    'height' => 250,
+                ],
+            ],
+        ],
     ]) ?>
     <hr>
 

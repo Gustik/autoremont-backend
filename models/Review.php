@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\behaviors\BlameableBehavior;
 
@@ -20,9 +21,11 @@ use yii\behaviors\BlameableBehavior;
  * @property User $author
  * @property User $mech
  */
-class Review extends Model
+class Review extends ActiveRecord
 {
-    public $is_active = 1;
+    use traits\SafeAttributes;
+
+    public $my = false;
 
     public function behaviors()
     {
@@ -43,6 +46,7 @@ class Review extends Model
     {
         $values = parent::getAttributes($names, $except);
         $values['authorName'] = $this->getAuthorName();
+        $values['my'] = $this->my;
 
         return $values;
     }
@@ -55,7 +59,7 @@ class Review extends Model
         $scenarios = parent::scenarios();
         $scenarios['api-create'] = ['order_id', 'comment', 'mech_id', 'rating'];
         $scenarios['api-update'] = ['id', 'comment', 'rating'];
-        $scenarios['api-view'] = ['id', 'order_id', 'mech_id', 'comment', 'rating', 'authorName'];
+        $scenarios['api-view'] = ['id', 'order_id', 'mech_id', 'author_id', 'comment', 'rating', 'authorName', 'my'];
 
         return $scenarios;
     }

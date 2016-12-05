@@ -410,6 +410,7 @@ class OrderController extends Controller
      * @apiSuccess {String} Order.car_color Цвет машины
      * @apiSuccess {String} Order.tagNames Список тегов через запятую (Ходовка, Электрика, итп)
      * @apiSuccess {Object[]} Order.offers Список предложений к заказу (Offer)
+     * @apiSuccess {Boolean} Order.offers.reviewed Произведена ли оценка мастера по данному предложению
      * @apiSuccess {String} Order.offers.created_at Дата создания преложения
      * @apiSuccess {String} Order.offers.text Текст предложения
      * @apiSuccess {Object} Order.offers.author Автор предложения (User)
@@ -448,6 +449,9 @@ class OrderController extends Controller
         $order->setScenario('api-view');
 
         foreach ($order->offers as $offer) {
+            foreach ($offer->author->reviews as $review) {
+                $offer->reviewed = ($review->author_id == $this->user->id) ? true : false;
+            }
             $offer->setScenario('api-view');
             $offer->author->setScenario('api-view');
             $offer->author->profile->setScenario('api-view-lite');

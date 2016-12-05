@@ -641,6 +641,13 @@
           },
           {
             "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "Order.offers.reviewed",
+            "description": "<p>Произведена ли оценка мастера по данному предложению</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "Order.offers.created_at",

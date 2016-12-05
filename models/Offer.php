@@ -18,6 +18,8 @@ namespace app\models;
  */
 class Offer extends Model
 {
+    public $reviewed = false;
+
     /**
      * {@inheritdoc}
      */
@@ -34,9 +36,17 @@ class Offer extends Model
         $scenarios = parent::scenarios();
         $scenarios['api-create'] = ['text', 'order_id'];
         $scenarios['api-update'] = ['text'];
-        $scenarios['api-view'] = ['id', 'text', 'created_at', 'updated_at', 'author_id', 'order_id', 'author'];
+        $scenarios['api-view'] = ['id', 'text', 'created_at', 'updated_at', 'author_id', 'order_id', 'author', 'reviewed'];
 
         return $scenarios;
+    }
+
+    public function getAttributes($names = null, $except = [])
+    {
+        $values = parent::getAttributes($names, $except);
+        $values['reviewed'] = $this->reviewed;
+
+        return $values;
     }
 
     /**

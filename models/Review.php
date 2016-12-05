@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\behaviors\BlameableBehavior;
 
@@ -20,9 +21,9 @@ use yii\behaviors\BlameableBehavior;
  * @property User $author
  * @property User $mech
  */
-class Review extends Model
+class Review extends ActiveRecord
 {
-    public $is_active = 1;
+    use traits\SafeAttributes;
 
     public function behaviors()
     {

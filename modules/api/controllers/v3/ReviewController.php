@@ -137,7 +137,7 @@ class ReviewController extends Controller
             return new ResponseContainer(404, 'Отзыв не найден '.$review_id);
         }
         if ($review->author_id != $this->user->id) {
-            return new ResponseContainer(400, 'Вы не можете создавать отзывы на не свои заказы');
+            return new ResponseContainer(403, 'Вы не можете создавать отзывы на не свои заказы');
         }
 
         $review->setScenario('api-update');
@@ -145,6 +145,60 @@ class ReviewController extends Controller
 
         if ($review->save()) {
             return new ResponseContainer(200, 'OK', $review->safeAttributes);
+        }
+
+        return new ResponseContainer(500, 'Внутренняя ошибка сервера', $review->errors);
+    }
+
+    /**
+     * @apiName actionDelete
+     * @apiGroup Review
+     * @apiDescription Удаление отзыва к СТО/Магазину
+     *
+     * @api {post} api/v3/review/delete Удаление отзыва
+     *
+     * @apiParam {Object} Review Отзыв
+     * @apiParam {Number} Review.id ID отзыва
+     *
+     *
+     * @apiSuccessExample {json} Успех:
+     *     {
+     *       "status": 200,
+     *       "message": "OK",
+     *     }
+     *
+     * @apiErrorExample {json} Ошибки:
+     *     {
+     *       "status": 403,
+     *       "message": "Вы не можете удалить не свой отзыв"
+     *     }
+     *
+     * @apiErrorExample {json} Ошибки:
+     *     {
+     *       "status": 404,
+     *       "message": "Заявка не найдена"
+     *     }
+     *
+     * @apiVersion 3.0.0
+     *
+     * @return ResponseContainer
+     */
+    public function actionDelete()
+    {
+        $review_id = Yii::$app->request->getBodyParam('id');
+        /**
+         * @var Review
+         */
+        $review = Review::findOne(['id' => $review_id]);
+        if (!$review) {
+            return new ResponseContainer(404, 'Отзыв не найден '.$review_id);
+        }
+        if ($review->author_id != $this->user->id) {
+            return new ResponseContainer(403, 'Вы не можете удалить не свой отзыв');
+        }
+
+        if ($review->delete()) {
+            return new ResponseContainer(200, 'OK');
         }
 
         return new ResponseContainer(500, 'Внутренняя ошибка сервера', $review->errors);

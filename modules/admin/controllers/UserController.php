@@ -81,7 +81,7 @@ class UserController extends Controller
             $validate = true;
         }
         if ($validate) {
-            if($profile->company_logo_image = UploadedFile::getInstanceByName('company_logo_image')) {
+            if ($profile->company_logo_image = UploadedFile::getInstanceByName('company_logo_image')) {
                 $profile->company_logo = 'logo_'.time().'.'.$profile->company_logo_image->getExtension();
             }
             $user->save();
@@ -122,8 +122,8 @@ class UserController extends Controller
             $validate = true;
         }
         if ($validate) {
-            if($profile->company_logo_image = UploadedFile::getInstanceByName('company_logo_image')) {
-                @unlink(Yii::getAlias('@webroot/img/upload/company-logo/') . $profile->company_logo);
+            if ($profile->company_logo_image = UploadedFile::getInstanceByName('company_logo_image')) {
+                @unlink(Yii::getAlias('@webroot/img/upload/company-logo/').$profile->company_logo);
                 $profile->company_logo = 'logo_'.time().'.'.$profile->company_logo_image->getExtension();
             }
 

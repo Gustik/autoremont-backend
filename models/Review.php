@@ -55,7 +55,7 @@ class Review extends Model
         $scenarios = parent::scenarios();
         $scenarios['api-create'] = ['order_id', 'comment', 'mech_id', 'rating'];
         $scenarios['api-update'] = ['id', 'comment', 'rating'];
-        $scenarios['api-view'] = ['id', 'order_id', 'mech_id', 'comment', 'rating', 'authorName'];
+        $scenarios['api-view'] = ['id', 'order_id', 'mech_id', 'author_id', 'comment', 'rating', 'authorName'];
 
         return $scenarios;
     }

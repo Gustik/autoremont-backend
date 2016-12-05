@@ -46,7 +46,7 @@ class ReviewCest
                 'data' => [
                     'comment' => $review['comment'],
                     'rating' => $review['rating'],
-                ]
+                ],
             ]);
     }
 
@@ -78,8 +78,6 @@ class ReviewCest
         $I->sendPOST('/v3/review/create', $review);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 400]);
-
-
     }
 
     public function update(\ApiTester $I)

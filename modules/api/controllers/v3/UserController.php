@@ -240,7 +240,7 @@ class UserController extends Controller
 
         $user->setScenario('api-view');
         $user->profile->setScenario('api-view');
-        foreach($user->reviews as $review) {
+        foreach ($user->reviews as $review) {
             $review->setScenario('api-view');
         }
 

@@ -106,6 +106,13 @@
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "Company.logo",
+            "description": "<p>Url рисунка/логотипа</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "Company.description",
             "description": "<p>Описание компании</p>"
           }
@@ -666,6 +673,13 @@
             "optional": false,
             "field": "Order.offers.author.rating",
             "description": "<p>Рейтинг мастера</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "Order.offers.author.reviews",
+            "description": "<p>Отзывы</p>"
           },
           {
             "group": "Success 200",

@@ -415,6 +415,7 @@ class OrderController extends Controller
      * @apiSuccess {Object} Order.offers.author Автор предложения (User)
      * @apiSuccess {String} Order.offers.author.login Номер телефона Мастера
      * @apiSuccess {Number} Order.offers.author.rating Рейтинг мастера
+     * @apiSuccess {Object[]} Order.offers.author.reviews Отзывы
      * @apiSuccess {Object} Order.offers.author.profile Профиль автора предложения (Profile)
      * @apiSuccess {Object} Order.executor Исполнитель заказа (User)
      * @apiSuccess {Object} Order.author Автор заказа (User)
@@ -469,7 +470,6 @@ class OrderController extends Controller
         }
 
         return new ResponseContainer(200, 'OK', $order->safeAttributes);
-
     }
 
     public function actionAccept($id, $type)

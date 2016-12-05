@@ -31,10 +31,10 @@ use app\models\Company;
             'variants' => [
                 [
                     'width' => Company::LOGO_WIDTH,
-                    'height' => Company::LOGO_HEIGHT
-                ]
-            ]
-        ]
+                    'height' => Company::LOGO_HEIGHT,
+                ],
+            ],
+        ],
     ]) ?>
 
 

@@ -12,27 +12,26 @@ use yii\imagine\Image;
 /**
  * This is the model class for table "profile".
  *
- * @property integer $id
+ * @property int $id
  * @property string $created_at
  * @property string $updated_at
  * @property string $name
  * @property string $birth_date
  * @property string $avatar
- * @property integer $user_id
+ * @property int $user_id
  * @property string $gcm_id
  * @property string $apns_id
  * @property string $car_brand
  * @property string $car_model
  * @property string $car_color
- * @property integer $car_year
- * @property integer $is_active
- * @property integer $city_id
+ * @property int $car_year
+ * @property int $is_active
+ * @property int $city_id
  * @property string $company_name
  * @property string $company_address
  * @property string $company_logo
  * @property string $lat
  * @property string $lng
- *
  * @property User $user
  */
 class Profile extends Model
@@ -177,8 +176,8 @@ class Profile extends Model
 
             // rendering information about crop of ONE option
             $cropInfo = Json::decode($this->crop_info)[0];
-            $cropInfo['dWidth'] = (int)$cropInfo['dWidth']; //new width image
-            $cropInfo['dHeight'] = (int)$cropInfo['dHeight']; //new height image
+            $cropInfo['dWidth'] = (int) $cropInfo['dWidth']; //new width image
+            $cropInfo['dHeight'] = (int) $cropInfo['dHeight']; //new height image
             $cropInfo['x'] = $cropInfo['x']; //begin position of frame crop by X
             $cropInfo['y'] = $cropInfo['y']; //begin position of frame crop by Y
 
@@ -186,7 +185,7 @@ class Profile extends Model
             $newSizeThumb = new Box($cropInfo['dWidth'], $cropInfo['dHeight']);
             $cropSizeThumb = new Box(800, 250); //frame size of crop
             $cropPointThumb = new Point($cropInfo['x'], $cropInfo['y']);
-            $pathThumbImage = Yii::getAlias('@webroot/img/upload/company-logo/') . $this->company_logo;
+            $pathThumbImage = Yii::getAlias('@webroot/img/upload/company-logo/').$this->company_logo;
 
             $image->resize($newSizeThumb)
                 ->crop($cropPointThumb, $cropSizeThumb)

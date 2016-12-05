@@ -66,12 +66,15 @@ class UserCest
                 'login' => $mech->login,
                 'reviews' => [
                     [
+                        'id' => $review->id,
+                        'order_id' => $order->id,
+                        'mech_id' => $review->mech_id,
+                        'author_id' => $review->author_id,
                         'comment' => $review->comment,
                         'rating' => $review->rating,
                         'authorName' => $user->profile->name,
                     ],
                 ],
-                'reviewsCount' => 1
             ],
         ]);
     }

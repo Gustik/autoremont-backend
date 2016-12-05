@@ -69,9 +69,9 @@ class ReviewController extends Controller
             return new ResponseContainer(404, 'СТО/Магазин не найден');
         }
 
-        $currentUserReviews = Review::find()->where(['author_id'=>$this->user->id, 'order_id'=>$order_id])->all();
+        $currentUserReviews = Review::find()->where(['author_id' => $this->user->id, 'order_id' => $order_id])->all();
 
-        if(count($currentUserReviews) > 0) {
+        if (count($currentUserReviews) > 0) {
             return new ResponseContainer(400, 'Нельзя создавать больше одного отзыва на один заказ');
         }
 

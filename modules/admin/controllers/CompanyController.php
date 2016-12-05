@@ -72,10 +72,11 @@ class CompanyController extends Controller
         $model->crop_info = Yii::$app->request->post('crop_info');
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->logo_image = UploadedFile::getInstanceByName('logo_image')) {
+            if ($model->logo_image = UploadedFile::getInstanceByName('logo_image')) {
                 $model->logo = 'logo_'.time().'.'.$model->logo_image->getExtension();
             }
             $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -97,8 +98,8 @@ class CompanyController extends Controller
         $model = $this->findModel($id);
         $model->crop_info = Yii::$app->request->post('crop_info');
         if ($model->load(Yii::$app->request->post())) {
-            if($model->logo_image = UploadedFile::getInstanceByName('logo_image')) {
-                @unlink(Yii::getAlias('@webroot/img/upload/companies/') . $model->logo);
+            if ($model->logo_image = UploadedFile::getInstanceByName('logo_image')) {
+                @unlink(Yii::getAlias('@webroot/img/upload/companies/').$model->logo);
                 $model->logo = 'logo_'.time().'.'.$model->logo_image->getExtension();
             }
             $model->save();

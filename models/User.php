@@ -46,7 +46,6 @@ class User extends Model implements IdentityInterface
     {
         $values = parent::getAttributes($names, $except);
         $values['rating'] = $this->rating;
-        $values['reviewsCount'] = count($this->reviews);
 
         return $values;
     }
@@ -59,7 +58,7 @@ class User extends Model implements IdentityInterface
         $scenarios = parent::scenarios();
         $scenarios['admin-create'] = ['login', 'is_admin', 'password'];
         $scenarios['admin-update'] = ['login', 'is_admin', 'password'];
-        $scenarios['api-view'] = ['id', 'login', 'profile', 'rating', 'reviews', 'reviewsCount'];
+        $scenarios['api-view'] = ['id', 'login', 'profile', 'rating', 'reviews'];
 
         return $scenarios;
     }

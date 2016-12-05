@@ -71,6 +71,7 @@ class UserCest
                         'authorName' => $user->profile->name,
                     ],
                 ],
+                'reviewsCount' => 1
             ],
         ]);
     }

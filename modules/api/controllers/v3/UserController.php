@@ -242,6 +242,7 @@ class UserController extends Controller
         $user->profile->setScenario('api-view');
         foreach ($user->reviews as $review) {
             $review->setScenario('api-view');
+            $review->my = ($review->author_id == $this->user->id);
         }
 
         return new ResponseContainer(200, 'OK', $user->safeAttributes);

@@ -25,6 +25,8 @@ class Review extends ActiveRecord
 {
     use traits\SafeAttributes;
 
+    public $my = false;
+
     public function behaviors()
     {
         return [
@@ -44,6 +46,7 @@ class Review extends ActiveRecord
     {
         $values = parent::getAttributes($names, $except);
         $values['authorName'] = $this->getAuthorName();
+        $values['my'] = $this->my;
 
         return $values;
     }
@@ -56,7 +59,7 @@ class Review extends ActiveRecord
         $scenarios = parent::scenarios();
         $scenarios['api-create'] = ['order_id', 'comment', 'mech_id', 'rating'];
         $scenarios['api-update'] = ['id', 'comment', 'rating'];
-        $scenarios['api-view'] = ['id', 'order_id', 'mech_id', 'author_id', 'comment', 'rating', 'authorName'];
+        $scenarios['api-view'] = ['id', 'order_id', 'mech_id', 'author_id', 'comment', 'rating', 'authorName', 'my'];
 
         return $scenarios;
     }

@@ -247,12 +247,14 @@ class UserController extends Controller
 
         $res = $user->safeAttributes;
 
-        foreach ($res['reviews'] as $key => $review) {
-            $my[$key] = $review['my'];
-            $id[$key] = $review['id'];
-        }
+        if(isset($res['reviews'])) { // Сортируем. Сперва мои отзывы, потом по убыванию, от свежего к позднему
+            foreach ($res['reviews'] as $key => $review) {
+                $my[$key] = $review['my'];
+                $id[$key] = $review['id'];
+            }
 
-        array_multisort($my, SORT_DESC, $id, SORT_DESC, $res['reviews']);
+            array_multisort($my, SORT_DESC, $id, SORT_DESC, $res['reviews']);
+        }
 
         return new ResponseContainer(200, 'OK', $res);
     }

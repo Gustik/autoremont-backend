@@ -43,7 +43,6 @@ class OfferCest
         $I->seeResponseContainsJson(['data' => ['text' => $newOffer['text']]]);
     }
 
-
     /**
      * Предложение не оплатившего.
      *

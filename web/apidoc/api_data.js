@@ -190,6 +190,11 @@ define({ "api": [
           "title": "Ошибки:",
           "content": "{\n  \"status\": 404,\n  \"message\": \"Заявка не найдена\"\n}",
           "type": "json"
+        },
+        {
+          "title": "Ошибки:",
+          "content": "{\n  \"status\": 403,\n  \"message\": \"Необходим платеж\"\n}",
+          "type": "json"
         }
       ]
     },

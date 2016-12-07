@@ -247,7 +247,7 @@ class UserController extends Controller
 
         $res = $user->safeAttributes;
 
-        if(isset($res['reviews'])) { // Сортируем. Сперва мои отзывы, потом по убыванию, от свежего к позднему
+        if (isset($res['reviews'])) { // Сортируем. Сперва мои отзывы, потом по убыванию, от свежего к позднему
             foreach ($res['reviews'] as $key => $review) {
                 $my[$key] = $review['my'];
                 $id[$key] = $review['id'];

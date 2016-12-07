@@ -52,6 +52,14 @@ class OfferController extends Controller
         $id = Yii::$app->request->getBodyParam('order_id');
         $order = Order::findOne(['id' => $id]);
         if ($order && $order->is_active) {
+
+            if (!$this->user->can_work // Если не может работать (не оплачен аккаунт)
+                && $order->category_id == 1 // для магазинов пока бесплатно (category_id 1 - ремонт, 2 - запчасти)
+                && $this->user->profile->city->need_payment // Если в городе включена тарификация
+            ) {
+                return new ResponseContainer(403, 'Необходим платеж');
+            }
+
             $offer = Offer::findProduce($id, $this->user->id);
             if ($offer->load(Yii::$app->request->getBodyParams())) {
                 $offer->is_call = false;

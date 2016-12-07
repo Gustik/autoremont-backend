@@ -42,4 +42,25 @@ class OfferCest
         $I->seeResponseContainsJson(['status' => 200]);
         $I->seeResponseContainsJson(['data' => ['text' => $newOffer['text']]]);
     }
+
+
+    /**
+     * Предложение не оплатившего.
+     *
+     * @param ApiTester $I
+     */
+    public function cantWorkMechCallToReapir(\ApiTester $I)
+    {
+        $cantWorkUser = $I->grabFixture('users', 'cantWorkUser');
+        $offer = $I->grabFixture('offers', 'offer1');
+        $newOffer = [
+            'text' => 'ok',
+            'order_id' => $offer->order_id,
+        ];
+
+        $I->amHttpAuthenticated($cantWorkUser->access_token, '123456');
+        $I->sendPOST('/v3/offer/produce', $newOffer);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 403]);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace app\modules\api\controllers\v3;
 
+use app\models\User;
 use Yii;
 use yii\web\Response;
 use yii\web\Controller as BaseController;
@@ -12,6 +13,9 @@ use yii\web\HttpException;
 
 class Controller extends BaseController
 {
+    /**
+     * @var User $user
+     */
     public $user;
 
     public function init()

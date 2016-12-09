@@ -39,11 +39,13 @@ class CompanyController extends Controller
      *
      * @apiVersion 3.0.0
      *
+     * @param $category
      * @return ResponseContainer
      */
     public function actionIndex($category)
     {
-        $models = Company::findAll(['is_active' => true, 'category' => $category]);
+        $city_id = $this->user->profile->city_id;
+        $models = Company::findAll(['is_active' => true, 'category' => $category, 'city_id' => $city_id]);
         $companies = [];
         foreach ($models as $company) {
             $company->setScenario('api-view');

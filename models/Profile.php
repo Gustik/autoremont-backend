@@ -120,12 +120,14 @@ class Profile extends Model
             'car_color' => 'Цвет автомобиля',
             'car_year' => 'Год выпуска автомобиля',
             'is_active' => 'Активен',
-            'company_name' => 'Имя компании',
-            'company_address' => 'Адрес компании',
-            'company_logo' => 'Логотип компании',
+            'company_name' => 'Имя СТО/Магазина',
+            'company_address' => 'Адрес СТО/Магазина',
+            'company_logo' => 'Логотип СТО/Магазина',
+            'company_logo_image' => 'Логотип СТО/Магазина',
             'avatar' => 'Аватар',
             'lat' => 'Широта',
             'lng' => 'Долгота',
+            'city_id' => 'Город',
         ];
     }
 

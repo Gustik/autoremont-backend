@@ -14,7 +14,7 @@ use yii\web\HttpException;
 class Controller extends BaseController
 {
     /**
-     * @var User $user
+     * @var User
      */
     public $user;
 

@@ -40,6 +40,7 @@ class CompanyController extends Controller
      * @apiVersion 3.0.0
      *
      * @param $category
+     *
      * @return ResponseContainer
      */
     public function actionIndex($category)

@@ -16,6 +16,9 @@ $config = [
         'admin' =>[
             'class' => 'app\modules\admin\Module',
         ],
+        'partner' =>[
+            'class' => 'app\modules\partner\Module',
+        ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
         ],

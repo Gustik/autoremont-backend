@@ -17,7 +17,7 @@ class CompanySearch extends Company
     public function rules()
     {
         return [
-            [['id', 'category', 'is_active'], 'integer'],
+            [['id', 'category', 'is_active', 'city_id'], 'integer'],
             [['created_at', 'updated_at', 'name', 'phone', 'description'], 'safe'],
         ];
     }
@@ -63,6 +63,7 @@ class CompanySearch extends Company
             'updated_at' => $this->updated_at,
             'category' => $this->category,
             'is_active' => $this->is_active,
+            'city_id' => $this->city_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

@@ -1,6 +1,8 @@
 <?php
 
+use app\models\City;
 use bupy7\cropbox\Cropbox;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Company;
@@ -13,6 +15,8 @@ use app\models\Company;
 <div class="company-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+
+    <?= $form->field($model, 'city_id')->dropDownList(ArrayHelper::map(City::find()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'category')->dropDownList(Company::$categories, ['class' => 'form-control']) ?>
 

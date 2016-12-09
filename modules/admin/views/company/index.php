@@ -1,6 +1,8 @@
 <?php
 
+use app\models\City;
 use app\models\Company;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -35,6 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'phone',
             // 'description:ntext',
             'is_active',
+            [
+                'attribute' => 'city_id',
+                'value' => 'city.name',
+                'filter' => ArrayHelper::map(City::find()->all(), 'id', 'name'),
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

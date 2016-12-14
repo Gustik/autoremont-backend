@@ -1,0 +1,15 @@
+.pay-tabs {
+    padding-top: 15px;
+    width: 130px;
+}
+.pay-buttons {
+    width: 100%;
+}
+
+#pay-sum {
+    font-size: x-large;
+    color: #00aa00;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 20px;
+}

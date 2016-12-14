@@ -19,8 +19,10 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/jquery.bootstrap-touchspin.min.css',
     ];
     public $js = [
+        'css/jquery.bootstrap-touchspin.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

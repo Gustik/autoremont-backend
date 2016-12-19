@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'amount',
             'days',
             'tariff.name',
+            'status',
         ],
     ]); ?>
 </div>

@@ -1,46 +1,47 @@
 <?php
 
+/* @var $tariffs array */
 /* @var $this yii\web\View */
+
 $this->title = 'Оплата подписки';
 $this->params['breadcrumbs'][] = $this->title;
 
+$t = json_encode($tariffs);
+
 $script = <<< JS
-    var tariffs = {"year": 30000, "month": 3000, "day": 150};
+    var tariffs = $t;
 
-    var yi = $("input[name='year']");
-    yi.TouchSpin({min: 0, max: 5, step: 1 });
-    yi.on("touchspin.on.startspin", function() {
-        calcSum(tariffs[this.id], this.value)
-    });
+    setInfo("Стоимость суток: " + tariffs[1] + ' руб.');
 
-    var mi = $("input[name='month']");
-    mi.TouchSpin({min: 0, max: 12, step: 1 });
-    mi.on("touchspin.on.startspin", function() {
-        calcSum(tariffs[this.id], this.value)
-    });
-
-    var di = $("input[name='day']");
-    di.TouchSpin({min: 0, max: 31, step: 1 });
+    var di = $("input[name='days']");
+    di.TouchSpin({min: 0, max: 1000, step: 1 });
     di.on("touchspin.on.startspin", function() {
-        calcSum(tariffs[this.id], this.value)
+        calcSum(this.value)
     });
 
-    $(".tab-item").click(resetSum);
+    function calcSum(count) {
+        var dayCost = 0;
 
-    function calcSum(tariff, count) {
-        setSum(tariff * count);
+        for (var key in tariffs){
+            var daysCount = parseInt(key);
+            var cost = tariffs[key];
+
+            if(count >= daysCount) {
+                dayCost = cost;
+                setInfo("Стоимость суток: " + dayCost + ' руб.');
+            }
+        }
+        setSum(dayCost * count);
     }
 
     function setSum(sum) {
         document.getElementById("pay-sum").innerHTML = "" + sum + " руб.";
     }
 
-    function resetSum() {
-        var id = $(this).data("id");
-        var i = $("input[name='"+ id +"']");
-        var count = i[0].value;
-        calcSum(tariffs[id], count)
+    function setInfo(info) {
+        document.getElementById("pay-info").innerHTML = info;
     }
+
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
@@ -55,23 +56,19 @@ $this->registerJs($script, yii\web\View::POS_READY);
                     <input class="form-control" type="text" name='phone' placeholder="Телефон"/>
                 </div>
 
-                <div id="tab" class="btn-group pay-buttons" data-toggle="buttons">
-                    <a data-id="year" href="#year" class="btn btn-default active tab-item" data-toggle="tab">
-                        <input type="radio" name="tariff" value="year" checked/>Годовая</a>
-                    <a data-id="month"href="#month" class="btn btn-default tab-item" data-toggle="tab">
-                        <input type="radio" name="tariff" value="month"/>Месячная</a>
-                    <a data-id="day" href="#day" class="btn btn-default tab-item" data-toggle="tab">
-                        <input type="radio" name="tariff" value="day"/>Суточная</a>
+                <div class="center-block">
+                    <div><input id="day" type="text" value="0" name="days"></div>
                 </div>
 
-                <div class="tab-content pay-tabs center-block">
-                    <div class="tab-pane active" id="year"><input id="year" type="text" value="0" name="year"></div>
-                    <div class="tab-pane" id="month"><input id="month" type="text" value="0" name="month"></div>
-                    <div class="tab-pane" id="day"><input id="day" type="text" value="0" name="day"></div>
+                <div id="pay-info" class="alert alert-info">
+
                 </div>
 
-                <div id="pay-sum" class="center-block">
-                    0 руб.
+                <div>
+                    <div class="pay-sum-label">Сумма к оплате:</div>
+                    <div id="pay-sum">
+                        0 руб.
+                    </div>
                 </div>
 
                 <div class="form-group">

@@ -2,9 +2,16 @@
 
 namespace app\controllers;
 
+use app\models\BillAccount;
+use app\models\BillPayment;
+use app\models\BillTariff;
 use app\models\Page;
+use app\models\User;
+use Exception;
 use Yii;
 use yii\web\Controller;
+use yii\web\NotAcceptableHttpException;
+use yii\web\NotFoundHttpException;
 
 class PayController extends Controller
 {
@@ -24,12 +31,59 @@ class PayController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $tariffs = [];
+        /**
+         * @var BillTariff $tariff
+         */
+        foreach(BillTariff::find()->where(['city_id' => 1])->all() as $tariff) {
+            $tariffs[$tariff->start_days] = $tariff->day_cost;
+        }
+        return $this->render('index', ['tariffs' => $tariffs]);
     }
 
-    public function actionExecute($phone, $tariff, $year, $month, $day)
+    public function actionExecute($phone, $days)
     {
+        $user = User::findIdentityByLogin($phone);
+        if(!$user) {
+            throw new NotFoundHttpException('Пользователь с таким номером не найден');
+        }
 
+        $model = new BillPayment();
+
+        $connection = \Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+            $tariff = BillTariff::findTariffByDaysCount($days);
+
+            if(!$tariff) {
+                throw new Exception('Ошибка подбора тарифа');
+            }
+
+            $model->user_id = $user->id;
+            $model->tariff_id = $tariff->id;
+            $model->days = $days;
+
+            if (!$model->validate()) {
+                $transaction->rollback();
+
+                throw new Exception($model->errors);
+            }
+
+            // Расчитываем сумму в зависимости от тарифа
+            $model->amount = (int) ($model->days * BillTariff::findOne($model->tariff_id)->day_cost);
+            $model->status = BillPayment::STATUS_PENDING;
+
+            if (!$model->save()) {
+                throw new Exception('Ошибка создания платежа');
+            }
+
+            $transaction->commit();
+            // redirect to robokassa
+            return "OK\n";
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw new NotAcceptableHttpException($e->getMessage());
+        }
     }
 
     /**
@@ -65,16 +119,50 @@ class PayController extends Controller
             return "bad sign\n";
         }
 
-        // признак успешно проведенной операции
-        // success
-        return "OK$inv_id\n";
+        $connection = \Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+            $payment = BillPayment::findOne($inv_id);
+            if($payment) {
+                throw new Exception("Платеж не найден");
+            }
+            $account = BillAccount::find()->where(['=', 'user_id', $payment->user_id])->one();
 
-        // запись в файл информации о проведенной операции
-        // save order info to file
-        /*$f=@fopen("order.txt","a+") or
-        die("error");
-        fputs($f,"order_num :$inv_id;Summ :$out_summ;Date :$date\n");
-        fclose($f);*/
+            if (!$account) {
+                $account = new BillAccount();
+                $account->user_id = $payment->user_id;
+            }
+
+            // Увеличиваем количество дней, в течении которого пользователь может работать
+            $account->days += $payment->days;
+
+            if (!$account->save()) {
+                throw new Exception('Ошибка обновления аккаунтинга');
+            }
+
+            $user = $payment->user;
+
+            // Если пользователь был отключен ранее, то включаем возможность работать
+            if (!$user->can_work) {
+                $user->can_work = true;
+                if (!$user->save()) {
+                    throw new Exception('Ошибка активации аккаунта');
+                }
+            }
+
+            $payment->status = BillPayment::STATUS_OK;
+            if (!$payment->save()) {
+                throw new Exception('Ошибка обновления статуса платежа');
+            }
+            $transaction->commit();
+
+            // признак успешно проведенной операции
+            // success
+            return "OK$inv_id\n";
+        } catch (Exception $e) {
+            $transaction->rollback();
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -107,20 +195,17 @@ class PayController extends Controller
 
         // проверка наличия номера счета в истории операций
         // check of number of the order info in history of operations
-        /*$f=@fopen("order.txt","r+") or die("error");
+        $payment = BillPayment::findOne($inv_id);
 
-        while(!feof($f))
-        {
-            $str=fgets($f);
-
-            $str_exp = explode(";", $str);
-            if ($str_exp[0]=="order_num :$inv_id")
-            {
-                echo "Операция прошла успешно\n";
-                echo "Operation of payment is successfully completed\n";
-            }
+        if(!$payment) {
+            return "error: payment not found";
         }
-        fclose($f);*/
+
+        if($payment->status == BillPayment::STATUS_OK) {
+            return "Операция прошла успешно\n";
+        }
+
+        return "error";
     }
 
     /**

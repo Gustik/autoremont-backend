@@ -90,6 +90,7 @@ class BillPaymentController extends Controller
 
             // Расчитываем сумму в зависимости от тарифа
             $model->amount = (int) ($model->days * BillTariff::findOne($model->tariff_id)->day_cost);
+            $model->status = BillPayment::STATUS_OK;
 
             if (!$model->save()) {
                 throw new Exception('Ошибка создания платежа');

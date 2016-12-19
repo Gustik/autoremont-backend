@@ -1,9 +1,7 @@
-.pay-tabs {
-    padding-top: 15px;
-    width: 130px;
-}
-.pay-buttons {
-    width: 100%;
+
+.pay-sum-label {
+    text-align: center;
+    font-size: large;
 }
 
 #pay-sum {
@@ -13,3 +11,9 @@
     padding-top: 15px;
     padding-bottom: 20px;
 }
+
+#pay-info {
+    text-align: center;
+    margin-top: 10px;
+}
+

@@ -8,6 +8,9 @@ namespace app\models;
  * @property int $id
  * @property string $name
  * @property int $day_cost
+ * @property int $start_days
+ * @property int $city_id
+ * @property City $city
  * @property BillPayment[] $billPayments
  */
 class BillTariff extends \yii\db\ActiveRecord
@@ -26,9 +29,9 @@ class BillTariff extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'day_cost'], 'required'],
-            [['day_cost'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'day_cost', 'start_days', 'city_id'], 'required'],
+            [['day_cost', 'start_days', 'city_id'], 'integer'],
+            [['name'], 'string', 'max' => 100],
         ];
     }
 
@@ -41,6 +44,8 @@ class BillTariff extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Тариф',
             'day_cost' => 'Стоимость за сутки',
+            'start_days' => 'Пороговое число дней',
+            'city_id' => 'Город',
         ];
     }
 
@@ -50,5 +55,34 @@ class BillTariff extends \yii\db\ActiveRecord
     public function getBillPayments()
     {
         return $this->hasMany(BillPayment::className(), ['tariff_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'city_id']);
+    }
+
+    /**
+     * Возвоащает подходящий тариф по количеству выборанных суток
+     * @param $count
+     * @return BillTariff|null
+     */
+    static public function findTariffByDaysCount($count)
+    {
+        $matchTariff = null;
+
+        /**
+         * @var BillTariff $tariff
+         */
+        foreach(BillTariff::find()->where(['city_id' => 1])->all() as $tariff) {
+            if($count >= $tariff->start_days) {
+                $matchTariff = $tariff;
+            }
+        }
+
+        return $matchTariff;
     }
 }

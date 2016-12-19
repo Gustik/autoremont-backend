@@ -67,6 +67,7 @@
                     <li class="internal"><a href="index.html#partners">Партнеры</a></li>
                     <li class="internal"><a href="index.html#staytuned">Будь на связи</a></li>
                     <li class="internal"><a href="index.html#download">Загрузить</a></li>
+                    <li class="internal"><a href="/pay">Пополнить счет</a></li>
                 </ul>
             </div>
         </div>
@@ -493,6 +494,10 @@
             </h3>
 
             <p class="copyright">© 2015 ООО "УУС" <br/></p>
+            <p>ИНН: 1435305962</p>
+            <p>Юр. адрес: 677014, Республика Саха(Якутия), г. Якутск, ул. Н.Е. Мординова, д.32, к. 1, кв.29</p>
+            <p>Телефон: +7(914) 2 88-88-77</p>
+            <p>Email: info@bbgroup.pro</p>
         </div>
 
     </footer>

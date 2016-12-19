@@ -13,11 +13,16 @@ use yii\db\Expression;
  * @property int $amount
  * @property int $tariff_id
  * @property int $days
+ * @property int $status
  * @property BillTariff $tariff
  * @property User $user
  */
 class BillPayment extends \yii\db\ActiveRecord
 {
+    const STATUS_OK = 0;
+    const STATUS_PENDING = 10;
+    const STATUS_FAILED = 20;
+
     /**
      * {@inheritdoc}
      */
@@ -33,7 +38,7 @@ class BillPayment extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'tariff_id', 'days'], 'required'],
-            [['user_id', 'amount', 'tariff_id', 'days'], 'integer'],
+            [['user_id', 'amount', 'tariff_id', 'days', 'status'], 'integer'],
             [['created_at', 'amount'], 'safe'],
             [['tariff_id'], 'exist', 'skipOnError' => true, 'targetClass' => BillTariff::className(), 'targetAttribute' => ['tariff_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],

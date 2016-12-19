@@ -23,6 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'name',
             'day_cost',
+            'start_days',
+            'city.name',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

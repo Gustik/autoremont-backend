@@ -55,7 +55,16 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-right">&copy; ООО УУС 2015 - <?= date('Y') ?></p>
+            <p class="pull-right">
+                &copy; ООО УУС 2015 - <?= date('Y') ?><br><br>
+                <span class="small muted">
+                <b>ИНН:</b> 1435305962<br>
+                <b>Телефон:</b> +7(914) 2 88-88-77<br>
+                <b>Email:</b> info@bbgroup.pro<br>
+                <b>Юр. адрес:</b> 677014, Республика Саха(Якутия),<br>
+                г. Якутск, ул. Н.Е. Мординова, д.32, к. 1, кв.29</span>
+            </p>
+
         </div>
     </footer>
 

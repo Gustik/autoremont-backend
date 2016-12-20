@@ -72,7 +72,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success center-block">Оплатить</button>
+                    <button type="submit" class="btn btn-success center-block">Далее</button>
                 </div>
             </form>
         </div>

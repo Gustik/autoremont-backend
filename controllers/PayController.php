@@ -78,8 +78,20 @@ class PayController extends Controller
             }
 
             $transaction->commit();
-            // redirect to robokassa
-            return "OK\n";
+
+            $mrh_login = "avtoremont";
+            $mrh_pass1 = "avtoremont1982";
+            $inv_id = $model->id;
+            $inv_desc = "Оплата подписки";
+            $out_summ = $model->amount;
+            $IsTest = 1;
+            $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1");
+
+            $params = "MerchantLogin=$mrh_login&OutSum=$out_summ&InvoiceID=$inv_id&Description=$inv_desc&SignatureValue=$crc&IsTest=$IsTest";
+            $url = "https://auth.robokassa.ru/Merchant/PaymentForm/FormMS.js?$params";
+
+            return $this->render('submit', ['url' => $url, 'amount' => $out_summ]);
+
         } catch (Exception $e) {
             $transaction->rollback();
             throw new NotAcceptableHttpException($e->getMessage());
@@ -88,41 +100,30 @@ class PayController extends Controller
 
     /**
      * Сюда обращается робокасса в случае проведения платежа
+     * @param $OutSum
+     * @param $InvId
+     * @param $SignatureValue
      * @return string
+     * @throws \yii\db\Exception
      */
-    public function actionResult()
+    public function actionResult($OutSum, $InvId, $SignatureValue)
     {
         // регистрационная информация (пароль #2)
         // registration info (password #2)
-        $mrh_pass2 = "GqaVFEr2vgqLoVb22s71";
+        //$password2 = "GqaVFEr2vgqLoVb22s71";
+        $password2 = "avtoremont1982";
 
-        //установка текущего времени
-        //current date
-        $tm=getdate(time()+9*3600);
-        $date="$tm[year]-$tm[mon]-$tm[mday] $tm[hours]:$tm[minutes]:$tm[seconds]";
+        $crc = strtoupper($SignatureValue);
+        $my_crc = strtoupper(md5("$OutSum:$InvId:$password2"));
 
-        // чтение параметров
-        // read parameters
-        $out_summ = $_REQUEST["OutSum"];
-        $inv_id = $_REQUEST["InvId"];
-        $shp_item = $_REQUEST["Shp_item"];
-        $crc = $_REQUEST["SignatureValue"];
-
-        $crc = strtoupper($crc);
-
-        $my_crc = strtoupper(md5("$out_summ:$inv_id:$mrh_pass2:Shp_item=$shp_item"));
-
-        // проверка корректности подписи
-        // check signature
-        if ($my_crc !=$crc)
-        {
+        if ($my_crc != $crc) {
             return "bad sign\n";
         }
 
         $connection = \Yii::$app->db;
         $transaction = $connection->beginTransaction();
         try {
-            $payment = BillPayment::findOne($inv_id);
+            $payment = BillPayment::findOne($InvId);
             if($payment) {
                 throw new Exception("Платеж не найден");
             }
@@ -158,7 +159,8 @@ class PayController extends Controller
 
             // признак успешно проведенной операции
             // success
-            return "OK$inv_id\n";
+            return "OK$InvId\n";
+
         } catch (Exception $e) {
             $transaction->rollback();
             return $e->getMessage();
@@ -167,55 +169,46 @@ class PayController extends Controller
 
     /**
      * На него будет перенаправлен покупатель после успешного платежа.
+     * @param $OutSum
+     * @param $InvId
+     * @param $SignatureValue
      * @return string
      */
-    public function actionSuccess()
+    public function actionSuccess($OutSum, $InvId, $SignatureValue)
     {
         // регистрационная информация (пароль #1)
         // registration info (password #1)
-        $mrh_pass1 = "Qs0pZmA9zqvvE453WYSY";
+        //$password1 = "Qs0pZmA9zqvvE453WYSY";
+        $password1 = "avtoremont1982";
 
-        // чтение параметров
-        // read parameters
-        $out_summ = $_REQUEST["OutSum"];
-        $inv_id = $_REQUEST["InvId"];
-        $shp_item = $_REQUEST["Shp_item"];
-        $crc = $_REQUEST["SignatureValue"];
+        $crc = strtoupper($SignatureValue);
+        $my_crc = strtoupper(md5("$OutSum:$InvId:$password1"));
 
-        $crc = strtoupper($crc);
-
-        $my_crc = strtoupper(md5("$out_summ:$inv_id:$mrh_pass1:Shp_item=$shp_item"));
-
-        // проверка корректности подписи
-        // check signature
-        if ($my_crc != $crc)
-        {
+        if ($my_crc != $crc) {
             return "bad sign\n";
         }
 
-        // проверка наличия номера счета в истории операций
-        // check of number of the order info in history of operations
-        $payment = BillPayment::findOne($inv_id);
+        $payment = BillPayment::findOne($InvId);
 
         if(!$payment) {
-            return "error: payment not found";
+            return $this->render('error', ['message' => 'Платеж не найден']);
         }
 
         if($payment->status == BillPayment::STATUS_OK) {
-            return "Операция прошла успешно\n";
+            return $this->render('success', ['payment' => $payment]);
         }
 
-        return "error";
+        return $this->render('error', ['message' => 'Не корректный статус']);
     }
 
     /**
      * На него будет перенаправлен покупатель после неуспешного платежа, отказа от оплаты.
+     * @param $InvId
+     * @return string
      */
-    public function actionFail()
+    public function actionFail($InvId)
     {
-        $inv_id = $_REQUEST["InvId"];
-        echo "Вы отказались от оплаты. Заказ# $inv_id\n";
-        echo "You have refused payment. Order# $inv_id\n";
-        return;
+        $msg = "Вы отказались от оплаты.<br>Заказ# $InvId";
+        return $this->render('error', ['message' => $msg]);
     }
 }

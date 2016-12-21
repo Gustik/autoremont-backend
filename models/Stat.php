@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use yii\db\ActiveRecord;
 use yii\web\BadRequestHttpException;
 
 /**
@@ -15,7 +16,7 @@ use yii\web\BadRequestHttpException;
  * @property int $order_total
  * @property int $order_new
  */
-class Stat extends \yii\db\ActiveRecord
+class Stat extends ActiveRecord
 {
     /**
      * {@inheritdoc}

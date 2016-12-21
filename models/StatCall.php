@@ -50,7 +50,14 @@ class StatCall extends \yii\db\ActiveRecord
 
     public function getCompanyName()
     {
-        return Company::find()->where(['phone' => $this->to])->one()->name." ($this->to)";
+        $company = Company::find()->where(['phone' => $this->to])->one();
+        if ($company) {
+            $company = $company->name;
+        } else {
+            $company = '';
+        }
+
+        return "$company ($this->to)";
     }
 
     public function getCompanyCategory()

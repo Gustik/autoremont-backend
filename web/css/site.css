@@ -1,0 +1,19 @@
+
+.pay-sum-label {
+    text-align: center;
+    font-size: large;
+}
+
+#pay-sum {
+    font-size: x-large;
+    color: #00aa00;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+#pay-info {
+    text-align: center;
+    margin-top: 10px;
+}
+

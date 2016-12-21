@@ -20,6 +20,7 @@ use Yii;
  * @property string $url
  * @property string $logo
  * @property string $description
+ * @property int $city_id
  * @property int $is_active
  */
 class Company extends Model
@@ -51,6 +52,14 @@ class Company extends Model
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'city_id']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -75,9 +84,9 @@ class Company extends Model
     public function rules()
     {
         return [
-            [['name', 'description'], 'required'],
+            [['name', 'description', 'city_id'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['category', 'is_active'], 'integer'],
+            [['category', 'is_active', 'city_id'], 'integer'],
             [['description'], 'string'],
             [['name', 'phone', 'url', 'logo'], 'string', 'max' => 255],
             [
@@ -103,6 +112,7 @@ class Company extends Model
             'phone' => 'Phone',
             'url' => 'Url',
             'description' => 'Description',
+            'city_id' => 'City',
             'is_active' => 'Is Active',
         ];
     }

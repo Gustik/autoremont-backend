@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helpers\Phone;
 use app\models\BillAccount;
 use app\models\BillPayment;
 use app\models\BillTariff;
@@ -29,8 +30,9 @@ class PayController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($phone = '')
     {
+        $phone = Phone::prepare($phone);
         $tariffs = [];
         /**
          * @var BillTariff $tariff
@@ -38,11 +40,12 @@ class PayController extends Controller
         foreach(BillTariff::find()->where(['city_id' => 1])->orderBy(['start_days'=>SORT_ASC])->all() as $tariff) {
             $tariffs[$tariff->start_days] = $tariff->day_cost;
         }
-        return $this->render('index', ['tariffs' => $tariffs]);
+        return $this->render('index', ['tariffs' => $tariffs, 'phone' => $phone]);
     }
 
     public function actionExecute($phone, $days)
     {
+        $phone = Phone::prepare($phone);
         $user = User::findIdentityByLogin($phone);
         if(!$user) {
             throw new NotFoundHttpException('Пользователь с таким номером не найден');
@@ -90,7 +93,7 @@ class PayController extends Controller
             $params = "MerchantLogin=$mrh_login&OutSum=$out_summ&InvoiceID=$inv_id&Description=$inv_desc&SignatureValue=$crc&IsTest=$IsTest";
             $url = "https://auth.robokassa.ru/Merchant/PaymentForm/FormMS.js?$params";
 
-            return $this->render('submit', ['url' => $url, 'amount' => $out_summ]);
+            return $this->render('submit', ['url' => $url, 'amount' => $out_summ, 'days' => $model->days, 'phone' => $model->user->login]);
 
         } catch (Exception $e) {
             $transaction->rollback();

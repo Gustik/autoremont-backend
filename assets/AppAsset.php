@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'css/jquery.bootstrap-touchspin.min.js',
+        'js/jquery.maskedinput.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

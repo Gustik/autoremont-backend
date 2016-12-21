@@ -9,12 +9,17 @@ $this->params['breadcrumbs'][] = $this->title;
 $t = json_encode($tariffs);
 
 $script = <<< JS
+    $(document).ready(function() {
+        calcSum(getDays());
+        $("#phone").mask("+7(999) 999-9999");
+    });
+
     var tariffs = $t;
 
     setInfo("Стоимость суток: " + tariffs[1] + ' руб.');
 
     var di = $("input[name='days']");
-    di.TouchSpin({min: 0, max: 1000, step: 1 });
+    di.TouchSpin({min: 1, max: 1000, step: 1 });
     di.on("touchspin.on.startspin", function() {
         calcSum(this.value)
     });
@@ -42,6 +47,10 @@ $script = <<< JS
         document.getElementById("pay-info").innerHTML = info;
     }
 
+    function getDays() {
+        return document.getElementById("day").value;
+    }
+
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
@@ -53,11 +62,14 @@ $this->registerJs($script, yii\web\View::POS_READY);
             <form action="execute" id="payForm">
                 <div class="form-group input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                    <input class="form-control" type="text" name='phone' placeholder="Телефон"/>
+                    <input required id="phone" class="form-control" type="text" name='phone' placeholder="Телефон" value="<?=$phone?>"/>
                 </div>
 
                 <div class="center-block">
-                    <div><input id="day" type="text" value="0" name="days"></div>
+                    <div>
+                        <div class="pay-sum-label">Количество суток</div>
+                        <input id="day" type="number" value="0" name="days" readonly="readonly">
+                    </div>
                 </div>
 
                 <div id="pay-info" class="alert alert-info">

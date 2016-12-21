@@ -2,6 +2,8 @@
 
 /* @var $url string */
 /* @var $amount string */
+/* @var $phone string */
+/* @var $days int */
 /* @var $this yii\web\View */
 
 $this->title = 'Подтверждение платежа';
@@ -20,9 +22,17 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div>
+                <div class="pay-sum-label">Телефон:</div>
+                <div id="pay-sum">
+                    <?=$phone?>
+                </div>
+                <div class="pay-sum-label">Количество дней:</div>
+                <div id="pay-sum">
+                    <?=$days?>
+                </div>
                 <div class="pay-sum-label">Сумма к оплате:</div>
                 <div id="pay-sum">
-                    <?=$amount?>
+                    <?=$amount?> руб.
                 </div>
             </div>
 

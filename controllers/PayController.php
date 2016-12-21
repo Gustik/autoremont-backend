@@ -6,7 +6,6 @@ use app\helpers\Phone;
 use app\models\BillAccount;
 use app\models\BillPayment;
 use app\models\BillTariff;
-use app\models\Page;
 use app\models\User;
 use Exception;
 use Yii;
@@ -82,8 +81,8 @@ class PayController extends Controller
 
             $transaction->commit();
 
-            $mrh_login = "avtoremont";
-            $mrh_pass1 = "avtoremont1982";
+            $mrh_login = Yii::$app->params['robokassaLogin'];
+            $mrh_pass1 = Yii::$app->params['robokassaPassword1'];
             $inv_id = $model->id;
             $inv_desc = "Оплата подписки";
             $out_summ = $model->amount;
@@ -113,8 +112,7 @@ class PayController extends Controller
     {
         // регистрационная информация (пароль #2)
         // registration info (password #2)
-        //$password2 = "GqaVFEr2vgqLoVb22s71";
-        $password2 = "avtoremont1982";
+        $password2 = Yii::$app->params['robokassaPassword2'];
 
         $crc = strtoupper($SignatureValue);
         $my_crc = strtoupper(md5("$OutSum:$InvId:$password2"));
@@ -181,8 +179,7 @@ class PayController extends Controller
     {
         // регистрационная информация (пароль #1)
         // registration info (password #1)
-        //$password1 = "Qs0pZmA9zqvvE453WYSY";
-        $password1 = "avtoremont1982";
+        $password1 = Yii::$app->params['robokassaPassword1'];
 
         $crc = strtoupper($SignatureValue);
         $my_crc = strtoupper(md5("$OutSum:$InvId:$password1"));

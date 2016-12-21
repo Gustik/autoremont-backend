@@ -35,7 +35,7 @@ class PayController extends Controller
         /**
          * @var BillTariff $tariff
          */
-        foreach(BillTariff::find()->where(['city_id' => 1])->all() as $tariff) {
+        foreach(BillTariff::find()->where(['city_id' => 1])->orderBy(['start_days'=>SORT_ASC])->all() as $tariff) {
             $tariffs[$tariff->start_days] = $tariff->day_cost;
         }
         return $this->render('index', ['tariffs' => $tariffs]);

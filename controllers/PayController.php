@@ -125,7 +125,7 @@ class PayController extends Controller
         $transaction = $connection->beginTransaction();
         try {
             $payment = BillPayment::findOne($InvId);
-            if($payment) {
+            if(!$payment) {
                 throw new Exception("Платеж не найден");
             }
             $account = BillAccount::find()->where(['=', 'user_id', $payment->user_id])->one();

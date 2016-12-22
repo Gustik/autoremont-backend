@@ -48,6 +48,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => $model->getFriendly('is_admin', 'boolean'),
             ],
+            [
+                'attribute' => 'is_partner',
+                'format' => 'raw',
+                'value' => $model->getFriendly('is_partner', 'boolean'),
+            ],
             'visited_at:datetime',
         ],
     ]) ?>

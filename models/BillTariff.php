@@ -66,19 +66,21 @@ class BillTariff extends \yii\db\ActiveRecord
     }
 
     /**
-     * Возвоащает подходящий тариф по количеству выборанных суток
+     * Возвоащает подходящий тариф по количеству выборанных суток.
+     *
      * @param $count
+     *
      * @return BillTariff|null
      */
-    static public function findTariffByDaysCount($count)
+    public static function findTariffByDaysCount($count)
     {
         $matchTariff = null;
 
         /**
-         * @var BillTariff $tariff
+         * @var BillTariff
          */
-        foreach(BillTariff::find()->where(['city_id' => 1])->orderBy(['start_days'=>SORT_ASC])->all() as $tariff) {
-            if($count >= $tariff->start_days) {
+        foreach (self::find()->where(['city_id' => 1])->orderBy(['start_days' => SORT_ASC])->all() as $tariff) {
+            if ($count >= $tariff->start_days) {
                 $matchTariff = $tariff;
             }
         }

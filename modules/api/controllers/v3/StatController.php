@@ -31,6 +31,9 @@ class StatController extends Controller
      *
      * @apiVersion 3.0.0
      *
+     * @param $to
+     * @param $cat
+     *
      * @return ResponseContainer
      */
     public function actionCall($to, $cat)
@@ -40,7 +43,9 @@ class StatController extends Controller
             'to' => $to,
             'cat' => $cat,
             'created_at' => date('Y-m-d H:i:s'),
+            'city_id' => $this->user->profile->city_id,
         ]);
+
         if ($model->save()) {
             return new ResponseContainer(200, 'OK');
         }

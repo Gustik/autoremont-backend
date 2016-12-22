@@ -20,7 +20,7 @@ class StatCallSearch extends StatCall
     public function rules()
     {
         return [
-            [['id', 'cat'], 'integer'],
+            [['id', 'cat', 'city_id'], 'integer'],
             [['created_at', 'from', 'to', 'date_from', 'date_to'], 'safe'],
         ];
     }
@@ -64,6 +64,7 @@ class StatCallSearch extends StatCall
             'id' => $this->id,
             //'created_at' => $this->created_at,
             'cat' => $this->cat,
+            'city_id' => $this->city_id,
         ]);
 
         $query->andFilterWhere(['=', 'from', $this->from])

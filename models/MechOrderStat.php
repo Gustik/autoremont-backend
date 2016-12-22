@@ -8,6 +8,7 @@ namespace app\models;
  * @property string $login
  * @property string $name
  * @property string $birth_date
+ * @property int $city_id
  * @property int $orders_count
  * @property int $category_id
  * @property string $first_action
@@ -31,7 +32,7 @@ class MechOrderStat extends \yii\db\ActiveRecord
         return [
             [['login'], 'required'],
             [['birth_date', 'first_action', 'last_action'], 'safe'],
-            [['orders_count', 'category_id'], 'integer'],
+            [['orders_count', 'category_id', 'city_id'], 'integer'],
             [['login', 'name'], 'string', 'max' => 255],
         ];
     }
@@ -45,6 +46,7 @@ class MechOrderStat extends \yii\db\ActiveRecord
             'login' => 'Телефон',
             'name' => 'Имя',
             'birth_date' => 'Дата рождения',
+            'city_id' => 'Город',
             'orders_count' => 'Количество заказов',
             'category_id' => 'Категория',
             'first_action' => 'Первая активность',
@@ -55,5 +57,13 @@ class MechOrderStat extends \yii\db\ActiveRecord
     public static function primaryKey()
     {
         return ['login'];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'city_id']);
     }
 }

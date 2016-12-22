@@ -125,6 +125,16 @@ class PayController extends Controller
         $transaction = $connection->beginTransaction();
         try {
             $payment = BillPayment::findOne($InvId);
+
+            // Если платеж был оплачен ранее
+            if($payment->status == BillPayment::STATUS_OK) {
+                return "OK$InvId\n";
+            }
+
+            if($payment->status != BillPayment::STATUS_PENDING) {
+                return "Некорректный статус платежа\n";
+            }
+
             if(!$payment) {
                 throw new Exception("Платеж не найден");
             }

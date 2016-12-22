@@ -18,7 +18,7 @@ class MechOrderStatSearch extends MechOrderStat
     {
         return [
             [['login', 'name', 'birth_date', 'first_action', 'last_action'], 'safe'],
-            [['orders_count', 'category_id'], 'integer'],
+            [['orders_count', 'category_id', 'city_id'], 'integer'],
         ];
     }
 
@@ -63,6 +63,7 @@ class MechOrderStatSearch extends MechOrderStat
             'category_id' => $this->category_id,
             'first_action' => $this->first_action,
             'last_action' => $this->last_action,
+            'city_id' => $this->city_id,
         ]);
 
         $query->andFilterWhere(['like', 'login', $this->login])

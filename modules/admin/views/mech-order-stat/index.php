@@ -1,5 +1,7 @@
 <?php
 
+use app\models\City;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -39,6 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     return $cat[$model->category_id];
                 },
+            ],
+            [
+                'attribute' => 'city_id',
+                'value' => 'city.name',
+                'filter' => ArrayHelper::map(City::find()->all(), 'id', 'name'),
             ],
         ],
     ]); ?>

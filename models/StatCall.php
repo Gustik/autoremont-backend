@@ -10,6 +10,7 @@ namespace app\models;
  * @property string $from
  * @property string $to
  * @property int $cat
+ * @property int $city_id
  */
 class StatCall extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,7 @@ class StatCall extends \yii\db\ActiveRecord
             [['created_at'], 'safe'],
             [['from', 'to', 'cat'], 'required'],
             [['from', 'to'], 'string'],
-            [['cat'], 'integer'],
+            [['cat', 'city_id'], 'integer'],
         ];
     }
 
@@ -45,6 +46,7 @@ class StatCall extends \yii\db\ActiveRecord
             'from' => 'Кто звонил',
             'to' => 'Компания',
             'cat' => 'Категория',
+            'city_id' => 'Город',
         ];
     }
 
@@ -63,5 +65,13 @@ class StatCall extends \yii\db\ActiveRecord
     public function getCompanyCategory()
     {
         return Company::$categories[$this->cat];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'city_id']);
     }
 }

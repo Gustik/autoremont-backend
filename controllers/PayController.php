@@ -34,11 +34,12 @@ class PayController extends Controller
         $phone = Phone::prepare($phone);
         $tariffs = [];
         /**
-         * @var BillTariff $tariff
+         * @var BillTariff
          */
-        foreach(BillTariff::find()->where(['city_id' => 1])->orderBy(['start_days'=>SORT_ASC])->all() as $tariff) {
+        foreach (BillTariff::find()->where(['city_id' => 1])->orderBy(['start_days' => SORT_ASC])->all() as $tariff) {
             $tariffs[$tariff->start_days] = $tariff->day_cost;
         }
+
         return $this->render('index', ['tariffs' => $tariffs, 'phone' => $phone]);
     }
 
@@ -46,7 +47,7 @@ class PayController extends Controller
     {
         $phone = Phone::prepare($phone);
         $user = User::findIdentityByLogin($phone);
-        if(!$user) {
+        if (!$user) {
             throw new NotFoundHttpException('Пользователь с таким номером не найден');
         }
 
@@ -57,7 +58,7 @@ class PayController extends Controller
         try {
             $tariff = BillTariff::findTariffByDaysCount($days);
 
-            if(!$tariff) {
+            if (!$tariff) {
                 throw new Exception('Ошибка подбора тарифа');
             }
 
@@ -84,7 +85,7 @@ class PayController extends Controller
             $mrh_login = Yii::$app->params['robokassaLogin'];
             $mrh_pass1 = Yii::$app->params['robokassaPassword1'];
             $inv_id = $model->id;
-            $inv_desc = "Оплата подписки";
+            $inv_desc = 'Оплата подписки';
             $out_summ = $model->amount;
             $IsTest = 1;
             $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1");
@@ -93,7 +94,6 @@ class PayController extends Controller
             $url = "https://auth.robokassa.ru/Merchant/PaymentForm/FormMS.js?$params";
 
             return $this->render('submit', ['url' => $url, 'amount' => $out_summ, 'days' => $model->days, 'phone' => $model->user->login]);
-
         } catch (Exception $e) {
             $transaction->rollback();
             throw new NotAcceptableHttpException($e->getMessage());
@@ -101,11 +101,14 @@ class PayController extends Controller
     }
 
     /**
-     * Сюда обращается робокасса в случае проведения платежа
+     * Сюда обращается робокасса в случае проведения платежа.
+     *
      * @param $OutSum
      * @param $InvId
      * @param $SignatureValue
+     *
      * @return string
+     *
      * @throws \yii\db\Exception
      */
     public function actionResult($OutSum, $InvId, $SignatureValue)
@@ -125,8 +128,18 @@ class PayController extends Controller
         $transaction = $connection->beginTransaction();
         try {
             $payment = BillPayment::findOne($InvId);
-            if(!$payment) {
-                throw new Exception("Платеж не найден");
+
+            // Если платеж был оплачен ранее
+            if ($payment->status == BillPayment::STATUS_OK) {
+                return "OK$InvId\n";
+            }
+
+            if ($payment->status != BillPayment::STATUS_PENDING) {
+                return "Некорректный статус платежа\n";
+            }
+
+            if (!$payment) {
+                throw new Exception('Платеж не найден');
             }
             $account = BillAccount::find()->where(['=', 'user_id', $payment->user_id])->one();
 
@@ -161,18 +174,20 @@ class PayController extends Controller
             // признак успешно проведенной операции
             // success
             return "OK$InvId\n";
-
         } catch (Exception $e) {
             $transaction->rollback();
+
             return $e->getMessage();
         }
     }
 
     /**
      * На него будет перенаправлен покупатель после успешного платежа.
+     *
      * @param $OutSum
      * @param $InvId
      * @param $SignatureValue
+     *
      * @return string
      */
     public function actionSuccess($OutSum, $InvId, $SignatureValue)
@@ -190,11 +205,11 @@ class PayController extends Controller
 
         $payment = BillPayment::findOne($InvId);
 
-        if(!$payment) {
+        if (!$payment) {
             return $this->render('error', ['message' => 'Платеж не найден']);
         }
 
-        if($payment->status == BillPayment::STATUS_OK) {
+        if ($payment->status == BillPayment::STATUS_OK) {
             return $this->render('success', ['payment' => $payment]);
         }
 
@@ -203,12 +218,15 @@ class PayController extends Controller
 
     /**
      * На него будет перенаправлен покупатель после неуспешного платежа, отказа от оплаты.
+     *
      * @param $InvId
+     *
      * @return string
      */
     public function actionFail($InvId)
     {
         $msg = "Вы отказались от оплаты.<br>Заказ# $InvId";
+
         return $this->render('error', ['message' => $msg]);
     }
 }

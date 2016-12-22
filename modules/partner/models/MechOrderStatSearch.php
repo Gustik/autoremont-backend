@@ -63,6 +63,7 @@ class MechOrderStatSearch extends MechOrderStat
             'category_id' => $this->category_id,
             'first_action' => $this->first_action,
             'last_action' => $this->last_action,
+            'city_id' => \Yii::$app->user->identity->profile->city_id,
         ]);
 
         $query->andFilterWhere(['like', 'login', $this->login])

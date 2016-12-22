@@ -67,7 +67,8 @@ class StatCallSearch extends StatCall
         ]);
 
         $query->andFilterWhere(['=', 'from', $this->from])
-            ->andFilterWhere(['=', 'to', $this->to]);
+            ->andFilterWhere(['=', 'to', $this->to])
+            ->andFilterWhere(['=', 'city_id', \Yii::$app->user->identity->profile->city_id]);
 
         $year = date('Y');
         if (!isset($this->date_from)) {

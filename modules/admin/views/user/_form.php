@@ -24,6 +24,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($user, 'is_admin')->dropDownList([0 => 'Нет', 1 => 'Да'], ['name' => 'User[is_admin]']) ?>
 
+    <?= $form->field($user, 'is_partner')->dropDownList([0 => 'Нет', 1 => 'Да'], ['name' => 'User[is_partner]']) ?>
+
     <hr>
     <?= $form->field($profile, 'city_id')->dropDownList(ArrayHelper::map(City::find()->all(), 'id', 'name'), ['name' => 'Profile[city_id]']) ?>
     <?= $form->field($profile, 'name')->textInput(['maxlength' => true, 'name' => 'Profile[name]']) ?>

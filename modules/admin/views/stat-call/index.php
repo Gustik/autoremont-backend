@@ -1,5 +1,6 @@
 <?php
 
+use app\models\City;
 use app\models\Company;
 use kartik\daterange\DateRangePicker;
 use yii\helpers\ArrayHelper;
@@ -97,6 +98,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'cat',
                 'value' => 'companyCategory',
                 'filter' => Company::$categories,
+            ],
+            [
+                'attribute' => 'city_id',
+                'value' => 'city.name',
+                'filter' => ArrayHelper::map(City::find()->all(), 'id', 'name'),
             ],
 
         ],

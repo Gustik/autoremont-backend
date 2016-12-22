@@ -2,6 +2,7 @@
 
 namespace app\modules\partner\controllers;
 
+use app\models\City;
 use Yii;
 use app\modules\partner\models\LoginForm;
 use app\models\Stat;
@@ -32,27 +33,11 @@ class MainController extends Controller
 
     public function actionIndex($from = null, $to = null, $datasets = null)
     {
-        $datasets = ($datasets ? explode(',', $datasets) : ['user_new', 'user_active', 'order_new']);
-        $to = ($to ?: date('Y-m-d'));
-        $from = ($from ?: date('Y-m-d', strtotime('-1 month'.$to)));
-        $regex = '/^\d{4}-\d{2}-\d{2}$/';
-        if (!is_array($datasets) ||
-            !preg_match($regex, $to) ||
-            !preg_match($regex, $from)) {
-            throw new BadRequestHttpException('Bad Request');
-        }
-
-        $graphs = Stat::getGraphs($from, $to, $datasets);
-        $graphsTotal = Stat::getGraphs($from, $to, ['user_total']);
+        $city = City::findOne($this->user->profile->city_id);
 
         return $this->render('index', [
-            'graphs' => $graphs,
-            'graphsTotal' => $graphsTotal,
-            'from' => $from,
-            'to' => $to,
-            'orderCount' => Order::find()->count(),
-            'userCount' => User::find()->count(),
-            'datasets' => $datasets,
+            'orderCount' => count($city->orders),
+            'userCount' => count($city->profiles),
         ]);
     }
 

@@ -87,7 +87,7 @@ class PayController extends Controller
             $inv_id = $model->id;
             $inv_desc = 'Оплата подписки';
             $out_summ = $model->amount;
-            $IsTest = 1;
+            $IsTest = Yii::$app->params['robokassaIsTest'];
             $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1");
 
             $params = "MerchantLogin=$mrh_login&OutSum=$out_summ&InvoiceID=$inv_id&Description=$inv_desc&SignatureValue=$crc&IsTest=$IsTest";

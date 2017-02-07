@@ -10,6 +10,7 @@ return [
         'is_active' => '1',
         'created_at' => date('Y-m-d H:i:s'),
         'updated_at' => date('Y-m-d H:i:s'),
+        'visited_at' => date('Y-m-d H:i:s'),
     ],
     'user2' => [
         'id' => 2,
@@ -21,6 +22,7 @@ return [
         'can_work' => 1,
         'created_at' => date('Y-m-d H:i:s'),
         'updated_at' => date('Y-m-d H:i:s'),
+        'visited_at' => date('Y-m-d H:i:s'),
     ],
     'user3' => [
         'id' => 3,
@@ -31,6 +33,7 @@ return [
         'is_active' => '1',
         'created_at' => date('Y-m-d H:i:s'),
         'updated_at' => date('Y-m-d H:i:s'),
+        'visited_at' => date('Y-m-d H:i:s'),
     ],
     'cantWorkUser' => [
         'id' => 4,
@@ -42,6 +45,7 @@ return [
         'can_work' => '0',
         'created_at' => date('Y-m-d H:i:s'),
         'updated_at' => date('Y-m-d H:i:s'),
+        'visited_at' => date('Y-m-d H:i:s'),
     ],
     'freeCityMech' => [
         'id' => 5,
@@ -53,6 +57,7 @@ return [
         'can_work' => '0',
         'created_at' => date('Y-m-d H:i:s'),
         'updated_at' => date('Y-m-d H:i:s'),
+        'visited_at' => date('Y-m-d H:i:s'),
     ],
     'freeCityUser1' => [
         'id' => 6,
@@ -64,5 +69,6 @@ return [
         'can_work' => '0',
         'created_at' => date('Y-m-d H:i:s'),
         'updated_at' => date('Y-m-d H:i:s'),
+        'visited_at' => date('Y-m-d H:i:s'),
     ],
 ];

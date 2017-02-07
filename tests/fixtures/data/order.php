@@ -9,6 +9,7 @@ return [
         'category_id' => 1,
         'author_id' => 2,
         'city_id' => 1,
+        'price' => 0,
     ],
     'order2' => [
         'id' => 2,
@@ -18,6 +19,7 @@ return [
         'category_id' => 2,
         'author_id' => 2,
         'city_id' => 1,
+        'price' => 0,
     ],
     'order3' => [
         'id' => 3,
@@ -27,6 +29,7 @@ return [
         'category_id' => 1,
         'author_id' => 3,
         'city_id' => 1,
+        'price' => 0,
     ],
     'partOrder' => [
         'id' => 4,
@@ -36,6 +39,7 @@ return [
         'category_id' => 2,
         'author_id' => 3,
         'city_id' => 1,
+        'price' => 0,
     ],
     'repairOrder' => [
         'id' => 5,
@@ -45,6 +49,7 @@ return [
         'category_id' => 1,
         'author_id' => 3,
         'city_id' => 1,
+        'price' => 0,
     ],
     'freeCityRepairOrder' => [
         'id' => 6,
@@ -54,6 +59,7 @@ return [
         'category_id' => 1,
         'author_id' => 6,
         'city_id' => 2,
+        'price' => 0,
     ],
 
 ];

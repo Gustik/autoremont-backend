@@ -8,6 +8,8 @@ return [
         'password_hash' => '$2y$13$WSyE5hHsG1rWN2jV8LRHzubilrCLI5Ev/iK0r3jRuwQEs2ldRu.a2',
         'is_admin' => '1',
         'is_active' => '1',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
     ],
     'user2' => [
         'id' => 2,
@@ -17,6 +19,8 @@ return [
         'is_admin' => '0',
         'is_active' => '1',
         'can_work' => 1,
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
     ],
     'user3' => [
         'id' => 3,
@@ -25,6 +29,8 @@ return [
         'password_hash' => '$2y$13$kkgqwJ8lnjKo8RuoR30ay.RjDf15bMcHIF7Vz1zz/8viYG5xJExU9',
         'is_admin' => '0',
         'is_active' => '1',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
     ],
     'cantWorkUser' => [
         'id' => 4,
@@ -34,6 +40,8 @@ return [
         'is_admin' => '0',
         'is_active' => '1',
         'can_work' => '0',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
     ],
     'freeCityMech' => [
         'id' => 5,
@@ -43,6 +51,8 @@ return [
         'is_admin' => '0',
         'is_active' => '1',
         'can_work' => '0',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
     ],
     'freeCityUser1' => [
         'id' => 6,
@@ -52,5 +62,7 @@ return [
         'is_admin' => '0',
         'is_active' => '1',
         'can_work' => '0',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
     ],
 ];

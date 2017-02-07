@@ -28,7 +28,7 @@ class UserCest
 
         $I->sendGET('/v3/user/verify-code', ['phone' => $this->user->login, 'code' => '1111']);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['status' => 200]);
+        $I->seeResponseContainsJson(['status' => 200, 'data' => ['login' => $this->user->login]]);
     }
 
     public function checkToken(\ApiTester $I)

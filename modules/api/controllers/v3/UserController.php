@@ -98,7 +98,10 @@ class UserController extends Controller
      *     {
      *       "status": 200,
      *       "message": "OK",
-     *       "data": {"token": "<токен доступа>"}
+     *       "data": {
+     *              "login": "<Логин (номер телефона)>",
+     *              "token": "<токен доступа>"
+     *          }
      *     }
      * @apiErrorExample {json} Ошибки:
      *     {
@@ -132,7 +135,7 @@ class UserController extends Controller
                         $profile->user_id = $user->id;
                         $profile->save();
 
-                        return new ResponseContainer(200, 'OK', ['token' => $user->access_token]);
+                        return new ResponseContainer(200, 'OK', ['login' => $user->login, 'token' => $user->access_token]);
                     }
 
                     return new ResponseContainer(500, 'Внутренняя ошибка сервера', $user->errors);

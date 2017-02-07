@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            'id',
             [
                 'attribute' => 'name',
                 'value' => 'profile.name',
@@ -59,23 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]),
             ],
             [
-                'attribute' => 'is_admin',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return $model->getFriendly('is_admin', 'boolean');
-                },
-                'contentOptions' => [
-                    'align' => 'center',
-                ],
-                'filter' => Html::activeDropDownList($searchModel, 'is_admin',
-                    [
-                        '1' => 'Да',
-                        '0' => 'Нет',
-                    ],
-                    [
-                        'class' => 'form-control',
-                        'prompt' => '',
-                    ]),
+                'attribute' => 'rating',
+                'value' => 'rating'
             ],
             [
                 'class' => 'yii\grid\ActionColumn',

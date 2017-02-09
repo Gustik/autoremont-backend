@@ -67,7 +67,7 @@
                     <li class="internal"><a href="index.html#partners">Партнеры</a></li>
                     <li class="internal"><a href="index.html#staytuned">Будь на связи</a></li>
                     <li class="internal"><a href="index.html#download">Загрузить</a></li>
-                    <li class="internal"><a href="/pay">Пополнить счет</a></li>
+                    <li class="internal"><a href="/pay/">Пополнить счет</a></li>
                 </ul>
             </div>
         </div>

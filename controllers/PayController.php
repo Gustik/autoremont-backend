@@ -33,7 +33,7 @@ class PayController extends Controller
     {
         $phone = Phone::prepare($phone);
         $tariffs = [];
-        /**
+        /*
          * @var BillTariff
          */
         foreach (BillTariff::find()->where(['city_id' => 1])->orderBy(['start_days' => SORT_ASC])->all() as $tariff) {

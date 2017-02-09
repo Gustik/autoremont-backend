@@ -1,9 +1,8 @@
 <?php
 /**
- * @var $orderCount int
+ * @var int
  * @var $userCount int
  */
-
 $this->title = 'Личный кабинет';
 ?>
 <div>

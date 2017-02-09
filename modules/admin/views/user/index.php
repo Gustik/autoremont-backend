@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'rating',
-                'value' => 'rating'
+                'value' => 'rating',
             ],
             [
                 'class' => 'yii\grid\ActionColumn',

@@ -1,6 +1,8 @@
 <?php
 
 /* @var $tariffs array */
+use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 
 $this->title = 'Оплата подписки';
@@ -59,7 +61,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
 <div class="site-pay">
     <div class="row">
         <div class="col-md-3 col-md-offset-5">
-            <form action="execute" id="payForm">
+            <form action="<?=Url::to(['pay/execute'])?>" id="payForm">
                 <div class="form-group input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
                     <input required id="phone" class="form-control" type="text" name='phone' placeholder="Телефон" value="<?=$phone?>"/>

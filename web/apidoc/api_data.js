@@ -745,6 +745,122 @@ define({ "api": [
     "group": "Profile",
     "description": "<p>Просмотр своего профиля (не сохраняет данные, нет обязательных параметров).</p>",
     "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "Profile",
+            "description": "<p>Объект профиля пользователя</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.name",
+            "description": "<p>Имя пользователя</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.avatar",
+            "description": "<p>url аватара</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.phone",
+            "description": "<p>телефон пользователя (user.login)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.company_name",
+            "description": "<p>Имя СТО/Магазина</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.company_address",
+            "description": "<p>Адрес СТО/Магазина</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.company_logo",
+            "description": "<p>url логотипа СТО/Магазина</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.lat",
+            "description": "<p>Широта</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.lng",
+            "description": "<p>И долгота где находится СТО/Магазин</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.birth_date",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.car_brand",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.car_model",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.car_color",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.car_year",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.city_id",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Profile.tagNames",
+            "description": "<p>Теги заказов, на которые подписан</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Успех:",
@@ -1215,7 +1331,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Успех:",
-          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": {\"token\": \"<токен доступа>\"}\n}",
+          "content": "{\n  \"status\": 200,\n  \"message\": \"OK\",\n  \"data\": {\n         \"login\": \"<Логин (номер телефона)>\",\n         \"token\": \"<токен доступа>\"\n     }\n}",
           "type": "json"
         }
       ]

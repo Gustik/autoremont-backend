@@ -16,6 +16,7 @@ use yii\imagine\Image;
  * @property string $created_at
  * @property string $updated_at
  * @property string $name
+ * @property string $phone
  * @property string $birth_date
  * @property string $avatar
  * @property int $user_id
@@ -56,7 +57,8 @@ class Profile extends Model
         $scenarios['admin-create'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'company_name', 'company_address', 'company_logo_image'];
         $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'company_name', 'company_address', 'company_logo_image'];
         $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
-        $scenarios['api-view'] = ['name', 'avatar', 'company_name', 'company_address', 'company_logo', 'lat', 'lng', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
+        $scenarios['api-view'] = ['name', 'avatar', 'phone', 'company_name', 'company_address', 'company_logo', 'lat', 'lng',
+            'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames', ];
         $scenarios['api-view-lite'] = ['name'];
 
         return $scenarios;
@@ -66,6 +68,7 @@ class Profile extends Model
     {
         $values = parent::getAttributes($names, $except);
         $values['tagNames'] = $this->tagNames;
+        $values['phone'] = $this->phone;
 
         return $values;
     }
@@ -153,6 +156,14 @@ class Profile extends Model
     public function getCity()
     {
         return $this->hasOne(City::className(), ['id' => 'city_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPhone()
+    {
+        return $this->user->login;
     }
 
     /**

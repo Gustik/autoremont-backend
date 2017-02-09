@@ -76,7 +76,7 @@ class BillTariff extends \yii\db\ActiveRecord
     {
         $matchTariff = null;
 
-        /**
+        /*
          * @var BillTariff
          */
         foreach (self::find()->where(['city_id' => 1])->orderBy(['start_days' => SORT_ASC])->all() as $tariff) {

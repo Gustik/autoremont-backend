@@ -8,6 +8,8 @@ return [
         'category' => 1,
         'is_active' => 1,
         'city_id' => 1,
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
     ],
     'company2' => [
         'name' => 'super company2',
@@ -16,6 +18,8 @@ return [
         'category' => 1,
         'is_active' => 1,
         'city_id' => 1,
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
     ],
     'free_city_company' => [
         'name' => 'free city company',
@@ -24,5 +28,7 @@ return [
         'category' => 1,
         'is_active' => 1,
         'city_id' => 2,
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
     ],
 ];

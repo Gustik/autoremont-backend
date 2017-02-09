@@ -5,11 +5,8 @@ namespace app\modules\partner\controllers;
 use app\models\City;
 use Yii;
 use app\modules\partner\models\LoginForm;
-use app\models\Stat;
 use app\models\User;
-use app\models\Order;
 use yii\filters\VerbFilter;
-use yii\web\BadRequestHttpException;
 use app\modules\partner\models\PushForm;
 
 class MainController extends Controller

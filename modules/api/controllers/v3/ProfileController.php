@@ -76,6 +76,22 @@ class ProfileController extends Controller
      * @apiName ActionView
      * @apiGroup Profile
      * @apiDescription Просмотр своего профиля (не сохраняет данные, нет обязательных параметров).
+     * @apiSuccess {Object} Profile Объект профиля пользователя
+     * @apiSuccess {String} Profile.name Имя пользователя
+     * @apiSuccess {String} Profile.avatar url аватара
+     * @apiSuccess {String} Profile.phone телефон пользователя (user.login)
+     * @apiSuccess {String} Profile.company_name Имя СТО/Магазина
+     * @apiSuccess {String} Profile.company_address Адрес СТО/Магазина
+     * @apiSuccess {String} Profile.company_logo url логотипа СТО/Магазина
+     * @apiSuccess {String} Profile.lat Широта
+     * @apiSuccess {String} Profile.lng И долгота где находится СТО/Магазин
+     * @apiSuccess {String} Profile.birth_date
+     * @apiSuccess {String} Profile.car_brand
+     * @apiSuccess {String} Profile.car_model
+     * @apiSuccess {String} Profile.car_color
+     * @apiSuccess {String} Profile.car_year
+     * @apiSuccess {String} Profile.city_id
+     * @apiSuccess {String} Profile.tagNames Теги заказов, на которые подписан
      * @apiSuccessExample {json} Успех:
      *     {
      *       "status": 200,

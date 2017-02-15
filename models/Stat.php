@@ -62,9 +62,9 @@ class Stat extends ActiveRecord
         $order = ['total' => 0, 'new' => 0];
 
         foreach (City::find()->all() as $city) {
-            $user['total'] = Profile::find()->where(['city_id' => $city->id])->count();
+            $user['total'] = User::find()->count();
             $user['active'] = User::find()->where(['between', 'visited_at', $prev, $date])->count();
-            $user['new'] = Profile::find()->where(['between', 'created_at', $prev, $date])->count();
+            $user['new'] = User::find()->where(['between', 'created_at', $prev, $date])->count();
             $order['total'] = Order::find()->where(['city_id' => $city->id])->count();
             $order['new'] = Order::find()->where(['between', 'created_at', $prev, $date])->andWhere(['city_id' => $city->id])->count();
 

@@ -61,34 +61,26 @@ class Stat extends ActiveRecord
         $user = ['total' => 0, 'active' => 0, 'new' => 0];
         $order = ['total' => 0, 'new' => 0];
 
-        foreach (City::find()->all() as $city) {
-            $user['total'] = User::find()->count();
-            $user['active'] = User::find()->where(['between', 'visited_at', $prev, $date])->count();
-            $user['new'] = User::find()->where(['between', 'created_at', $prev, $date])->count();
-            $order['total'] = Order::find()->where(['city_id' => $city->id])->count();
-            $order['new'] = Order::find()->where(['between', 'created_at', $prev, $date])->andWhere(['city_id' => $city->id])->count();
+        $user['total'] = User::find()->count();
+        $user['active'] = User::find()->where(['between', 'visited_at', $prev, $date])->count();
+        $user['new'] = User::find()->where(['between', 'created_at', $prev, $date])->count();
+        $order['total'] = Order::find()->count();
+        $order['new'] = Order::find()->where(['between', 'created_at', $prev, $date])->count();
 
-            $model = new self();
-            $model->created_at = $date;
-            $model->user_total = $user['total'];
-            $model->user_active = $user['active'];
-            $model->user_new = $user['new'];
-            $model->order_total = $order['total'];
-            $model->order_new = $order['new'];
-        }
+        $model = new self();
+        $model->created_at = $date;
+        $model->user_total = $user['total'];
+        $model->user_active = $user['active'];
+        $model->user_new = $user['new'];
+        $model->order_total = $order['total'];
+        $model->order_new = $order['new'];
 
         return $model->save();
     }
 
-    public static function getGraphs($from, $to, $city = null, $datasets = null)
+    public static function getGraphs($from, $to, $datasets = null)
     {
-        $query = self::find();
-        $query = $query->where(['between', 'created_at', $from, $to]);
-        if ($city) {
-            $query->andWhere(['city_id' => $city]);
-        }
-        $query = $query->orderBy(['created_at' => SORT_ASC]);
-        $stat = $query->all();
+        $stat = self::find()->where(['between', 'created_at', $from, $to])->orderBy(['created_at' => SORT_ASC])->all();
         $graphs = ['labels' => [], 'datasets' => [
             'order_total' => [
                 'label' => 'Всего (заказы)',

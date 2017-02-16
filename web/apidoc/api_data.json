@@ -779,6 +779,13 @@
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "Profile.bill_account_days",
+            "description": "<p>количество оставшихся дней подписки</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "Profile.company_name",
             "description": "<p>Имя СТО/Магазина</p>"
           },

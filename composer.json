@@ -26,7 +26,7 @@
         "2amigos/yii2-multi-select-widget": "*",
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-mpdf": "dev-master",
-        "kartik-v/yii2-date-range": "dev-master",
+        "kartik-v/yii2-date-range": "*",
         "2amigos/yii2-taggable-behavior": "~1.0",
         "2amigos/yii2-selectize-widget": "~1.0",
         "yiidoc/yii2-redactor": "*",

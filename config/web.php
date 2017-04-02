@@ -19,6 +19,9 @@ $config = [
         'partner' =>[
             'class' => 'app\modules\partner\Module',
         ],
+        'discount' =>[
+            'class' => 'app\modules\discount\Module',
+        ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
         ],

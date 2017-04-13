@@ -1,14 +1,12 @@
 <?php
-use app\modules\partner\assets\AdminAsset;
+use app\modules\discount\assets\DiscountAsset;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
+
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-AdminAsset::register($this);
+DiscountAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -30,9 +28,7 @@ AdminAsset::register($this);
     </div>
 
     <footer class="footer">
-        <div class="container">
-            <p class="pull-right">&copy; ООО УУС 2015 - <?= date('Y') ?></p>
-        </div>
+
     </footer>
 
 <?php $this->endBody() ?>

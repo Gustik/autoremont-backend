@@ -38,8 +38,20 @@ class MainController extends Controller
     public function actionConsole()
     {
         $model = new DiscountForm();
-        return $this->render('console', [
-            'model' => $model
+        //echo "<pre>"; var_dump(Yii::$app->request->post()); die();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['code-success']);
+        } else {
+
+            return $this->render('console', [
+                'model' => $model
+            ]);
+        }
+    }
+
+    public function actionCodeSuccess()
+    {
+        return $this->render('code_success', [
         ]);
     }
 

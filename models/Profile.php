@@ -60,7 +60,7 @@ class Profile extends Model
         $scenarios['admin-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'company_name', 'company_address', 'company_logo_image'];
         $scenarios['api-update'] = ['name', 'gcm_id', 'apns_id', 'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames'];
         $scenarios['api-view'] = ['name', 'avatar', 'phone', 'company_name', 'company_address', 'company_logo', 'lat', 'lng',
-            'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames', 'bill_account_days'];
+            'birth_date', 'car_brand', 'car_model', 'car_color', 'car_year', 'city_id', 'tagNames', 'bill_account_days', 'user_id'];
         $scenarios['api-view-lite'] = ['name'];
 
         return $scenarios;

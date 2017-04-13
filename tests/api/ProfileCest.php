@@ -29,6 +29,7 @@ class ProfileCest
         $I->seeResponseContainsJson([
             'data' => [
                 'name' => $profile->name,
+                'user_id' => $profile->user_id,
                 'phone' => $profile->phone,
                 'bill_account_days' => $profile->billAccountDays,
             ],

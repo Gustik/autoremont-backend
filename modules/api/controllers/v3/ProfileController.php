@@ -78,6 +78,7 @@ class ProfileController extends Controller
      * @apiDescription Просмотр своего профиля (не сохраняет данные, нет обязательных параметров).
      * @apiSuccess {Object} Profile Объект профиля пользователя
      * @apiSuccess {String} Profile.name Имя пользователя
+     * @apiSuccess {String} Profile.user_id ID пользователя
      * @apiSuccess {String} Profile.avatar url аватара
      * @apiSuccess {String} Profile.phone телефон пользователя (user.login)
      * @apiSuccess {String} Profile.bill_account_days количество оставшихся дней подписки

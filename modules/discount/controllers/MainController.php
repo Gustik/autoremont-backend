@@ -40,7 +40,7 @@ class MainController extends Controller
         $model = new DiscountForm();
         //echo "<pre>"; var_dump(Yii::$app->request->post()); die();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['code-success']);
+            return $this->redirect(['code-success', 'code' => $model->code]);
         } else {
 
             return $this->render('console', [
@@ -49,9 +49,10 @@ class MainController extends Controller
         }
     }
 
-    public function actionCodeSuccess()
+    public function actionCodeSuccess($code)
     {
         return $this->render('code_success', [
+            'user' => DiscountForm::findByCode($code)
         ]);
     }
 
@@ -63,7 +64,7 @@ class MainController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect('console');
         } else {
             return $this->render('login', [
                 'model' => $model,

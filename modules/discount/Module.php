@@ -26,7 +26,7 @@ class Module extends \yii\base\Module
             'enableAutoLogin' => false,
             'loginUrl' => ['discount/main/login'],
             'identityCookie' => ['name' => 'discount-company', 'httpOnly' => true],
-            //'idParam' => 'editor_id', //this is important !
+            'idParam' => 'id', //this is important !
         ]);
         // custom initialization code goes here
     }

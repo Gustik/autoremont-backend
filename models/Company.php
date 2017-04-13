@@ -31,6 +31,7 @@ class Company extends Model
     const CAT_SALE = 4; // Акции
     const CAT_OUTREACH_SERVICE = 5; // Выездные услуги
     const CAT_INSURANCE = 6; // Страховые компании
+    const CAT_AZS = 7; // АЗС
 
     public static $categories = [
         self::CAT_LAWYER => 'Автоюрист',
@@ -39,6 +40,7 @@ class Company extends Model
         self::CAT_SALE => 'Акции',
         self::CAT_OUTREACH_SERVICE => 'Выездные услуги',
         self::CAT_INSURANCE => 'Страховые компании',
+        self::CAT_AZS => 'АЗС',
     ];
 
     public $logo_image;
@@ -127,8 +129,6 @@ class Company extends Model
             $cropInfo = Json::decode($this->crop_info)[0];
             $cropInfo['dWidth'] = (int) $cropInfo['dWidth']; //new width image
             $cropInfo['dHeight'] = (int) $cropInfo['dHeight']; //new height image
-            $cropInfo['x'] = $cropInfo['x']; //begin position of frame crop by X
-            $cropInfo['y'] = $cropInfo['y']; //begin position of frame crop by Y
 
             //saving thumbnail
             $newSizeThumb = new Box($cropInfo['dWidth'], $cropInfo['dHeight']);
@@ -138,7 +138,7 @@ class Company extends Model
 
             $image->resize($newSizeThumb)
                 ->crop($cropPointThumb, $cropSizeThumb)
-                ->save($pathThumbImage, ['quality' => 100]);
+                ->save($pathThumbImage, ['quality' => 80]);
         }
     }
 }

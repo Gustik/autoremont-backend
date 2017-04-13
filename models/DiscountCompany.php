@@ -70,4 +70,17 @@ class DiscountCompany extends \yii\db\ActiveRecord
     {
         return $this->hasMany(DiscountUse::className(), ['discount_company_id' => 'id']);
     }
+
+    public function setNewPassword($newPassword)
+    {
+        $this->password = Yii::$app->getSecurity()->generatePasswordHash($newPassword);
+    }
+
+    /**
+     * @return string
+     */
+    public function getNewPassword()
+    {
+        return '';
+    }
 }

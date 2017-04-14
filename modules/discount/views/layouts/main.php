@@ -1,6 +1,9 @@
 <?php
 use app\modules\discount\assets\DiscountAsset;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 
 
 /* @var $this \yii\web\View */
@@ -22,7 +25,38 @@ DiscountAsset::register($this);
 
 <?php $this->beginBody() ?>
     <div class="wrap">
+        <?php
+        if (!Yii::$app->user->isGuest) {
+            NavBar::begin([
+                'brandLabel' => 'Консоль',
+                'brandUrl' => ['/discount'],
+                'options' => [
+                    'class' => 'navbar-inverse navbar-fixed-top',
+                ],
+            ]);
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav'],
+                'items' => [
+                    ['label' => 'Статистика', 'url' => ['main/index']],
+                    ['label' => 'Ввод кода', 'url' => ['main/console']],
+                ],
+            ]);
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => [
+                    ['label' => 'Выход', 'url' => ['main/logout'],
+                        'linkOptions' => ['data-method' => 'post'], ],
+                ],
+            ]);
+            NavBar::end();
+        }
+        ?>
+        <br><br><br><br><br>
         <div class="container">
+            <?= Breadcrumbs::widget([
+                'homeLink' => ['label' => 'Главная', 'url' => ['/discount']],
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
             <?= $content ?>
         </div>
     </div>

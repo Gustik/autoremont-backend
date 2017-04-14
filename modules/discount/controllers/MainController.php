@@ -2,6 +2,8 @@
 
 namespace app\modules\discount\controllers;
 
+use app\models\DiscountCompany;
+use app\models\DiscountUse;
 use app\modules\discount\models\DiscountForm;
 use app\modules\discount\models\LoginForm;
 use Yii;
@@ -31,7 +33,9 @@ class MainController extends Controller
 
     public function actionIndex()
     {
+        $du = DiscountUse::find()->where(['discount_company_id' => $this->user->id])->orderBy(['created_at' => SORT_DESC])->all();
         return $this->render('index', [
+            'du' => $du
         ]);
     }
 

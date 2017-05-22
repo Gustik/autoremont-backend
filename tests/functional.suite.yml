@@ -11,4 +11,5 @@ modules:
     enabled:
       - Filesystem
       - Yii2:
+          cleanup: false
         part: fixtures

@@ -81,6 +81,9 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/test_db.php'),
+        'assetManager' => [
+            'basePath' => __DIR__ . '/../web/assets',
+        ],
     ],
     'params' => $params,
 ];

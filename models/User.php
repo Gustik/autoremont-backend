@@ -24,6 +24,7 @@ use yii\web\IdentityInterface;
  * @property bool $can_work
  * @property float $rating
  * @property Profile $profile
+ * @property BillAccount $billAccount
  * @property Order[] $orders
  * @property Review[] $reviews
  * @property Review[] $myReviews
@@ -199,6 +200,14 @@ class User extends Model implements IdentityInterface
     public function getProfile()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBillAccount()
+    {
+        return $this->hasOne(BillAccount::className(), ['user_id' => 'id']);
     }
 
     /**

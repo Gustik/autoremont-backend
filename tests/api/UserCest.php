@@ -1,5 +1,6 @@
 <?php
 
+use app\models\User;
 use app\tests\fixtures\OfferFixture;
 use app\tests\fixtures\ProfileFixture;
 use app\tests\fixtures\ReviewFixture;
@@ -7,6 +8,9 @@ use app\tests\fixtures\UserFixture;
 
 class UserCest
 {
+    /**
+     * @var User
+     **/
     private $user;
 
     public function _before(\ApiTester $I)
@@ -27,6 +31,19 @@ class UserCest
         $I->seeResponseContainsJson(['status' => 200]);
 
         $I->sendGET('/v3/user/verify-code', ['phone' => $this->user->login, 'code' => '1111']);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200, 'data' => ['login' => $this->user->login]]);
+    }
+
+    public function getAndVerifyCodeTestUser(\ApiTester $I)
+    {
+        $this->user = $I->grabFixture('users', 'user2');
+        $this->user->login = User::TEST_LOGIN;
+        $I->sendGET('/v3/user/get-code', ['phone' => $this->user->login]);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['status' => 200]);
+
+        $I->sendGET('/v3/user/verify-code', ['phone' => $this->user->login, 'code' => User::TEST_CODE]);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['status' => 200, 'data' => ['login' => $this->user->login]]);
     }

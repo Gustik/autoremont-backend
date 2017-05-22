@@ -38,7 +38,7 @@ class BillAccountController extends Controller
     public static function decrementDay()
     {
         /**
-         * @var BillAccount[]
+         * @var $accounts BillAccount[]
          */
         $accounts = BillAccount::find()->all();
         $now = (new Query())->select('NOW() as d')->one()['d'];

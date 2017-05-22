@@ -1,6 +1,7 @@
 <?php
 
 namespace app\modules\discount;
+
 use Yii;
 
 /**

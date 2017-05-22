@@ -765,6 +765,13 @@
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "Profile.user_id",
+            "description": "<p>ID пользователя</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "Profile.avatar",
             "description": "<p>url аватара</p>"
           },

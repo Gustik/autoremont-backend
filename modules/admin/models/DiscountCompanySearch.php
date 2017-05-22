@@ -2,7 +2,6 @@
 
 namespace app\modules\admin\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\DiscountCompany;
@@ -13,7 +12,7 @@ use app\models\DiscountCompany;
 class DiscountCompanySearch extends DiscountCompany
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +23,7 @@ class DiscountCompanySearch extends DiscountCompany
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -33,7 +32,7 @@ class DiscountCompanySearch extends DiscountCompany
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Creates data provider instance with search query applied.
      *
      * @param array $params
      *

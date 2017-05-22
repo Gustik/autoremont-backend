@@ -7,19 +7,18 @@ use Yii;
 /**
  * This is the model class for table "discount_company".
  *
- * @property integer $id
- * @property integer $company_id
+ * @property int $id
+ * @property int $company_id
  * @property string $discount
  * @property string $description
  * @property string $password
- *
  * @property Company $company
  * @property DiscountUse[] $discountUses
  */
 class DiscountCompany extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -27,7 +26,7 @@ class DiscountCompany extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -42,7 +41,7 @@ class DiscountCompany extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

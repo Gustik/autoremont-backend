@@ -47,7 +47,7 @@ class CommandsCest
         // 5 дней, последний перерасчет был сутки назад.
         $account = BillAccount::findOne($account->id);
         $account->days = 5;
-        $account->processed_at = new Expression("SUBDATE(NOW(), 1)");
+        $account->processed_at = new Expression('SUBDATE(NOW(), 1)');
         $account->save();
 
         BillAccountController::decrementDay();
@@ -62,7 +62,7 @@ class CommandsCest
         // Оплатил сутки назад
         $account = BillAccount::findOne($account->id);
         $account->days = 1;
-        $account->processed_at = new Expression("SUBDATE(NOW(), 1)");
+        $account->processed_at = new Expression('SUBDATE(NOW(), 1)');
         $account->save();
 
         BillAccountController::decrementDay(); // Можно хоть сколько раз вызывать

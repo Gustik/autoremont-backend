@@ -9,7 +9,7 @@ use app\tests\fixtures\UserFixture;
 class UserCest
 {
     /**
-     * @var User $user
+     * @var User
      **/
     private $user;
 

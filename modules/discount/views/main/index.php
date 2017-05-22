@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $du \app\models\DiscountUse[]
- * @var $userCount int
+ * @var \app\models\DiscountUse[]
+ * @var $userCount                int
  */
 $this->title = 'Личный кабинет';
 ?>
@@ -11,7 +11,7 @@ $this->title = 'Личный кабинет';
 		<div class="panel-body">
 			<table>
 				<tr><th width="200px">Телефон</th><th>Время</th></tr>
-		<?php foreach($du as $discount): ?>
+		<?php foreach ($du as $discount): ?>
 				<tr>
 					<td><?= $discount->user->login ?></td>
 			 		<td><?= $discount->created_at ?> </td>

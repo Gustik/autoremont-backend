@@ -4,12 +4,10 @@ namespace app\commands;
 
 use app\models\BillAccount;
 use DateTime;
-use Yii;
 use yii\console\Controller;
 use yii\console\Exception;
 use yii\db\Query;
 use yii\web\NotAcceptableHttpException;
-
 
 class BillAccountController extends Controller
 {
@@ -21,7 +19,8 @@ class BillAccountController extends Controller
     /**
      * @param $startDate string YYYY-MM-DD H:i:s Format
      * @param $endDate string YYYY-MM-DD H:i:s Format
-     * @return integer count of diff days
+     *
+     * @return int count of diff days
      */
     public static function diffDays($startDate, $endDate)
     {
@@ -39,18 +38,17 @@ class BillAccountController extends Controller
     public static function decrementDay()
     {
         /**
-         * @var $accounts BillAccount[]
+         * @var BillAccount[]
          */
         $accounts = BillAccount::find()->all();
         $now = (new Query())->select('NOW() as d')->one()['d'];
         $connection = \Yii::$app->db;
         $transaction = $connection->beginTransaction();
         try {
-            foreach($accounts as $account) {
-
+            foreach ($accounts as $account) {
                 $diff = static::diffDays($account->processed_at, $now);
                 $resDays = $account->days - $diff;
-                if($resDays <= 0) {
+                if ($resDays <= 0) {
                     $account->days = 0;
                     $account->user->can_work = 0;
                     $account->processed_at = $now;
@@ -66,7 +64,6 @@ class BillAccountController extends Controller
                 if (!$account->save()) {
                     throw new Exception('Ошибка сохранения аккаунтинга');
                 }
-
             }
             $transaction->commit();
         } catch (Exception $e) {

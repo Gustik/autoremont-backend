@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\discount\models;
 
 use app\models\DiscountUse;
@@ -23,14 +24,15 @@ class DiscountForm extends Model
 
     public function save()
     {
-        if(!$this->findByCode($this->code)) {
+        if (!$this->findByCode($this->code)) {
             $this->addError('code', 'Пользователь с таким кодом не найден');
+
             return false;
         }
         $model = new DiscountUse();
         $model->discount_company_id = Yii::$app->user->id;
-        $model->user_id = (int)$this->code;
-        $model->params = empty($this->params)?'{}':$this->params;
+        $model->user_id = (int) $this->code;
+        $model->params = empty($this->params) ? '{}' : $this->params;
         $model->created_at = new Expression('NOW()');
 
         return $model->save();
@@ -38,7 +40,8 @@ class DiscountForm extends Model
 
     public static function findByCode($code)
     {
-        $id = (int)$code;
+        $id = (int) $code;
+
         return User::findOne($id);
     }
 }

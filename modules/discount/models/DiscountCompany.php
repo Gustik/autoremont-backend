@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\discount\models;
 
 use Yii;
@@ -31,7 +32,6 @@ class DiscountCompany extends ActiveRecord implements IdentityInterface
     {
         return false;
     }
-
 
     public function validateAuthKey($authKey)
     {

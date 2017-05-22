@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="discount-company-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);?>
 
     <p>
         <?= Html::a('Create Discount Company', ['create'], ['class' => 'btn btn-success']) ?>
@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'company.name',
             'discount',
-
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

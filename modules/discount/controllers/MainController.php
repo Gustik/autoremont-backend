@@ -2,7 +2,6 @@
 
 namespace app\modules\discount\controllers;
 
-use app\models\DiscountCompany;
 use app\models\DiscountUse;
 use app\modules\discount\models\DiscountForm;
 use app\modules\discount\models\LoginForm;
@@ -10,7 +9,6 @@ use Yii;
 
 class MainController extends Controller
 {
-
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -34,8 +32,9 @@ class MainController extends Controller
     public function actionIndex()
     {
         $du = DiscountUse::find()->where(['discount_company_id' => $this->user->id])->orderBy(['created_at' => SORT_DESC])->all();
+
         return $this->render('index', [
-            'du' => $du
+            'du' => $du,
         ]);
     }
 
@@ -46,9 +45,8 @@ class MainController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['code-success', 'code' => $model->code]);
         } else {
-
             return $this->render('console', [
-                'model' => $model
+                'model' => $model,
             ]);
         }
     }
@@ -56,7 +54,7 @@ class MainController extends Controller
     public function actionCodeSuccess($code)
     {
         return $this->render('code_success', [
-            'user' => DiscountForm::findByCode($code)
+            'user' => DiscountForm::findByCode($code),
         ]);
     }
 
@@ -79,8 +77,7 @@ class MainController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
+
         return $this->redirect('login');
     }
-
-
 }

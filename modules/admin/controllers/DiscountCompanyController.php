@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
 class DiscountCompanyController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -30,6 +30,7 @@ class DiscountCompanyController extends Controller
 
     /**
      * Lists all DiscountCompany models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -45,7 +46,9 @@ class DiscountCompanyController extends Controller
 
     /**
      * Displays a single DiscountCompany model.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionView($id)
@@ -58,14 +61,15 @@ class DiscountCompanyController extends Controller
     /**
      * Creates a new DiscountCompany model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
     {
         $model = new DiscountCompany();
 
-        if (isset(Yii::$app->request->post()["DiscountCompany"])
-            && $newPassword = Yii::$app->request->post()["DiscountCompany"]['newPassword']) {
+        if (isset(Yii::$app->request->post()['DiscountCompany'])
+            && $newPassword = Yii::$app->request->post()['DiscountCompany']['newPassword']) {
             //die($newPassword);
             $model->newPassword = $newPassword;
         }
@@ -81,14 +85,16 @@ class DiscountCompanyController extends Controller
     /**
      * Updates an existing DiscountCompany model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if (isset(Yii::$app->request->post()["DiscountCompany"])
-            && $newPassword = Yii::$app->request->post()["DiscountCompany"]['newPassword']) {
+        if (isset(Yii::$app->request->post()['DiscountCompany'])
+            && $newPassword = Yii::$app->request->post()['DiscountCompany']['newPassword']) {
             $model->newPassword = $newPassword;
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -103,7 +109,9 @@ class DiscountCompanyController extends Controller
     /**
      * Deletes an existing DiscountCompany model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionDelete($id)
@@ -116,8 +124,11 @@ class DiscountCompanyController extends Controller
     /**
      * Finds the DiscountCompany model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return DiscountCompany the loaded model
+     *
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

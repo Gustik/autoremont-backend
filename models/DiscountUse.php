@@ -2,24 +2,21 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "discount_use".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $discount_company_id
+ * @property int $id
+ * @property int $user_id
+ * @property int $discount_company_id
  * @property string $params
  * @property string $created_at
- *
  * @property DiscountCompany $discountCompany
  * @property User $user
  */
 class DiscountUse extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -27,7 +24,7 @@ class DiscountUse extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -42,7 +39,7 @@ class DiscountUse extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

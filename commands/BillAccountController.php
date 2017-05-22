@@ -47,15 +47,18 @@ class BillAccountController extends Controller
         try {
             foreach ($accounts as $account) {
                 $diff = static::diffDays($account->processed_at, $now);
+
                 $resDays = $account->days - $diff;
                 if ($resDays <= 0) {
                     $account->days = 0;
                     $account->user->can_work = 0;
                     $account->processed_at = $now;
                 } else {
-                    $account->days = $resDays;
+                    if($account->days != $resDays) {
+                        $account->days = $resDays;
+                        $account->processed_at = $now;
+                    }
                     $account->user->can_work = 1;
-                    $account->processed_at = $now;
                 }
 
                 if (!$account->user->save()) {

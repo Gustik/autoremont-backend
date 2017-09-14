@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Page;
 use Yii;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -25,14 +26,15 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'new-style';
-
         return $this->render('index');
     }
 
-    public function actionLicense()
+    public function actionPage($id)
     {
-        $page = Page::findOne(1);
-
-        return $this->render('license', ['page' => $page]);
+        $page = Page::findOne($id);
+        if(!$page) {
+            throw new NotFoundHttpException();
+        }
+        return $this->render('page', ['page' => $page]);
     }
 }

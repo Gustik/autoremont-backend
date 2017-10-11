@@ -36,7 +36,7 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Главная', 'url' => ['/']],
-                    ['label' => 'Лицензионное соглашение', 'url' => ['/license']],
+                    ['label' => 'Лицензионное соглашение', 'url' => ['/page/license']],
                 ],
             ]);
             NavBar::end();

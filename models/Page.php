@@ -43,4 +43,9 @@ class Page extends \yii\db\ActiveRecord
             'text' => 'Текст',
         ];
     }
+
+    public static function findByAddress($address)
+    {
+        return Page::findOne(['address'=>$address]);
+    }
 }

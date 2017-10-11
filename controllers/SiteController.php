@@ -29,9 +29,9 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionPage($id)
+    public function actionPage($address)
     {
-        $page = Page::findOne($id);
+        $page = Page::findByAddress($address);
         if(!$page) {
             throw new NotFoundHttpException();
         }

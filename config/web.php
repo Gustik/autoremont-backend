@@ -85,7 +85,7 @@ $config = [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
             'rules' => [
-                'license' => 'site/license'
+                'page/<address:[\w,\d,\-]+>' => 'site/page',
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),

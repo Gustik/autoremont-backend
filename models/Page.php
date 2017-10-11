@@ -6,6 +6,7 @@ namespace app\models;
  * This is the model class for table "page".
  *
  * @property int $id
+ * @property string $address
  * @property string $title
  * @property string $text
  */
@@ -25,7 +26,7 @@ class Page extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'text'], 'required'],
+            [['address', 'title', 'text'], 'required'],
             [['title', 'text'], 'string'],
         ];
     }
@@ -37,8 +38,14 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'address' => 'Путь',
             'title' => 'Заголовок',
             'text' => 'Текст',
         ];
+    }
+
+    public static function findByAddress($address)
+    {
+        return Page::findOne(['address'=>$address]);
     }
 }

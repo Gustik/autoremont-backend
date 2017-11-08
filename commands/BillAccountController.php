@@ -40,15 +40,18 @@ class BillAccountController extends Controller
         /**
          * @var $accounts BillAccount[]
          */
-        $accounts = BillAccount::find()->all();
-        $now = (new Query())->select('NOW() as d')->one()['d'];
+        $accounts = BillAccount::find()->where(['id'=>110])->all();
+        //$now = (new Query())->select('NOW() as d')->one()['d'];
+        $now = '2017-11-08 00:40:00';
         $connection = \Yii::$app->db;
         $transaction = $connection->beginTransaction();
         try {
             foreach ($accounts as $account) {
+                echo "acc id: ".$account->id."\n";
                 $diff = static::diffDays($account->processed_at, $now);
-
+                echo "diff: $diff\n";
                 $resDays = $account->days - $diff;
+                echo "resDays: $resDays\n";
                 if ($resDays <= 0) {
                     $account->days = 0;
                     $account->user->can_work = 0;

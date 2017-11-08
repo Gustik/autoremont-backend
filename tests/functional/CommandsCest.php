@@ -108,4 +108,18 @@ class CommandsCest
 
         \PHPUnit_Framework_Assert::assertEquals($saveProcessed_at, $account->processed_at); // processed_at не должен меняться
     }
+
+    public function diffDate(\FunctionalTester $I)
+    {
+        $processed_at = '2017-11-07 15:40:00';
+        $now = '2017-11-08 00:40:00';
+        $diff = BillAccountController::diffDays($processed_at, $now);
+        \PHPUnit_Framework_Assert::assertEquals(0, $diff);
+
+        $diff = BillAccountController::diffDays('2017-11-07 00:40:00', '2017-11-08 00:39:00');
+        \PHPUnit_Framework_Assert::assertEquals(0, $diff);
+
+        $diff = BillAccountController::diffDays('2017-11-07 00:40:00', '2017-11-08 00:40:00');
+        \PHPUnit_Framework_Assert::assertEquals(1, $diff);
+    }
 }

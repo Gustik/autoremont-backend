@@ -131,11 +131,11 @@ class PayController extends Controller
 
             // Если платеж был оплачен ранее
             if ($payment->status == BillPayment::STATUS_OK) {
-                return "OK$InvId\n";
+                throw new Exception("OK{$InvId}\n");
             }
 
             if ($payment->status != BillPayment::STATUS_PENDING) {
-                return "Некорректный статус платежа\n";
+                throw new Exception("Некорректный статус платежа\n");
             }
 
             if (!$payment) {

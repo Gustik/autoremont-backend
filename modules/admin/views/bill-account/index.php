@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'user.login',
             'user_id',
             'days',
+            'processed_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -149,7 +149,7 @@ class PayController extends Controller
                 $account->user_id = $payment->user_id;
             }
 
-            $account->processed_at = new Expression('NOW()');
+            if ($account->days == 0) $account->processed_at = new Expression('NOW()');
 
             // Увеличиваем количество дней, в течении которого пользователь может работать
             $account->days += $payment->days;

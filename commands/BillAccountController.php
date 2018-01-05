@@ -4,6 +4,7 @@ namespace app\commands;
 
 use app\models\BillAccount;
 use DateTime;
+use Yii;
 use yii\console\Controller;
 use yii\console\Exception;
 use yii\db\Query;
@@ -11,6 +12,7 @@ use yii\web\NotAcceptableHttpException;
 
 class BillAccountController extends Controller
 {
+    const LOG_TAG = 'random';
     public function actionProceed()
     {
         return static::decrementDay();
@@ -37,6 +39,7 @@ class BillAccountController extends Controller
      */
     public static function decrementDay()
     {
+        Yii::info("=========================", static::LOG_TAG);
         /**
          * @var $accounts BillAccount[]
          */
@@ -47,18 +50,21 @@ class BillAccountController extends Controller
         try {
             foreach ($accounts as $account) {
                 $diff = static::diffDays($account->processed_at, $now);
-
                 $resDays = $account->days - $diff;
+                Yii::info("acc: {$account->id} days: {$account->days} now: {$now} diff: {$diff} resDays: {$resDays}", static::LOG_TAG);
                 if ($resDays <= 0) {
                     $account->days = 0;
                     $account->user->can_work = 0;
                     $account->processed_at = $now;
+                    Yii::info("acc: {$account->id} can't work", static::LOG_TAG);
                 } else {
                     if($account->days != $resDays) {
                         $account->days = $resDays;
                         $account->processed_at = $now;
+                        Yii::info("acc: {$account->id} !!!decrement!!!  days: {$account->days} processed_at: {$now}", static::LOG_TAG);
                     }
                     $account->user->can_work = 1;
+                    Yii::info("acc: {$account->id} can work", static::LOG_TAG);
                 }
 
                 if (!$account->user->save()) {

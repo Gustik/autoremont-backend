@@ -9,6 +9,7 @@ use app\models\BillTariff;
 use app\models\User;
 use Exception;
 use Yii;
+use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\NotAcceptableHttpException;
 use yii\web\NotFoundHttpException;
@@ -148,6 +149,8 @@ class PayController extends Controller
                 $account->user_id = $payment->user_id;
             }
 
+            $account->processed_at = new Expression('NOW()');
+
             // Увеличиваем количество дней, в течении которого пользователь может работать
             $account->days += $payment->days;
 
@@ -170,7 +173,7 @@ class PayController extends Controller
                 throw new Exception('Ошибка обновления статуса платежа');
             }
             $transaction->commit();
-
+            Yii::info("user_id: {$user->id} can_work: {$user->can_work}");
             // признак успешно проведенной операции
             // success
             return "OK$InvId\n";
